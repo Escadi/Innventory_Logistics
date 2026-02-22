@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <img src="assets/icon/InnventoryLogoLogistics.png" alt="Logo" class="logo">
+
+      <div class="form-container">
+        <ion-input label-placement="stacked" placeholder="Correo electrónico" type="email" [(ngModel)]="email"
+          fill="outline">
+        </ion-input>
+
+        <ion-input label-placement="stacked" placeholder="Contraseña" type="password" [(ngModel)]="password"
+          fill="outline">
+        </ion-input>
+
+        <ion-button expand="block" fill="solid" size="large" class="login-button" (click)="getlogin()">
+          Iniciar sesión
+        </ion-button>
+
+        <div class="divider">
+          <span></span>
+        </div>
+
+        <div class="lostPassword">
+          <ion-button fill="clear" size="small" class="signup-button">
+            ¿Olvidaste tu contraseña?
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

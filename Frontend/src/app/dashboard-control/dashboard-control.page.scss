@@ -1,0 +1,61 @@
+//variables colores
+$background-color-header: #ffffff;
+$color-letters: #E66A00;
+$color-hover: #ff9933;
+
+
+.menuContainer {
+    display: flex;
+    flex-direction: row;
+    justify-items: start;
+    background-color: $background-color-header;
+    border-bottom: 2px solid #e0e0e0;
+
+    ion-button {
+        color: $color-letters;
+        font-weight: bold;
+        font-size: 13px;
+
+        &.hover {
+            --background: #ff9933;
+        }
+    }
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logout {
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+
+    ion-button {
+        color: $color-letters;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    ion-icon {
+        font-size: 24px;
+        color: $color-letters;
+        margin-left: 10px;
+    }
+
+    ion-avatar {
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-bottom: 35px;
+    }
+}
