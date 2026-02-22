@@ -3,21 +3,29 @@ $background-color-header: #ffffff;
 $color-letters: #E66A00;
 $color-hover: #ff9933;
 
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
 .menuContainer {
     display: flex;
     flex-direction: row;
-    justify-items: start;
+    align-items: center;
     background-color: $background-color-header;
     border-bottom: 2px solid #e0e0e0;
+    flex-shrink: 0;
+    z-index: 10;
 
     ion-button {
         color: $color-letters;
         font-weight: bold;
         font-size: 13px;
 
-        &.hover {
-            --background: #ff9933;
+        &.active-tab {
+            --color: $color-hover;
+            border-bottom: 3px solid $color-hover;
         }
     }
 }
@@ -27,17 +35,16 @@ $color-hover: #ff9933;
     height: auto;
     margin-right: 20px;
     margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .logout {
     margin-left: auto;
     margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
 
     ion-button {
         color: $color-letters;
@@ -56,6 +63,10 @@ $color-hover: #ff9933;
         height: 30px;
         margin-right: 20px;
         margin-left: 20px;
-        margin-bottom: 35px;
     }
+}
+
+ion-router-outlet {
+    flex: 1;
+    position: relative;
 }
