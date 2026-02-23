@@ -1,13 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>product-page</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">product-page</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="search-container">
+    <ion-segment value="todos">
+      <ion-segment-button value="todos">
+        <ion-label>Todos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="papeleria">
+        <ion-label>Papeleria</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="limpieza">
+        <ion-label>Limpieza</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="alimentacion">
+        <ion-label>Alimentacion</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="merchandising">
+        <ion-label>Merchandising</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div class="search-bar">
+      <ion-searchbar placeholder="Buscar producto .."></ion-searchbar>
+      <ion-button>
+        <ion-icon name="add"></ion-icon>
+        Nuevo Producto
+      </ion-button>
+    </div>
+  </div>
+
+
+
 </ion-content>
