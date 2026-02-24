@@ -44,6 +44,13 @@ export class ManageHomePage implements OnInit {
       icon: 'id-card-outline',
       color: 'success',
       route: '/dashboard-control/provider-list'
+    },
+    {
+      title: 'Registro de clientes ',
+      description: 'Crear, modificar y eliminar a los clientes.',
+      icon: 'person-outline',
+      color: 'success',
+      route: '/dashboard-control/client-list'
     }
   ];
 
@@ -57,7 +64,7 @@ export class ManageHomePage implements OnInit {
   /**
    * -------------------------------------------------------------------------------------------
    * NAVEGA A LA RUTA ESPECIFICADA.
-   * @param route Ruta interna de la aplicación (ej: /admin/workers)
+   * @param route Ruta interna de la aplicación (ej: /dashboard-control/worker-list)
    * -------------------------------------------------------------------------------------------
    */
   navigateTo(route: string) {

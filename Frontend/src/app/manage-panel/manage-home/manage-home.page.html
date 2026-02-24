@@ -1,7 +1,7 @@
 <!----------------------------------------------------------------------------------------------------
-PÁGINA: HOME ADMIN
-PANEL PRINCIPAL PARA ADMINISTRADORES.
-DESDE AQUÍ SE NAVEGA A LOS DIFERENTES MÓDULOS DE GESTIÓN (TRABAJADORES, CATEGORÍAS, BD).
+PÁGINA: HOME MANAGER
+PANEL PRINCIPAL PARA MANAGERS.
+DESDE AQUÍ SE NAVEGA A LOS DIFERENTES MÓDULOS DE GESTIÓN (PRODUCTOS, CATEGORÍAS, PROVEEDORES, CLIENTES).
 ---------------------------------------------------------------------------------------------------->
 
 <ion-content [fullscreen]="true" class="ion-padding admin-bg">
@@ -18,7 +18,7 @@ DESDE AQUÍ SE NAVEGA A LOS DIFERENTES MÓDULOS DE GESTIÓN (TRABAJADORES, CATEG
     ---------------------------------------------------------------------------------------------------->
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" *ngFor="let module of adminModules">
+      <ion-col size="12" size-md="4" *ngFor="let module of adminModules">
         <ion-card (click)="navigateTo(module.route)" class="module-card clickable">
           <ion-card-content>
             <div class="module-icon-wrapper" [class]="module.color">

@@ -15,6 +15,7 @@ const routes: Routes = [
     path: 'dashboard-control',
     loadChildren: () => import('./tab-header-control/dashboard-control.module').then(m => m.DashboardControlPageModule)
   },
+
 ];
 
 @NgModule({

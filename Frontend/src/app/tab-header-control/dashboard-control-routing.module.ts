@@ -69,6 +69,10 @@ const routes: Routes = [
         loadChildren: () => import('../admin-panel/database/database.module').then(m => m.DatabasePageModule)
       },
       {
+        path: 'client-list',
+        loadChildren: () => import('../manage-panel/client-list/client-list.module').then(m => m.ClientListPageModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard-page',
         pathMatch: 'full'

@@ -1,3 +1,11 @@
+.segmentFilter {
+    ion-segment-button {
+        --indicator-color: #f58422;
+        --color: #000000;
+        --color-checked: #f58422;
+    }
+}
+
 .search-container {
     display: flex;
     flex-direction: row;

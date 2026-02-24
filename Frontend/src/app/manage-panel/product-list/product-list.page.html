@@ -1,4 +1,23 @@
 <ion-content [fullscreen]="true">
+  <div class="segmentFilter">
+    <ion-segment value="todos">
+      <ion-segment-button value="todos">
+        <ion-label>Todos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="papeleria">
+        <ion-label>Papeleria</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="limpieza">
+        <ion-label>Limpieza</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="alimentacion">
+        <ion-label>Alimentacion</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="merchandising">
+        <ion-label>Merchandising</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
   <div class="search-container">
     <ion-button (click)="goToAdminHome()">
       <ion-icon name="arrow-back"></ion-icon>
