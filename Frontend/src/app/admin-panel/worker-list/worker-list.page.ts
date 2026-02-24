@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-worker-list',
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkerListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
+
+  goToAdminHome() {
+    this.router.navigateByUrl('/dashboard-control/admin-home');
+  }
+
+
+
 
 }

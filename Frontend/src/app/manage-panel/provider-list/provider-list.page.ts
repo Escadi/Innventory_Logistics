@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-provider-list',
@@ -8,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProviderListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
+
+  goToAdminHome() {
+    this.router.navigateByUrl('/dashboard-control/manage-home');
+  }
+
 
 }
