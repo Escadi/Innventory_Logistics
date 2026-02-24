@@ -37,6 +37,14 @@ const routes: Routes = [
         loadChildren: () => import('../report-page/report-page.module').then(m => m.ReportPagePageModule)
       },
       {
+        path: 'panel-hub',
+        loadChildren: () => import('../admin-panel/panel-hub/panel-hub.module').then(m => m.PanelHubPageModule)
+      },
+      {
+        path: 'manage-home',
+        loadChildren: () => import('../manage-panel/manage-home/manage-home.module').then(m => m.ManageHomePageModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard-page',
         pathMatch: 'full'

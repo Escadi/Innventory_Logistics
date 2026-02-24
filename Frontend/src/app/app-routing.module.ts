@@ -15,6 +15,26 @@ const routes: Routes = [
     path: 'dashboard-control',
     loadChildren: () => import('./tab-header-control/dashboard-control.module').then(m => m.DashboardControlPageModule)
   },
+  {
+    path: 'worker-list',
+    loadChildren: () => import('./admin-panel/worker-list/worker-list.module').then( m => m.WorkerListPageModule)
+  },
+  {
+    path: 'product-category',
+    loadChildren: () => import('./admin-panel/product-category/product-category.module').then( m => m.ProductCategoryPageModule)
+  },
+  {
+    path: 'panel-hub',
+    loadChildren: () => import('./admin-panel/panel-hub/panel-hub.module').then( m => m.PanelHubPageModule)
+  },
+  {
+    path: 'manage-home',
+    loadChildren: () => import('./manage-panel/manage-home/manage-home.module').then( m => m.ManageHomePageModule)
+  },
+  {
+    path: 'product-list',
+    loadChildren: () => import('./manage-panel/product-list/product-list.module').then( m => m.ProductListPageModule)
+  },
 ];
 
 @NgModule({

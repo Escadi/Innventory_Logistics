@@ -19,11 +19,34 @@
     </ion-segment>
     <div class="search-bar">
       <ion-searchbar placeholder="Buscar producto .."></ion-searchbar>
-      <ion-button>
-        <ion-icon name="add"></ion-icon>
-        Nuevo Producto
-      </ion-button>
     </div>
+  </div>
+  <div class="products-container">
+    <ion-item *ngFor="let product of products">
+      <ion-avatar slot="start">
+        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label class="product-info">
+        <h2>{{product.id}}</h2>
+        <h3>{{product.name}}</h3>
+        <p>{{product.description}}</p>
+      </ion-label>
+      <ion-label class="product-category">
+        <h2>{{product.category}}</h2>
+      </ion-label>
+      <ion-label class="product-stock">
+        <h2>{{product.stock}} UND.</h2>
+      </ion-label>
+      <ion-label class="product-price">
+        <h2>{{product.price}} €</h2>
+      </ion-label>
+      <ion-button>
+        <ion-icon name="eye"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
   </div>
 
 
