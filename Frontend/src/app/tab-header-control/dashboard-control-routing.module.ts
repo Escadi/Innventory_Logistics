@@ -61,6 +61,14 @@ const routes: Routes = [
         loadChildren: () => import('../admin-panel/worker-category/worker-category.module').then(m => m.WorkerCategoryPageModule)
       },
       {
+        path: 'worker-list',
+        loadChildren: () => import('../admin-panel/worker-list/worker-list.module').then(m => m.WorkerListPageModule)
+      },
+      {
+        path: 'database',
+        loadChildren: () => import('../admin-panel/database/database.module').then(m => m.DatabasePageModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard-page',
         pathMatch: 'full'

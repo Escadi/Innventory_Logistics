@@ -22,28 +22,28 @@ export class ManageHomePage implements OnInit {
       description: 'modificar empleados y sus credenciales.',
       icon: 'people-outline',
       color: 'primary',
-      route: '/admin-panel/worker-list'
+      route: '/dashboard-control/worker-list'
     },
     {
       title: 'Gestionar Productos',
       description: 'Crear, modificar y eliminar productos.',
       icon: 'shirt-outline',
       color: 'success',
-      route: '/manage-panel/product-list'
+      route: '/dashboard-control/product-list'
     },
     {
       title: 'Gestionar Categorias',
       description: 'Crear, modificar y eliminar categorias de los productos.',
       icon: 'pricetag-outline',
       color: 'success',
-      route: '/manage-panel/product-category'
+      route: '/dashboard-control/product-category'
     },
     {
       title: 'Gestionar Proveedores',
       description: 'Crear, modificar y eliminar proveedores.',
       icon: 'id-card-outline',
       color: 'success',
-      route: '/manage-panel/provider-list'
+      route: '/dashboard-control/provider-list'
     }
   ];
 

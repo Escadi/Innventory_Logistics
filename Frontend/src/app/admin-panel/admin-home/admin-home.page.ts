@@ -22,21 +22,21 @@ export class AdminHomePage implements OnInit {
       description: 'Crear, modificar y eliminar empleados y sus credenciales.',
       icon: 'people-outline',
       color: 'primary',
-      route: '/admin-panel/worker-list'
+      route: '/dashboard-control/worker-list'
     },
     {
       title: 'Estructura y Roles',
       description: 'Gestionar el organigrama, departamentos y niveles de acceso.',
       icon: 'share-social-outline',
       color: 'success',
-      route: '/admin-panel/worker-category'
+      route: '/dashboard-control/worker-category'
     },
     {
       title: 'Base de Datos',
       description: 'Generar copias de seguridad de las tablas y sus datos.',
       icon: 'server-outline',
       color: 'warning',
-      route: '/admin-panel/database'
+      route: '/dashboard-control/database'
     }
   ];
 
