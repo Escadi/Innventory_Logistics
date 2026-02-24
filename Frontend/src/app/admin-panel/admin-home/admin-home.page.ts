@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-manage-home',
-  templateUrl: './manage-home.page.html',
-  styleUrls: ['./manage-home.page.scss'],
+  selector: 'app-admin-home',
+  templateUrl: './admin-home.page.html',
+  styleUrls: ['./admin-home.page.scss'],
   standalone: false
 })
-export class ManageHomePage implements OnInit {
+export class AdminHomePage implements OnInit {
 
   /**
     * ------------------------------------------------------------------------------------------
@@ -18,37 +18,31 @@ export class ManageHomePage implements OnInit {
     */
   adminModules = [
     {
-      title: 'Gestionar Personal',
-      description: 'modificar empleados y sus credenciales.',
+      title: 'Gestionar Trabajadores',
+      description: 'Crear, modificar y eliminar empleados y sus credenciales.',
       icon: 'people-outline',
       color: 'primary',
       route: '/admin-panel/worker-list'
     },
     {
-      title: 'Gestionar Productos',
-      description: 'Crear, modificar y eliminar productos.',
-      icon: 'shirt-outline',
+      title: 'Estructura y Roles',
+      description: 'Gestionar el organigrama, departamentos y niveles de acceso.',
+      icon: 'share-social-outline',
       color: 'success',
-      route: '/manage-panel/product-list'
+      route: '/admin-panel/worker-category'
     },
     {
-      title: 'Gestionar Categorias',
-      description: 'Crear, modificar y eliminar categorias de los productos.',
-      icon: 'pricetag-outline',
-      color: 'success',
-      route: '/manage-panel/product-category'
-    },
-    {
-      title: 'Gestionar Proveedores',
-      description: 'Crear, modificar y eliminar proveedores.',
-      icon: 'id-card-outline',
-      color: 'success',
-      route: '/manage-panel/provider-list'
+      title: 'Base de Datos',
+      description: 'Generar copias de seguridad de las tablas y sus datos.',
+      icon: 'server-outline',
+      color: 'warning',
+      route: '/admin-panel/database'
     }
   ];
 
   constructor(
     private router: Router,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -63,6 +57,5 @@ export class ManageHomePage implements OnInit {
   navigateTo(route: string) {
     this.router.navigateByUrl(route);
   }
-
 
 }

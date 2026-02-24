@@ -17,23 +17,39 @@ const routes: Routes = [
   },
   {
     path: 'worker-list',
-    loadChildren: () => import('./admin-panel/worker-list/worker-list.module').then( m => m.WorkerListPageModule)
-  },
-  {
-    path: 'product-category',
-    loadChildren: () => import('./admin-panel/product-category/product-category.module').then( m => m.ProductCategoryPageModule)
-  },
-  {
-    path: 'panel-hub',
-    loadChildren: () => import('./admin-panel/panel-hub/panel-hub.module').then( m => m.PanelHubPageModule)
+    loadChildren: () => import('./admin-panel/worker-list/worker-list.module').then(m => m.WorkerListPageModule)
   },
   {
     path: 'manage-home',
-    loadChildren: () => import('./manage-panel/manage-home/manage-home.module').then( m => m.ManageHomePageModule)
+    loadChildren: () => import('./manage-panel/manage-home/manage-home.module').then(m => m.ManageHomePageModule)
+  },
+  {
+    path: 'manage-home',
+    loadChildren: () => import('./manage-panel/manage-home/manage-home.module').then(m => m.ManageHomePageModule)
+  },
+  {
+    path: 'admin-home',
+    loadChildren: () => import('./admin-panel/admin-home/admin-home.module').then(m => m.AdminHomePageModule)
   },
   {
     path: 'product-list',
-    loadChildren: () => import('./manage-panel/product-list/product-list.module').then( m => m.ProductListPageModule)
+    loadChildren: () => import('./manage-panel/product-list/product-list.module').then(m => m.ProductListPageModule)
+  },
+  {
+    path: 'product-category',
+    loadChildren: () => import('./manage-panel/product-category/product-category.module').then(m => m.ProductCategoryPageModule)
+  },
+  {
+    path: 'provider-list',
+    loadChildren: () => import('./manage-panel/provider-list/provider-list.module').then(m => m.ProviderListPageModule)
+  },
+  {
+    path: 'worker-category',
+    loadChildren: () => import('./admin-panel/worker-category/worker-category.module').then(m => m.WorkerCategoryPageModule)
+  },
+  {
+    path: 'database',
+    loadChildren: () => import('./admin-panel/database/database.module').then( m => m.DatabasePageModule)
   },
 ];
 

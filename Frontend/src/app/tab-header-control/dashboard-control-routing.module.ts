@@ -37,12 +37,28 @@ const routes: Routes = [
         loadChildren: () => import('../report-page/report-page.module').then(m => m.ReportPagePageModule)
       },
       {
-        path: 'panel-hub',
-        loadChildren: () => import('../admin-panel/panel-hub/panel-hub.module').then(m => m.PanelHubPageModule)
+        path: 'admin-home',
+        loadChildren: () => import('../admin-panel/admin-home/admin-home.module').then(m => m.AdminHomePageModule)
       },
       {
         path: 'manage-home',
         loadChildren: () => import('../manage-panel/manage-home/manage-home.module').then(m => m.ManageHomePageModule)
+      },
+      {
+        path: 'product-list',
+        loadChildren: () => import('../manage-panel/product-list/product-list.module').then(m => m.ProductListPageModule)
+      },
+      {
+        path: 'product-category',
+        loadChildren: () => import('../manage-panel/product-category/product-category.module').then(m => m.ProductCategoryPageModule)
+      },
+      {
+        path: 'provider-list',
+        loadChildren: () => import('../manage-panel/provider-list/provider-list.module').then(m => m.ProviderListPageModule)
+      },
+      {
+        path: 'worker-category',
+        loadChildren: () => import('../admin-panel/worker-category/worker-category.module').then(m => m.WorkerCategoryPageModule)
       },
       {
         path: '',
