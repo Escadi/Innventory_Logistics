@@ -1,13 +1,17 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>client-list</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">client-list</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!------------------------------------------------------------------------------------------------
+  BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA
+  -------------------------------------------------------------------------------------------------->
+  <div class="searchtab">
+    <div class="search-container">
+      <ion-button (click)="goToAdminHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-searchbar placeholder="Buscar Categoría ...."></ion-searchbar>
+      <ion-button (click)="openModal()">
+        <ion-icon name="add"></ion-icon>
+        Nueva Categoría
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
