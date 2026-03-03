@@ -43,6 +43,34 @@ export class ProviderPagePage implements OnInit {
       country: 'Pais 1'
     }
   ];
+  //VARIABLES PARA EL FILTRO DE CATEGORIAS
+  selectedCategory: any[] = [
+    {
+      id: 1,
+      valor: 'todos',
+      nombre: 'Todos'
+    },
+    {
+      id: 2,
+      valor: 'papeleria',
+      nombre: 'Papeleria'
+    },
+    {
+      id: 3,
+      valor: 'limpieza',
+      nombre: 'Limpieza'
+    },
+    {
+      id: 4,
+      valor: 'alimentacion',
+      nombre: 'Alimentacion'
+    },
+    {
+      id: 5,
+      valor: 'merchandising',
+      nombre: 'Merchandising'
+    },
+  ];
 
   constructor() { }
 

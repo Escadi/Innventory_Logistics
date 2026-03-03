@@ -3,6 +3,25 @@ $background-color-header: #ffffff;
 $color-letters: #E66A00;
 $color-hover: #ff9933;
 
+/*------------------------------------------------------------------------------------------------
+ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC....)
+------------------------------------------------------------------------------------------------*/
+.segmentFilter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    ion-segment-button {
+        --indicator-color: #f58422;
+        --color: #000000;
+        --color-checked: #f58422;
+    }
+}
+
 .search-container {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     border-radius: 20px;
@@ -15,12 +34,6 @@ $color-hover: #ff9933;
     padding: 16px;
     justify-content: center;
     align-items: center;
-
-    ion-segment-button {
-        --indicator-color: #f58422;
-        --color: #000000;
-        --color-checked: #f58422;
-    }
 }
 
 .search-bar {
@@ -89,5 +102,10 @@ $color-hover: #ff9933;
 
     p {
         font-size: 15px;
+
+        span {
+            font-weight: bold;
+            color: $color-letters;
+        }
     }
 }
