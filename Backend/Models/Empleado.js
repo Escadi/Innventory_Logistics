@@ -43,32 +43,38 @@ module.exports = (sequelize, Sequelize) => {
 
     Empleado.associate = (models) => {
         // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA 
-        Empleado.belongsTo(models.CentroTrabajo, {
+        Empleado.belongsTo(models.centroTrabajo, {
             foreignKey: "idCentro",
             targetKey: "idCentro",
-            as: "CentroTrabajo",
+            as: "centroTrabajo",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Empleado.belongsTo(models.Cargo, {
+        Empleado.belongsTo(models.cargo, {
             foreignKey: "idCargo",
             targetKey: "idCargo",
-            as: "Cargo",
+            as: "cargo",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Empleado.belongsTo(models.Departamento, {
+        Empleado.belongsTo(models.departamento, {
             foreignKey: "idDepartamento",
             targetKey: "idDepartamento",
-            as: "Departamento",
+            as: "departamento",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
 
         // CON QUE TABLAS SE RELACIONA ESTA TABLA
-        Empleado.hasMany(models.Producto, {
+        Empleado.hasMany(models.producto, {
             foreignKey: "idEmpleado",
-            as: "Productos",
+            as: "productos",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Empleado.hasMany(models.pedido, {
+            foreignKey: "idEmpleado",
+            as: "pedido",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

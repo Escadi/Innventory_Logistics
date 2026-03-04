@@ -17,17 +17,17 @@ module.exports = (sequelize, Sequelize) => {
      *-----------------------------------------------------------------------------------------------
      */
 
-    Categoria.associate = function (models) {
+    Categoria.associate = (models) => {
         // FK DE LAS QUE SE RELACIONAN CON ESTA TABLA
-        Categoria.hasMany(models.Producto, {
+        Categoria.hasMany(models.producto, {
             foreignKey: "IdCategoria",
-            as: "Productos",
+            as: "productos",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Categoria.hasMany(models.Proveedor, {
+        Categoria.hasMany(models.proveedor, {
             foreignKey: "IdCategoria",
-            as: "Proveedor",
+            as: "proveedor",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

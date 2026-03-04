@@ -15,11 +15,23 @@ module.exports = (sequelize, Sequelize) => {
      *-----------------------------------------------------------------------------------------------
      */
 
-    Departamento.associate = function (models) {
+    Departamento.associate = (models) => {
         // CON QUE TABLAS SE RELACIONA ESTA TABLA
-        Departamento.hasMany(models.Empleado, {
+        Departamento.hasMany(models.empleado, {
             foreignKey: "idDepartamento",
-            as: "Empleado",
+            as: "empleado",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Departamento.hasMany(models.detalleProducto, {
+            foreignKey: "idDepartamento",
+            as: "detallesProducto",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Departamento.hasMany(models.centroTrabajo, {
+            foreignKey: "idDepartamento",
+            as: "centroTrabajo",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

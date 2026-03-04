@@ -29,20 +29,20 @@ module.exports = (sequelize, Sequelize) => {
      *-----------------------------------------------------------------------------------------------
      */
 
-    Proveedor.associate = function (models) {
+    Proveedor.associate = (models) => {
         // FK DE LAS QUE SE RELACIONAN CON ESTA TABLA
-        Proveedor.hasMany(models.Producto, {
+        Proveedor.hasMany(models.producto, {
             foreignKey: "idProveedor",
-            as: "Productos",
+            as: "productos",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
 
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
-        Proveedor.belongsTo(models.Categoria, {
+        Proveedor.belongsTo(models.categoria, {
             foreignKey: "idCategoria",
             targetKey: "idCategoria",
-            as: "Categoria",
+            as: "categoria",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

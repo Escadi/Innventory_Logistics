@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
 
         },
-        idTipoVehiculo: {
+        idTipo: {
             type: Sequelize.INTEGER,
 
         }
@@ -31,12 +31,12 @@ module.exports = (sequelize, Sequelize) => {
     // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
 
 
-    Vehiculo.associate = function (models) {
+    Vehiculo.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
-        Vehiculo.belongsTo(models.Conductor, {
-            foreignKey: "IdVehiculo",
-            targetKey: "IdVehiculo",
-            as: "Conductor",
+        Vehiculo.belongsTo(models.tipoVehiculo, {
+            foreignKey: "idTipo",
+            targetKey: "idTipo",
+            as: "tipoVehiculo",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

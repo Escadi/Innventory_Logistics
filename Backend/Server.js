@@ -30,8 +30,8 @@ function eliminarDB() {
     });
 }
 
-//iniciarDB();
-actualizarDB();
+iniciarDB();
+//actualizarDB();
 //eliminarDB();
 app.get("/", (req, res) => {
     res.send("Hello World!");

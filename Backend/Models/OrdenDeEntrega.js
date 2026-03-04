@@ -33,12 +33,12 @@ module.exports = (sequelize, Sequelize) => {
     // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
 
 
-    OrdenDeEntrega.associate = function (models) {
+    OrdenDeEntrega.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
-        OrdenDeEntrega.belongsTo(models.Pedido, {
-            foreignKey: "IdPedido",
-            targetKey: "IdPedido",
-            as: "Pedido",
+        OrdenDeEntrega.belongsTo(models.pedido, {
+            foreignKey: "idPedido",
+            targetKey: "idPedido",
+            as: "pedido",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

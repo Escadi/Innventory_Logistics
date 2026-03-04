@@ -44,7 +44,7 @@ db.departamento = require('./Departamento.js')(sequelize, Sequelize);
 db.cargo = require('./Cargo.js')(sequelize, Sequelize);
 db.centroTrabajo = require('./CentroTrabajo.js')(sequelize, Sequelize);
 db.empleado = require('./Empleado.js')(sequelize, Sequelize);
-db.producto = require('./Producto.js')(sequelize, Sequelize);
+db.producto = require('./Productos.js')(sequelize, Sequelize);
 db.categoria = require('./Categoria.js')(sequelize, Sequelize);
 db.clientes = require('./Clientes.js')(sequelize, Sequelize);
 db.pedido = require('./Pedido.js')(sequelize, Sequelize);
@@ -54,6 +54,8 @@ db.detalleProducto = require('./DetallesProducto.js')(sequelize, Sequelize);
 db.proveedor = require('./Proveedor.js')(sequelize, Sequelize);
 db.vehiculo = require('./Vehiculo.js')(sequelize, Sequelize);
 db.tipoVehiculo = require('./tipoVehiculo.js')(sequelize, Sequelize);
+db.conductor = require('./Conductor.js')(sequelize, Sequelize);
+db.detalleCarrito = require('./DetalleCarrito.js')(sequelize, Sequelize);
 
 /**
  * -----------------------------------------------------------------------------------------------------

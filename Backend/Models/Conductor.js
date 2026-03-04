@@ -34,12 +34,18 @@ module.exports = (sequelize, Sequelize) => {
     // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
 
 
-    Conductor.associate = function (models) {
+    Conductor.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
-        Conductor.belongsTo(models.OrdenDeEntrega, {
-            foreignKey: "IdConductor",
-            targetKey: "IdConductor",
-            as: "OrdenDeEntrega",
+        Conductor.hasMany(models.ordenDeEntrega, {
+            foreignKey: "idConductor",
+            as: "ordenDeEntrega",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Conductor.belongsTo(models.vehiculo, {
+            foreignKey: "idVehiculo",
+            targetKey: "matricula",
+            as: "vehiculo",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

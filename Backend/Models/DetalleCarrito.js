@@ -23,12 +23,12 @@ module.exports = (sequelize, Sequelize) => {
     // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
 
 
-    DetalleCarrito.associate = function (models) {
+    DetalleCarrito.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
-        DetalleCarrito.belongsTo(models.DetallesProducto, {
+        DetalleCarrito.belongsTo(models.detalleProducto, {
             foreignKey: "IdDetalleProducto",
-            targetKey: "IdDetalleProducto",
-            as: "DetallesProducto",
+            targetKey: "idDetalle",
+            as: "detallesProducto",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

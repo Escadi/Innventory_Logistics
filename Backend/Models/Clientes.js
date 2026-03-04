@@ -32,11 +32,11 @@ module.exports = (sequelize, Sequelize) => {
      *-----------------------------------------------------------------------------------------------
      */
 
-    Clientes.associate = function (models) {
+    Clientes.associate = (models) => {
         // CON QUE TABLAS SE RELACIONA ESTA TABLA
-        Clientes.hasMany(models.Pedido, {
+        Clientes.hasMany(models.pedido, {
             foreignKey: "idCliente",
-            as: "Pedido",
+            as: "pedido",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

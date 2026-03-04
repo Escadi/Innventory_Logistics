@@ -33,47 +33,40 @@ module.exports = (sequelize, Sequelize) => {
      * CREA LAS RELACIONES ENTRE LAS TABLAS
      *-----------------------------------------------------------------------------------------------
      */
-    Pedido.associate = function (models) {
+    Pedido.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
-        Pedido.belongsTo(models.OrdenDeEntrega, {
-            foreignKey: "idPedido",
-            targetKey: "idPedido",
-            as: "OrdenDeEntrega",
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE"
-        });
-        Pedido.belongsTo(models.Clientes, {
+        Pedido.belongsTo(models.clientes, {
             foreignKey: "idCliente",
-            targetKey: "idCliente",
-            as: "Clientes",
+            targetKey: "cifCliente",
+            as: "clientes",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Pedido.belongsTo(models.CentroTrabajo, {
+        Pedido.belongsTo(models.centroTrabajo, {
             foreignKey: "idCentro",
             targetKey: "idCentro",
-            as: "CentroTrabajo",
+            as: "centroTrabajo",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Pedido.belongsTo(models.Empleado, {
+        Pedido.belongsTo(models.empleado, {
             foreignKey: "idEmpleado",
             targetKey: "idEmpleado",
-            as: "Empleado",
+            as: "empleado",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
 
         // QUE TABLAS SE RELACIONAN CON ESTA TABLA
-        Pedido.hasMany(models.DetallePedido, {
+        Pedido.hasMany(models.detallePedido, {
             foreignKey: "idPedido",
-            as: "DetallePedido",
+            as: "detallePedido",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Pedido.hasMany(models.OrdenDeEntrega, {
+        Pedido.hasMany(models.ordenDeEntrega, {
             foreignKey: "idPedido",
-            as: "OrdenDeEntrega",
+            as: "ordenDeEntrega",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
