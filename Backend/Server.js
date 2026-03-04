@@ -8,6 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require('./Models');
 
+/**------------------------------------------------------------------------------
+ * ACTUALIZAMOS LA BASE DE DATOS CUANDO CREAMOS UNA NUEVA TABLA
+ * O MODIFICAMOS UNA EXISTENTE
+ * ------------------------------------------------------------------------------
+ */
 function actualizarDB() {
     db.sequelize.sync({ alter: true })
         .then(() => {
@@ -18,24 +23,41 @@ function actualizarDB() {
 
         });
 }
+/**------------------------------------------------------------------------------
+ * INICIAMOS LA BASE DE DATOS
+ * ------------------------------------------------------------------------------
+ */
 function iniciarDB() {
     db.sequelize.sync().then(() => {
         console.log("Database initialized successfully");
+    }).catch(err => {
+        console.error("\nCRITICAL DATABASE ERROR:\n", err.message);
     });
 }
-
+/**------------------------------------------------------------------------------
+ * ELIMINAMOS LA BASE DE DATOS Y LA VOLVEMOS A CREAR
+ * ------------------------------------------------------------------------------
+ */
 function eliminarDB() {
     db.sequelize.sync({ force: true }).then(() => {
         console.log("Drop and re-sync db");
+    }).catch(err => {
+        console.error("\nCRITICAL DATABASE ERROR:\n", err.message);
     });
 }
+
 
 iniciarDB();
 //actualizarDB();
 //eliminarDB();
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+
+
+/**------------------------------------------------------------------------------
+ * IMPORTAMOS LAS RUTAS DESDE EL INDEX DE ROUTER
+ * ------------------------------------------------------------------------------
+ */
+require('./Router/RouteIndex')(app);
+
 
 const port = 8080;
 app.listen(port, () => {
