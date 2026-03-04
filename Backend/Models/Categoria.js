@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
     const Categoria = sequelize.define("Categoria", {
-        IdCategoria: {
+        idCategoria: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        NombreCategoria: {
+        nombreCategoria: {
             type: Sequelize.STRING,
 
         }

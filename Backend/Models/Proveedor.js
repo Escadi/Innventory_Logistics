@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
     Proveedor.associate = function (models) {
         // FK DE LAS QUE SE RELACIONAN CON ESTA TABLA
         Proveedor.hasMany(models.Producto, {
-            foreignKey: "IdProveedor",
+            foreignKey: "idProveedor",
             as: "Productos",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
@@ -40,8 +40,8 @@ module.exports = (sequelize, Sequelize) => {
 
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         Proveedor.belongsTo(models.Categoria, {
-            foreignKey: "IdCategoria",
-            targetKey: "IdCategoria",
+            foreignKey: "idCategoria",
+            targetKey: "idCategoria",
             as: "Categoria",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"

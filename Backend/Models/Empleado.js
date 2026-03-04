@@ -41,9 +41,8 @@ module.exports = (sequelize, Sequelize) => {
      *-----------------------------------------------------------------------------------------------
      */
 
-
-    // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA 
     Empleado.associate = function (models) {
+        // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA 
         Empleado.belongsTo(models.CentroTrabajo, {
             foreignKey: "idCentro",
             targetKey: "idCentro",
@@ -67,7 +66,7 @@ module.exports = (sequelize, Sequelize) => {
         });
     };
 
-    // RELACIONES A LAS QUE VA ESTA TABLA
+    // CON QUE TABLAS SE RELACIONA ESTA TABLA
     Empleado.hasMany(models.Producto, {
         foreignKey: "idEmpleado",
         as: "Productos",

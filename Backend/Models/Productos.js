@@ -1,23 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
     const Producto = sequelize.define("Producto", {
-        IdProducto: {
+        idProducto: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        Nombre: {
+        nombre: {
             type: Sequelize.STRING,
 
         },
-        IdEmpleado: {
+        idEmpleado: {
             type: Sequelize.INTEGER,
 
         },
-        IdProveedor: {
+        idProveedor: {
             type: Sequelize.INTEGER,
 
         },
-        IdCategoria: {
+        idCategoria: {
             type: Sequelize.INTEGER,
 
         }
@@ -27,28 +27,26 @@ module.exports = (sequelize, Sequelize) => {
      * CREA LAS RELACIONES ENTRE LAS TABLAS
      *-----------------------------------------------------------------------------------------------
      */
-    // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
-
 
     Producto.associate = function (models) {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         Producto.belongsTo(models.Empleado, {
-            foreignKey: "IdEmpleado",
-            targetKey: "IdEmpleado",
+            foreignKey: "idEmpleado",
+            targetKey: "idEmpleado",
             as: "Empleado",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
         Producto.belongsTo(models.Proveedor, {
-            foreignKey: "IdProveedor",
-            targetKey: "IdProveedor",
+            foreignKey: "idProveedor",
+            targetKey: "idProveedor",
             as: "Proveedor",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
         Producto.belongsTo(models.Categoria, {
-            foreignKey: "IdCategoria",
-            targetKey: "IdCategoria",
+            foreignKey: "idCategoria",
+            targetKey: "idCategoria",
             as: "Categoria",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"

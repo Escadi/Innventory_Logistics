@@ -1,13 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Departamento = sequelize.define("Departamento", {
-        IdDepartamento: {
+        idDepartamento: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        NombreDepartamento: {
+        nombreDepartamento: {
             type: Sequelize.STRING,
-            allowNull: false
         }
     });
     /**
@@ -17,9 +16,12 @@ module.exports = (sequelize, Sequelize) => {
      */
 
     Departamento.associate = function (models) {
+        // CON QUE TABLAS SE RELACIONA ESTA TABLA
         Departamento.hasMany(models.Empleado, {
-            foreignKey: "IdDepartamento",
-            as: "empleado"
+            foreignKey: "idDepartamento",
+            as: "Empleado",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
         });
     };
 

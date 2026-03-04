@@ -33,9 +33,6 @@ module.exports = (sequelize, Sequelize) => {
      * CREA LAS RELACIONES ENTRE LAS TABLAS
      *-----------------------------------------------------------------------------------------------
      */
-    // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
-
-
     Pedido.associate = function (models) {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         Pedido.belongsTo(models.OrdenDeEntrega, {

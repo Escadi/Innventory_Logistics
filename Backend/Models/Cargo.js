@@ -1,13 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Cargo = sequelize.define("Cargo", {
-        IdCargo: {
+        idCargo: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        NombreCargo: {
+        nombreCargo: {
             type: Sequelize.STRING,
-            allowNull: false
         }
     });
     /**
@@ -17,8 +16,9 @@ module.exports = (sequelize, Sequelize) => {
      */
 
     Cargo.associate = function (models) {
+        // CON QUE TABLAS SE RELACIONA ESTA TABLA
         Cargo.hasMany(models.Empleado, {
-            foreignKey: "IdCargo",
+            foreignKey: "idCargo",
             as: "Empleado",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
