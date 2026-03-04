@@ -1,54 +1,84 @@
 <ion-content [fullscreen]="true">
+  <!--------------------------------------------------------------------------------------- 
+  DIV CON LOS FILTROS DE BUSQUEDA DE PRODUCTOS Y BARRA DE BUSQUEDA
+   ---------------------------------------------------------------------------------------->
   <div class="search-container">
-    <ion-segment value="todos">
-      <ion-segment-button value="todos">
-        <ion-label>Todos</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="papeleria">
-        <ion-label>Papeleria</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="limpieza">
-        <ion-label>Limpieza</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="alimentacion">
-        <ion-label>Alimentacion</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="merchandising">
-        <ion-label>Merchandising</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+    <div class="segmentFilter">
+      <ion-segment *ngFor="let category of selectedCategory" value="todos">
+        <ion-segment-button value="{{ category.valor }}">
+          <ion-label>{{ category.nombre }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
     <div class="search-bar">
       <ion-searchbar placeholder="Buscar producto .."></ion-searchbar>
     </div>
   </div>
-  <div class="products-container">
-    <ion-item *ngFor="let product of products">
-      <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
-      <ion-label class="product-info">
-        <h2>{{product.id}}</h2>
-        <h3>{{product.name}}</h3>
-        <p>{{product.description}}</p>
-      </ion-label>
-      <ion-label class="product-category">
-        <h2>{{product.category}}</h2>
-      </ion-label>
-      <ion-label class="product-stock">
-        <h2>{{product.stock}} UND.</h2>
-      </ion-label>
-      <ion-label class="product-price">
-        <h2>{{product.price}} €</h2>
-      </ion-label>
-      <ion-button>
-        <ion-icon name="eye"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon name="cart-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </div>
 
+  <!--------------------------------------------------------------------------------------- 
+  DIV CON LA LISTA DE PRODUCTOS
+   ---------------------------------------------------------------------------------------->
 
-
+  <ion-grid class="products-container">
+    <ion-row>
+      <ion-col size="10" size-md="3" size-lg="4" *ngFor="let product of products">
+        <ion-card>
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <ion-card-header>
+            <ion-label class="product-info">
+              <h2>{{product.id}}</h2>
+              <h3>{{product.name}}</h3>
+              <p>{{product.description}}</p>
+            </ion-label>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label class="product-category">
+              <h2>{{product.category}}</h2>
+            </ion-label>
+            <ion-label class="product-stock">
+              <h2>Stock: {{product.stock}} UND.</h2>
+            </ion-label>
+            <ion-label class="product-price">
+              <h2>Precio: {{product.price}} €</h2>
+            </ion-label>
+          </ion-card-content>
+          <ion-button (click)="openModal()">
+            <ion-icon name="eye"></ion-icon>
+          </ion-button>
+          <ion-button>
+            <ion-icon name="cart-outline"></ion-icon>
+          </ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--------------------------------------------------------------------------------------- 
+  DIV CON EL MODAL DE LISTADO DE PRODUCTOS 
+   ---------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModal()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Busqueda de productos</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-item lines="none">
+          <ion-label position="stacked">Producto</ion-label>
+          <ion-input type="text" placeholder="Nombre del producto"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Ubicación</ion-label>
+          <ion-input></ion-input>
+          <ion-label position="stacked">Stock</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

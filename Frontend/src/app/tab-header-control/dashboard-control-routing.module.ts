@@ -33,10 +33,6 @@ const routes: Routes = [
         loadChildren: () => import('../provider-page/provider-page.module').then(m => m.ProviderPagePageModule)
       },
       {
-        path: 'report-page',
-        loadChildren: () => import('../report-page/report-page.module').then(m => m.ReportPagePageModule)
-      },
-      {
         path: 'admin-home',
         loadChildren: () => import('../admin-panel/admin-home/admin-home.module').then(m => m.AdminHomePageModule)
       },

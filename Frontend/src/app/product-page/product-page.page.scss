@@ -1,5 +1,7 @@
 //variables colores
 $background-color-header: #ffffff;
+$primaryColor: #f58422;
+$secondaryColor: #000000;
 $color-letters: #E66A00;
 $color-hover: #ff9933;
 
@@ -59,6 +61,25 @@ $color-hover: #ff9933;
     }
 }
 
+/*------------------------------------------------------------------------------------------------
+ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC....)
+------------------------------------------------------------------------------------------------*/
+.segmentFilter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    ion-segment-button {
+        --indicator-color: #f58422;
+        --color: #000000;
+        --color-checked: #f58422;
+    }
+}
+
 .products-header {
     display: flex;
     flex-direction: row;
@@ -75,12 +96,22 @@ $color-hover: #ff9933;
     width: 91.5%;
     margin-left: 4.25%;
 
-    ion-item {
+    ion-card {
         justify-content: center;
         align-items: center;
         margin: 10px;
         border-radius: 20px;
         box-shadow: 0 2px 2px 0 $color-hover;
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
     }
 
@@ -94,10 +125,9 @@ $color-hover: #ff9933;
         --color-activated: #ffffff;
         --color-focused: #ffffff;
         --border-radius: 50px;
-        --padding-top: 10px;
-        --padding-bottom: 10px;
-        --padding-start: 10px;
-        --padding-end: 10px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 }
 
@@ -118,5 +148,98 @@ $color-hover: #ff9933;
 
     p {
         font-size: 15px;
+    }
+}
+
+/*------------------------------------------------------------------------------------------------
+MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
+------------------------------------------------------------------------------------------------*/
+.modalinput {
+    --height: 90%;
+    --width: 30%;
+    --border-radius: 16px;
+    --box-shadow: 0 8px 30px rgba($primaryColor, 0.25);
+
+    ion-toolbar {
+        --background: #ffffff;
+        --border-width: 0;
+        --padding-start: 8px;
+        --padding-end: 8px;
+
+        ion-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: $secondaryColor;
+        }
+
+        ion-button {
+            --color: $primaryColor;
+            font-size: 22px;
+        }
+    }
+
+    ion-content {
+        --padding-top: 24px;
+        --padding-bottom: 24px;
+        --padding-start: 24px;
+        --padding-end: 24px;
+        --background: #fafafa;
+
+        ion-item {
+            --background: #ffffff;
+            --padding-top: 8px;
+            --padding-bottom: 8px;
+            --padding-start: 16px;
+            --padding-end: 16px;
+            --border-radius: 12px;
+            --inner-border-width: 0;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba($primaryColor, 0.12);
+            transition: box-shadow 0.2s ease;
+
+            &:hover {
+                box-shadow: 0 4px 14px rgba($primaryColor, 0.22);
+            }
+        }
+
+        ion-label {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            color: $primaryColor;
+            margin-bottom: 4px;
+        }
+
+        ion-input {
+            --padding-top: 8px;
+            --padding-bottom: 8px;
+            --padding-start: 0;
+            --padding-end: 0;
+            --placeholder-color: #b0b0b0;
+            --placeholder-font-weight: 400;
+            --color: $secondaryColor;
+            font-size: 15px;
+        }
+
+        ion-button[expand="block"] {
+            --background: #f58422;
+            --background-hover: darken($primaryColor, 8%);
+            --background-activated: darken($primaryColor, 12%);
+            --border-radius: 12px;
+            --box-shadow: 0 4px 14px rgba($primaryColor, 0.35);
+            --color: #ffffff;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            height: 48px;
+            margin-top: 8px;
+            transition: transform 0.15s ease;
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
     }
 }

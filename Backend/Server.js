@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//const db = require('./Models');
+const db = require('./Models');
 
 function actualizarDB() {
     db.sequelize.sync({ alter: true })
@@ -31,7 +31,7 @@ function eliminarDB() {
 }
 
 //iniciarDB();
-//actualizarDB();
+actualizarDB();
 //eliminarDB();
 app.get("/", (req, res) => {
     res.send("Hello World!");

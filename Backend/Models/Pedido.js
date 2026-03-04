@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Pedido = sequelize.define("Pedido", {
+    const Pedido = sequelize.define("pedido", {
         idPedido: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -42,11 +42,38 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
+        Pedido.belongsTo(models.Clientes, {
+            foreignKey: "idCliente",
+            targetKey: "idCliente",
+            as: "Clientes",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Pedido.belongsTo(models.CentroTrabajo, {
+            foreignKey: "idCentro",
+            targetKey: "idCentro",
+            as: "CentroTrabajo",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Pedido.belongsTo(models.Empleado, {
+            foreignKey: "idEmpleado",
+            targetKey: "idEmpleado",
+            as: "Empleado",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
 
         // QUE TABLAS SE RELACIONAN CON ESTA TABLA
         Pedido.hasMany(models.DetallePedido, {
             foreignKey: "idPedido",
             as: "DetallePedido",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        Pedido.hasMany(models.OrdenDeEntrega, {
+            foreignKey: "idPedido",
+            as: "OrdenDeEntrega",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

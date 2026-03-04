@@ -1,22 +1,22 @@
 module.exports = (sequelize, Sequelize) => {
-    const Conductor = sequelize.define("Conductor", {
-        IdConductor: {
+    const Conductor = sequelize.define("conductor", {
+        idConductor: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        Nombre: {
+        nombre: {
             type: Sequelize.STRING,
 
         },
-        Apellido: {
+        apellido: {
             type: Sequelize.STRING,
 
         },
-        Telefono: {
+        telefono: {
             type: Sequelize.STRING,
         },
-        Email: {
+        email: {
             type: Sequelize.STRING,
 
         },

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Empleado = sequelize.define("Empleado", {
+    const Empleado = sequelize.define("empleado", {
         idEmpleado: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
      *-----------------------------------------------------------------------------------------------
      */
 
-    Empleado.associate = function (models) {
+    Empleado.associate = (models) => {
         // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA 
         Empleado.belongsTo(models.CentroTrabajo, {
             foreignKey: "idCentro",
@@ -64,15 +64,15 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-    };
 
-    // CON QUE TABLAS SE RELACIONA ESTA TABLA
-    Empleado.hasMany(models.Producto, {
-        foreignKey: "idEmpleado",
-        as: "Productos",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
-    });
+        // CON QUE TABLAS SE RELACIONA ESTA TABLA
+        Empleado.hasMany(models.Producto, {
+            foreignKey: "idEmpleado",
+            as: "Productos",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+    };
 
     return Empleado;
 };

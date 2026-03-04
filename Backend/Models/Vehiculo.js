@@ -1,18 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-    const Vehiculo = sequelize.define("Vehiculo", {
-        Matricula: {
+    const Vehiculo = sequelize.define("vehiculo", {
+        matricula: {
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        Placa: {
+        placa: {
             type: Sequelize.STRING,
 
         },
-        Marca: {
+        marca: {
             type: Sequelize.STRING,
 
         },
-        Modelo: {
+        modelo: {
             type: Sequelize.STRING,
 
         },

@@ -7,6 +7,40 @@ import { Component, OnInit } from '@angular/core';
   standalone: false
 })
 export class ProductPagePage implements OnInit {
+  //VARIABLES PARA EL FILTRO DE CATEGORIAS
+  selectedCategory: any[] = [
+    {
+      id: 1,
+      valor: 'todos',
+      nombre: 'Todos'
+    },
+    {
+      id: 2,
+      valor: 'papeleria',
+      nombre: 'Papeleria'
+    },
+    {
+      id: 3,
+      valor: 'limpieza',
+      nombre: 'Limpieza'
+    },
+    {
+      id: 4,
+      valor: 'alimentacion',
+      nombre: 'Alimentacion'
+    },
+    {
+      id: 5,
+      valor: 'merchandising',
+      nombre: 'Merchandising'
+    },
+    {
+      id: 6,
+      valor: 'tecnologia',
+      nombre: 'Tecnologia'
+    }
+  ];
+
   products = [
     {
       id: 1,
@@ -36,10 +70,26 @@ export class ProductPagePage implements OnInit {
       image: 'https://ionicframework.com/docs/img/demos/card-media.png'
     }
   ]
+  // Variable para controlar la visibilidad del modal
+  isModalOpen: boolean = false;
+
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  /**
+   * -----------------------------------------------------------------------------------------
+   * METODOS PARA EL MANEJO DEL MODAL
+   * -----------------------------------------------------------------------------------------
+   */
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
   }
 
 }

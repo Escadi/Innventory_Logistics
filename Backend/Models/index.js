@@ -34,12 +34,26 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+/**
+ * -----------------------------------------------------------------------------------------------------
+ * LLAMADA A CADA UNO DE LOS MODELOS
+ * -----------------------------------------------------------------------------------------------------
+ */
+
 db.departamento = require('./Departamento.js')(sequelize, Sequelize);
 db.cargo = require('./Cargo.js')(sequelize, Sequelize);
 db.centroTrabajo = require('./CentroTrabajo.js')(sequelize, Sequelize);
 db.empleado = require('./Empleado.js')(sequelize, Sequelize);
 db.producto = require('./Producto.js')(sequelize, Sequelize);
-db.tipoProducto = require('./TipoProducto.js')(sequelize, Sequelize);
+db.categoria = require('./Categoria.js')(sequelize, Sequelize);
+db.clientes = require('./Clientes.js')(sequelize, Sequelize);
+db.pedido = require('./Pedido.js')(sequelize, Sequelize);
+db.detallePedido = require('./DetallePedido.js')(sequelize, Sequelize);
+db.ordenDeEntrega = require('./OrdenDeEntrega.js')(sequelize, Sequelize);
+db.detalleProducto = require('./DetallesProducto.js')(sequelize, Sequelize);
+db.proveedor = require('./Proveedor.js')(sequelize, Sequelize);
+db.vehiculo = require('./Vehiculo.js')(sequelize, Sequelize);
+db.tipoVehiculo = require('./tipoVehiculo.js')(sequelize, Sequelize);
 
 /**
  * -----------------------------------------------------------------------------------------------------
