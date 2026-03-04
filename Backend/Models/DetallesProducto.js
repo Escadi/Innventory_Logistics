@@ -5,15 +5,15 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        IdProducto: {
+        idProducto: {
             type: Sequelize.INTEGER,
 
         },
-        IdDepartamento: {
+        idDepartamento: {
             type: Sequelize.INTEGER,
 
         },
-        Cantidad: {
+        cantidad: {
             type: Sequelize.INTEGER,
 
         }
@@ -30,14 +30,14 @@ module.exports = (sequelize, Sequelize) => {
     DetallesProducto.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         DetallesProducto.belongsTo(models.producto, {
-            foreignKey: "IdProducto",
+            foreignKey: "idProducto",
             targetKey: "idProducto",
             as: "producto",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
         DetallesProducto.belongsTo(models.departamento, {
-            foreignKey: "IdDepartamento",
+            foreignKey: "idDepartamento",
             targetKey: "idDepartamento",
             as: "departamento",
             onDelete: "CASCADE",
@@ -46,13 +46,13 @@ module.exports = (sequelize, Sequelize) => {
 
         // QUE TABLAS SE RELACIONAN CON ESTA TABLA
         DetallesProducto.hasMany(models.detalleCarrito, {
-            foreignKey: "IdDetalleProducto",
+            foreignKey: "idDetalleProducto",
             as: "detalleCarrito",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
         DetallesProducto.hasMany(models.detallePedido, {
-            foreignKey: "IdDetalleProducto",
+            foreignKey: "idDetalleProducto",
             as: "detallePedido",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"

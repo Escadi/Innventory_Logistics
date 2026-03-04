@@ -20,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
         emailProveedor: {
             type: Sequelize.STRING,
 
+        },
+        idCategoria: {
+            type: Sequelize.INTEGER,
+
         }
     });
 

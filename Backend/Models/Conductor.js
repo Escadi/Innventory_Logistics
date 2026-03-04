@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
 
         },
         idVehiculo: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
 
         }
     });

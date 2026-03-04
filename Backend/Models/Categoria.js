@@ -20,14 +20,14 @@ module.exports = (sequelize, Sequelize) => {
     Categoria.associate = (models) => {
         // FK DE LAS QUE SE RELACIONAN CON ESTA TABLA
         Categoria.hasMany(models.producto, {
-            foreignKey: "IdCategoria",
+            foreignKey: "idCategoria",
             as: "productos",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
         Categoria.hasMany(models.proveedor, {
-            foreignKey: "IdCategoria",
-            as: "proveedor",
+            foreignKey: "idCategoria",
+            as: "proveedores",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

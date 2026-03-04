@@ -1,15 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
     const OrdenDeEntrega = sequelize.define("ordenDeEntrega", {
-        IdOrdenDeEntrega: {
+        idOrdenDeEntrega: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        IdPedido: {
+        idPedido: {
             type: Sequelize.INTEGER,
 
         },
-        FechaEntrega: {
+        fechaEntrega: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
 
@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
 
         },
-        Estado: {
+        estado: {
             type: Sequelize.STRING,
             defaultValue: "Pendiente"
 

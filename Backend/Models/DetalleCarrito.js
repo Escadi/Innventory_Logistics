@@ -1,15 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
     const DetalleCarrito = sequelize.define("detalleCarrito", {
-        IdDetalleCarrito: {
+        idDetalleCarrito: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        IdDetalleProducto: {
+        idDetalleProducto: {
             type: Sequelize.INTEGER,
 
         },
-        Cantidad: {
+        cantidad: {
             type: Sequelize.INTEGER,
 
         }
@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
     DetalleCarrito.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         DetalleCarrito.belongsTo(models.detalleProducto, {
-            foreignKey: "IdDetalleProducto",
+            foreignKey: "idDetalleProducto",
             targetKey: "idDetalle",
             as: "detallesProducto",
             onDelete: "CASCADE",
