@@ -9,9 +9,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
 
         },
-        fechaEntrega: {
+        fechaSalida: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
+        },
+        fechaEntrega: {
+            type: Sequelize.DATE,
 
         },
         idConductor: {

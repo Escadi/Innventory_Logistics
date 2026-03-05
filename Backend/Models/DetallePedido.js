@@ -10,6 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
 
         },
+        idPedido: {
+            type: Sequelize.INTEGER,
+
+        },
         cantidad: {
             type: Sequelize.INTEGER,
 
