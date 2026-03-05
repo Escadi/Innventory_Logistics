@@ -3,9 +3,6 @@ const Categoria = db.categoria;
 
 exports.findAll = async (req, res) => {
     Categoria.findAll({
-        attributes: {
-            exclude: ['nombreCategoria']
-        }
     })
         .then(data => {
             res.send(data);

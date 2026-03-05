@@ -22,6 +22,8 @@ export class Myservice {
   endpointsDetalleProveedor = `${this.baseUrl}/api/detalle_proveedor`;
   endpointsDetalleCategoria = `${this.baseUrl}/api/detalle_categoria`;
   endpointsDetalleCliente = `${this.baseUrl}/api/detalle_cliente`;
+  endpointsCentrosTrabajo = `${this.baseUrl}/api/centroTrabajo`;
+  endpointsDepartamentos = `${this.baseUrl}/api/departamento`;
 
 
   constructor(
@@ -95,6 +97,74 @@ export class Myservice {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.delete(this.endpointsCategorias + '/' + id, { headers });
+  }
+
+  /**
+   * -------------------------------------------------------------------------------------------
+   * METODOS PARA CENTRO DE TRABAJO | GET, POST ,PUT, DELETE |
+   * -------------------------------------------------------------------------------------------
+   */
+
+  getCentrosTrabajo() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsCentrosTrabajo, { headers });
+  }
+
+  postCentrosTrabajo(centroTrabajo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsCentrosTrabajo, centroTrabajo, { headers });
+  }
+
+  putCentrosTrabajo(id: number, centroTrabajo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsCentrosTrabajo + '/' + id, centroTrabajo, { headers });
+  }
+
+  deleteCentrosTrabajo(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsCentrosTrabajo + '/' + id, { headers });
+  }
+
+  /**
+   * -------------------------------------------------------------------------------------------
+   * METODOS PARA DEPARTAMENTO | GET, POST ,PUT, DELETE |
+   * -------------------------------------------------------------------------------------------
+   */
+
+  getDepartamentos() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsDepartamentos, { headers });
+  }
+
+  postDepartamentos(departamento: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsDepartamentos, departamento, { headers });
+  }
+
+  putDepartamentos(id: number, departamento: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsDepartamentos + '/' + id, departamento, { headers });
+  }
+
+  deleteDepartamentos(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsDepartamentos + '/' + id, { headers });
   }
 
 }

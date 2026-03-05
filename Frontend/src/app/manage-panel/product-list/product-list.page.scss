@@ -187,12 +187,131 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
     }
 }
 
+.deleteButton {
+    position: absolute;
+    top: 0px;
+    bottom: unset;
+    right: 0px;
+    z-index: 1;
+
+    ion-button {
+        --background: #ce0404;
+        --color: #ffffff;
+        --border-radius: 50px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+
+        &:hover {
+            --background: #ee6767;
+
+            ion-icon {
+                color: #000000;
+            }
+        }
+    }
+}
+
 /*------------------------------------------------------------------------------------------------
 MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
 ------------------------------------------------------------------------------------------------*/
 .modalinput {
-    --height: 85%;
-    --width: 30%;
+    --height: 100%;
+    --width: 50%;
+    --border-radius: 16px;
+    --box-shadow: 0 8px 30px rgba($primaryColor, 0.25);
+
+    ion-toolbar {
+        --background: #ffffff;
+        --border-width: 0;
+        --padding-start: 8px;
+        --padding-end: 8px;
+
+        ion-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: $secondaryColor;
+        }
+
+        ion-button {
+            --color: $primaryColor;
+            font-size: 22px;
+        }
+    }
+
+    ion-content {
+        --padding-top: 24px;
+        --padding-bottom: 24px;
+        --padding-start: 24px;
+        --padding-end: 24px;
+        --background: #fafafa;
+
+        ion-item {
+            --background: #ffffff;
+            --padding-top: 8px;
+            --padding-bottom: 8px;
+            --padding-start: 16px;
+            --padding-end: 16px;
+            --border-radius: 12px;
+            --inner-border-width: 0;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba($primaryColor, 0.12);
+            transition: box-shadow 0.2s ease;
+
+            &:hover {
+                box-shadow: 0 4px 14px rgba($primaryColor, 0.22);
+            }
+        }
+
+        ion-label {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            color: $primaryColor;
+            margin-bottom: 4px;
+        }
+
+        ion-input {
+            --padding-top: 8px;
+            --padding-bottom: 8px;
+            --padding-start: 0;
+            --padding-end: 0;
+            --placeholder-color: #b0b0b0;
+            --placeholder-font-weight: 400;
+            --color: $secondaryColor;
+            font-size: 15px;
+        }
+
+        ion-button[expand="block"] {
+            --background: #f58422;
+            --background-hover: darken($primaryColor, 8%);
+            --background-activated: darken($primaryColor, 12%);
+            --border-radius: 12px;
+            --box-shadow: 0 4px 14px rgba($primaryColor, 0.35);
+            --color: #ffffff;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            height: 48px;
+            margin-top: 8px;
+            transition: transform 0.15s ease;
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+    }
+}
+
+/*------------------------------------------------------------------------------------------------
+MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL) DE DETALLE PRODUCTO
+CUANDO LE DAS CLICK AL PRODUCTO
+------------------------------------------------------------------------------------------------*/
+.modalinputDetalle {
+    --height: 90%;
+    --width: 45%;
     --border-radius: 16px;
     --box-shadow: 0 8px 30px rgba($primaryColor, 0.25);
 

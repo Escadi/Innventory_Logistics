@@ -10,7 +10,7 @@
     CATEGORIAS DE LOS PRODUCTOS
     -------------------------------------------------------------------------------------------------->
     <div class="segmentFilter">
-      <ion-segment *ngFor="let categoria of selectedCategory" value="todos">
+      <ion-segment *ngFor="let categoria of selectedCategory">
         <ion-segment-button value="categoria.value">
           <ion-label>{{ categoria.nombreCategoria }}</ion-label>
         </ion-segment-button>
@@ -24,7 +24,7 @@
       <ion-button (click)="goToAdminHome()">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
-      <ion-searchbar placeholder="Código, Nombre o Categoría ...."></ion-searchbar>
+      <ion-searchbar placeholder="Código, Nombre, ...."></ion-searchbar>
       <ion-button (click)="openModal()">
         <ion-icon name="add"></ion-icon>
         Nuevo Producto
@@ -38,6 +38,11 @@
   <ion-grid class="products-container">
     <ion-row>
       <ion-col size="10" size-md="4" size-lg="3" *ngFor="let producto of productos">
+        <div class="deleteButton">
+          <ion-button (click)="deleteProduct(producto.idProducto)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
         <ion-card button (click)="openAddProductModal()">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
           <ion-card-header>
@@ -61,16 +66,12 @@
               <h2>Precio: {{producto.precio}} €</h2>
             </ion-label>
           </ion-card-content>
-
-          <ion-button>
-            <ion-icon name="pencil"></ion-icon>
-          </ion-button>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
   <!------------------------------------------------------------------------------------------------
-  MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO
+  MODAL PARA AGREGAR UN NUEVO PRODUCTO
   -------------------------------------------------------------------------------------------------->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="modalinput">
     <ng-template>
@@ -91,33 +92,37 @@
       <ion-content>
         <ion-item lines="none">
           <ion-label position="stacked">Codigo Producto</ion-label>
-          <ion-input type="text" placeholder="Codigo del producto"></ion-input>
+          <ion-input type="text" placeholder="Codigo del producto" [(ngModel)]="idProducto"></ion-input>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="stacked">Nombre Producto</ion-label>
-          <ion-input type="text" placeholder="Nombre del producto"></ion-input>
+          <ion-input type="text" placeholder="Nombre del producto" [(ngModel)]="nombreProducto"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Detalles Producto</ion-label>
+          <ion-textarea type="text" placeholder="Detalles del producto" [(ngModel)]="descripcion"></ion-textarea>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="stacked">Categoria Producto</ion-label>
-          <ion-input type="text" placeholder="Categoria del producto"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label position="stacked">Stock Producto</ion-label>
-          <ion-input type="number" placeholder="Stock del producto"></ion-input>
+          <ion-select placeholder="Categoria del producto" [(ngModel)]="categoria">
+            <ion-select-option *ngFor="let categoria of selectedCategory" [value]="categoria.idCategoria">
+              {{categoria.nombreCategoria}}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="stacked">Precio Producto</ion-label>
-          <ion-input type="number" placeholder="Precio del producto"></ion-input>
+          <ion-input type="number" placeholder="Precio del producto" [(ngModel)]="precio"></ion-input>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="stacked">Imagen Producto</ion-label>
-          <ion-input type="file" placeholder="Imagen del producto"></ion-input>
+          <ion-input type="file" placeholder="Imagen del producto" [(ngModel)]="imagen"></ion-input>
         </ion-item>
 
         <!------------------------------------------------------------------------------------------------
         BOTON PARA AGREGAR UN NUEVO PRODUCTO
         -------------------------------------------------------------------------------------------------->
-        <ion-button expand="block" class="ion-margin">
+        <ion-button expand="block" class="ion-margin" (click)="createProduct()">
           <ion-icon name="add" slot="start"></ion-icon>
           Agregar Producto
         </ion-button>
@@ -128,7 +133,7 @@
   <!------------------------------------------------------------------------------------------------
   MODAL PARA AGREGAR EL PRODUCTO A DETALLE PRODUCTO
   -------------------------------------------------------------------------------------------------->
-  <ion-modal [isOpen]="isAddProductModal" (didDismiss)="closeAddProductModal()" class="modalinput">
+  <ion-modal [isOpen]="isAddProductModal" (didDismiss)="closeAddProductModal()" class="modalinputDetalle">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -142,38 +147,109 @@
       </ion-header>
 
       <!------------------------------------------------------------------------------------------------
-      FORMULARIO PARA AGREGAR UN NUEVO PRODUCTO
+      FORMULARIO PARA AGREGAR UN NUEVO PRODUCTO AL DETALLEPRODUCTO
+
       -------------------------------------------------------------------------------------------------->
       <ion-content>
-        <ion-item lines="none">
-          <ion-label position="stacked">Codigo Producto</ion-label>
-          <ion-input type="text" placeholder="Codigo del producto"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label position="stacked">Nombre Producto</ion-label>
-          <ion-input type="text" placeholder="Nombre del producto"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label position="stacked">Centro de trabajo</ion-label>
-          <ion-input type="number" placeholder="Centro de trabajo"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label position="stacked">Departamento</ion-label>
-          <ion-input type="number" placeholder="Departamento"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label position="stacked">Stock Producto</ion-label>
-          <ion-input type="number" placeholder="Stock del producto"></ion-input>
-        </ion-item>
+        <ion-segment>
+          <!------------------------------------------------------------------------------------------------
+          AGREGAR A CENTRO DE TRABAJO
+          -------------------------------------------------------------------------------------------------->
+          <ion-segment-button value="first" content-id="first">
+            <ion-label>Agregar a Centro de Trabajo</ion-label>
+          </ion-segment-button>
+          <!------------------------------------------------------------------------------------------------
+          ACTUALIZAR DATOS
+          -------------------------------------------------------------------------------------------------->
+          <ion-segment-button value="second" content-id="second">
+            <ion-label>Actualizar datos</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <ion-segment-view>
+          <!------------------------------------------------------------------------------------------------
+          FORMULARIO PARA AGREGAR UN NUEVO PRODUCTO AL DETALLEPRODUCTO
+          -------------------------------------------------------------------------------------------------->
+          <ion-segment-content id="first">
+            <ion-item lines="none">
+              <ion-label position="stacked">Codigo Producto</ion-label>
+              <ion-input type="text" placeholder="Codigo del producto"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Nombre Producto</ion-label>
+              <ion-input type="text" placeholder="Nombre del producto"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Centro de trabajo</ion-label>
+              <ion-select label="" placeholder="Centro de trabajo">
+                <ion-select-option [value]="centroTrabajo.idCentro" *ngFor="let centroTrabajo of centrosTrabajo">
+                  {{centroTrabajo.nombreCentro}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Departamento</ion-label>
+              <ion-select label="" placeholder="Departamento">
+                <ion-select-option [value]="departamento.idDepartamento"
+                  *ngFor="let departamento of departamentos">{{departamento.nombreDepartamento}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Stock Producto</ion-label>
+              <ion-input type="number" placeholder="Stock del producto"></ion-input>
+            </ion-item>
 
 
-        <!------------------------------------------------------------------------------------------------
+            <!------------------------------------------------------------------------------------------------
         BOTON PARA AGREGAR UN NUEVO PRODUCTO
         -------------------------------------------------------------------------------------------------->
-        <ion-button expand="block" class="ion-margin">
-          <ion-icon name="add" slot="start"></ion-icon>
-          Agregar Producto
-        </ion-button>
+            <ion-button expand="block" class="ion-margin">
+              <ion-icon name="add" slot="start"></ion-icon>
+              Agregar Producto
+            </ion-button>
+          </ion-segment-content>
+          <!------------------------------------------------------------------------------------------------
+          FORMULARIO PARA ACTUALIZAR EL PRODUCTO
+          -------------------------------------------------------------------------------------------------->
+          <ion-segment-content id="second">
+            <ion-item lines="none">
+              <ion-label position="stacked">Codigo Producto</ion-label>
+              <ion-input type="text" placeholder="Codigo del producto"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Nombre Producto</ion-label>
+              <ion-input type="text" placeholder="Nombre del producto"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Categoria Producto</ion-label>
+              <ion-select label="" placeholder="Categoria Producto">
+                <ion-select-option [value]="categoria.idCategoria" *ngFor="let categoria of selectedCategory">
+                  {{categoria.nombreCategoria}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Stock Producto</ion-label>
+              <ion-input type="number" placeholder="Stock del producto"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Precio Producto</ion-label>
+              <ion-input type="number" placeholder="Precio del producto"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="stacked">Imagen Producto</ion-label>
+              <ion-input type="file" placeholder="Imagen del producto"></ion-input>
+            </ion-item>
+
+            <!------------------------------------------------------------------------------------------------
+            BOTON PARA ACTUALIZAR EL PRODUCTO
+            -------------------------------------------------------------------------------------------------->
+            <ion-button expand="block" class="ion-margin">
+              <ion-icon name="add" slot="start"></ion-icon>
+              Actualizar Producto
+            </ion-button>
+          </ion-segment-content>
+        </ion-segment-view>
       </ion-content>
     </ng-template>
   </ion-modal>

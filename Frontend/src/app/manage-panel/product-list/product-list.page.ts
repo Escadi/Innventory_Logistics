@@ -13,6 +13,19 @@ export class ProductListPage implements OnInit {
   //VARIABLES PARA EL FILTRO DE CATEGORIAS
   selectedCategory: any[] = [];
   productos: any[] = [];
+  centrosTrabajo: any[] = [];
+  departamentos: any[] = [];
+
+  //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO Y EDITAR PRODUCTO
+  idProducto: string = '';
+  nombreProducto: string = '';
+  descripcion: string = '';
+  categoria: number = 0;
+  idEmpleado: number = 0;
+  precio: number = 0;
+  imagen: string = '';
+
+
 
 
   //VARIABLES DEL MODAL
@@ -32,9 +45,10 @@ export class ProductListPage implements OnInit {
 
   /**
    * --------------------------------------------------------------------------------------------------------
-   * FUNCIONES PARA OBTENER LOS PRODUCTOS
+   * FUNCIONES PARA OBTENER LOS GET DE CADA UNO DE LAS FUNCIONALIDADES 
    * --------------------------------------------------------------------------------------------------------
    */
+
   getAllData() {
     this.myservice.getProductos().subscribe({ //OBTENER LOS PRODUCTOS
       next: (res: any) => {
@@ -53,7 +67,77 @@ export class ProductListPage implements OnInit {
         console.log(err);
       }
     });
+
+    this.myservice.getCentrosTrabajo().subscribe({ //OBTENER LOS CENTROS DE TRABAJO
+      next: (res: any) => {
+        this.centrosTrabajo = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+
+    this.myservice.getDepartamentos().subscribe({ //OBTENER LOS DEPARTAMENTOS
+      next: (res: any) => {
+        this.departamentos = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
+  /**
+   * -------------------------------------------------------------------------------------------------------
+   * FUNCIONES CRUD PARA PRODUCTOS , CREAR , MODIFICAR Y ELIMINAR PRODUCTO
+   * -------------------------------------------------------------------------------------------------------
+   */
+  createProduct() {
+    const product = {
+      idProducto: this.idProducto,
+      nombreProducto: this.nombreProducto,
+      descripcion: this.descripcion,
+      idEmpleado: this.idEmpleado,
+      idcategoria: this.categoria,
+      precio: this.precio,
+      imagen: this.imagen
+    }
+
+    this.myservice.postProductos(product).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.getAllData();
+        this.closeModal();
+        this.idProducto = '';
+        this.nombreProducto = '';
+        this.descripcion = '';
+        this.categoria = 0;
+        this.idEmpleado = 0;
+        this.precio = 0;
+        this.imagen = '';
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+  updateProduct() {
+
+  }
+
+  deleteProduct(id: number) {
+    this.myservice.deleteProductos(id).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.getAllData();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+
 
   /**
    * --------------------------------------------------------------------------------------------------------
