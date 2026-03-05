@@ -5,19 +5,19 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
 
         },
-        nombreProveedor: {
+        nombre: {
             type: Sequelize.STRING,
 
         },
-        direccionProveedor: {
+        direccion: {
             type: Sequelize.STRING,
 
         },
-        telefonoProveedor: {
+        telefono: {
             type: Sequelize.STRING,
 
         },
-        emailProveedor: {
+        email: {
             type: Sequelize.STRING,
 
         },

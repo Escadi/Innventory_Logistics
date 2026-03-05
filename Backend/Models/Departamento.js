@@ -29,12 +29,6 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
-        Departamento.hasMany(models.centroTrabajo, {
-            foreignKey: "idDepartamento",
-            as: "centroTrabajo",
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE"
-        });
     };
 
     return Departamento;

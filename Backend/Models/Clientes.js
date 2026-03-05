@@ -4,25 +4,25 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        nombreCliente: {
+        nombre: {
             type: Sequelize.STRING,
         },
-        direccionCliente: {
+        direccion: {
             type: Sequelize.STRING,
         },
-        telefonoCliente: {
+        telefono: {
             type: Sequelize.STRING,
         },
-        correoCliente: {
+        correo: {
             type: Sequelize.STRING,
         },
-        codigoPostalCliente: {
+        codigoPostal: {
             type: Sequelize.STRING,
         },
-        ciudadCliente: {
+        ciudad: {
             type: Sequelize.STRING,
         },
-        paisCliente: {
+        pais: {
             type: Sequelize.STRING,
         }
     });

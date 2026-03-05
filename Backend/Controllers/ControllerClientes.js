@@ -17,13 +17,13 @@ exports.findAll = (req, res) => {
 exports.create = (req, res) => {
     const cliente = {
         cifCliente: req.body.cifCliente,
-        nombreCliente: req.body.nombreCliente,
-        direccionCliente: req.body.direccionCliente,
-        telefonoCliente: req.body.telefonoCliente,
-        correoCliente: req.body.correoCliente,
-        codigoPostalCliente: req.body.codigoPostalCliente,
-        ciudadCliente: req.body.ciudadCliente,
-        paisCliente: req.body.paisCliente,
+        nombre: req.body.nombre,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono,
+        correo: req.body.correo,
+        codigoPostal: req.body.codigoPostal,
+        ciudad: req.body.ciudad,
+        pais: req.body.pais,
     };
     Clientes.create(cliente)
         .then(data => {

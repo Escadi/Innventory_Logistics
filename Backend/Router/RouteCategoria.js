@@ -1,22 +1,21 @@
 module.exports = app => {
-    const clientes = require('../Controllers/ControllerClientes');
+    const categorias = require('../Controllers/ControllerCategoria');
     const router = require('express').Router();
 
     /**------------------------------------------------------------------------------
-     * RUTAS DE CLIENTES
+     * RUTAS DE CATEGORIAS
      * ------------------------------------------------------------------------------
      */
 
-
-    router.get('/', clientes.findAll);
-    router.post('/', clientes.create);
-    router.put('/:id', clientes.update);
-    router.delete('/:id', clientes.delete);
+    router.get('/', categorias.findAll);
+    router.post('/', categorias.create);
+    router.put('/:id', categorias.update);
+    router.delete('/:id', categorias.delete);
 
     /**------------------------------------------------------------------------------
-     * FIN DE RUTAS DE CLIENTES
+     * FIN DE RUTAS DE CATEGORIAS
      * ------------------------------------------------------------------------------
      */
 
-    app.use('/api/clientes', router);
+    app.use('/api/categoria', router);
 }

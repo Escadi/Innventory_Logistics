@@ -28,31 +28,27 @@ CREATE TABLE IF NOT EXISTS tipoVehiculo (
 );
 
 CREATE TABLE IF NOT EXISTS proveedor (
-    cifProveedor INT PRIMARY KEY,
-    nombreProveedor VARCHAR(100),
-    direccionProveedor VARCHAR(150),
-    telefonoProveedor VARCHAR(20),
-    emailProveedor VARCHAR(100),
+    CifProveedor INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    direccion VARCHAR(150),
+    telefono VARCHAR(20),
+    email VARCHAR(100),
     idCategoria INT,
     FOREIGN KEY (idCategoria) REFERENCES categoria(idCategoria)
 );
 
 CREATE TABLE IF NOT EXISTS clientes (
     cifCliente VARCHAR(20) PRIMARY KEY,
-    nombreCliente VARCHAR(100),
-    direccionCliente VARCHAR(150),
-    telefonoCliente VARCHAR(20),
-    correoCliente VARCHAR(100),
-    codigoPostalCliente VARCHAR(10),
-    ciudadCliente VARCHAR(100),
-    paisCliente VARCHAR(100)
+    nombre VARCHAR(100),
+    direccion VARCHAR(150),
+    telefono VARCHAR(20),
+    correo VARCHAR(100),
+    codigoPostal VARCHAR(10),
+    ciudad VARCHAR(100),
+    pais VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS tipoVehiculo_temp_check (
-    dummy INT
-);
 
-DROP TABLE tipoVehiculo_temp_check;
 
 CREATE TABLE IF NOT EXISTS vehiculo (
     matricula VARCHAR(20) PRIMARY KEY,
@@ -103,7 +99,7 @@ CREATE TABLE IF NOT EXISTS pedido (
     idCentro INT,
     idEmpleado INT,
     fechaPedido DATE,
-    estado VARCHAR(50),
+    estado VARCHAR(50) DEFAULT 'Pendiente',
     FOREIGN KEY (idCliente) REFERENCES clientes(cifCliente),
     FOREIGN KEY (idCentro) REFERENCES centroTrabajo(idCentro),
     FOREIGN KEY (idEmpleado) REFERENCES empleado(idEmpleado)
@@ -166,11 +162,11 @@ INSERT INTO tipoVehiculo (tipoVehiculo) VALUES
 ('Camión'),
 ('Furgoneta');
 
-INSERT INTO proveedor (cifProveedor,nombreProveedor,direccionProveedor,telefonoProveedor,emailProveedor,idCategoria) VALUES
+INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria) VALUES
 (1001,'Proveedor Tech','Calle A','600111111','tech@mail.com',1),
 (1002,'Proveedor Food','Calle B','600222222','food@mail.com',2);
 
-INSERT INTO clientes VALUES
+INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,ciudad,pais) VALUES
 ('CIF001','Cliente Uno','Calle 1','611111111','c1@mail.com','35001','Las Palmas','España'),
 ('CIF002','Cliente Dos','Calle 2','622222222','c2@mail.com','35002','Las Palmas','España');
 

@@ -1,6 +1,38 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const ngrok = require('@ngrok/ngrok');
+const cors = require('cors');
+const path = require('path');
+
+
+app.use((req, res, next) => {
+    // Reflect origin to support credentials if needed
+    const origin = req.headers.origin;
+    if (origin) {
+        res.header("Access-Control-Allow-Origin", origin);
+    } else {
+        res.header("Access-Control-Allow-Origin", "*");
+    }
+
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, ngrok-skip-browser-warning");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    // Explicitly handle preflight
+    if (req.method === 'OPTIONS') {
+        return res.status(200).send();
+    }
+    next();
+});
+
+// DEBUG LOGGING
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 app.use(express.json());
@@ -47,8 +79,8 @@ function eliminarDB() {
 }
 
 
-iniciarDB();
-//actualizarDB();
+//iniciarDB();
+actualizarDB();
 //eliminarDB();
 
 
@@ -59,7 +91,20 @@ iniciarDB();
 require('./Router/RouteIndex')(app);
 
 
-const port = 8080;
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+const PORT = process.env.DB_PORT;
+app.listen(PORT, async () => {
+    console.log(`Server is running on port ${PORT}`);
+
+    // Only use ngrok in development
+    if (process.env.NODE_ENV !== 'production') {
+        try {
+            const listener = await ngrok.connect({ addr: PORT, authtoken: process.env.NGROK_API });
+            console.log('\n========================================');
+            console.log(' NGROK URL:', listener.url());
+            console.log('========================================\n');
+            console.log('Copy this URL to your frontend service!');
+        } catch (error) {
+            console.error('Error connecting to ngrok:', error);
+        }
+    }
 });
