@@ -9,6 +9,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
 
         },
+        descripcion: {
+            type: Sequelize.STRING,
+        },
+        precio: {
+            type: Sequelize.DECIMAL(10, 2),
+        },
         idEmpleado: {
             type: Sequelize.INTEGER,
 

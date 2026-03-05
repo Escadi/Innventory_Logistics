@@ -1,41 +1,40 @@
 const db = require('../Models');
-const Producto = db.producto;
+const TipoVehiculo = db.tipoVehiculo;
 
 exports.findAll = (req, res) => {
-    Producto.findAll()
+    TipoVehiculo.findAll()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving productos."
+                message: err.message || "Some error occurred while retrieving tipoVehiculos."
             });
         });
 }
 
 exports.create = (req, res) => {
-    const producto = {
-        nombreProducto: req.body.nombreProducto,
-        descripcion: req.body.descripcion,
-        precio: req.body.precio,
-        idEmpleado: req.body.idEmpleado,
-        idProveedor: req.body.idProveedor,
-        idCategoria: req.body.idCategoria
+    const tipoVehiculo = {
+        tipoVehiculo: req.body.tipoVehiculo
     };
 
-    Producto.create(producto)
+    TipoVehiculo.create(tipoVehiculo)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the producto."
+                message: err.message || "Some error occurred while creating the tipoVehiculo."
             });
         });
 }
 
 exports.update = (req, res) => {
-    Producto.update(req.body, { where: { idProducto: req.params.id } })
+    const tipoVehiculo = {
+        tipoVehiculo: req.body.tipoVehiculo
+    };
+
+    TipoVehiculo.update(tipoVehiculo, { where: { idTipo: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -43,19 +42,19 @@ exports.update = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update Customer with idProducto=${req.params.id}. Maybe Customer was not found or req.body is empty!`
+                    message: `Cannot update Customer with idTipo=${req.params.id}. Maybe Customer was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while updating the producto."
+                message: err.message || "Some error occurred while updating the tipoVehiculo."
             });
         });
 }
 
 exports.delete = (req, res) => {
-    Producto.destroy({ where: { idProducto: req.params.id } })
+    TipoVehiculo.destroy({ where: { idTipo: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -63,13 +62,13 @@ exports.delete = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Customer with idProducto=${req.params.id}. Maybe Customer was not found!`
+                    message: `Cannot delete Customer with idTipo=${req.params.id}. Maybe Customer was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while deleting the producto."
+                message: err.message || "Some error occurred while deleting the tipoVehiculo."
             });
         });
 }

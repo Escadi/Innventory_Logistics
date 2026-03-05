@@ -6,5 +6,11 @@ module.exports = app => {
     require('./RouteEmpleados')(app);
     require('./RouteCategoria')(app);
     require('./RouteCentroTrabajo')(app);
+    require('./RouteConductor')(app);
+    require('./RouterVehiculo')(app);
+    require('./RouterTipoVehiculo')(app);
+    require('./RouteProducto')(app);
+    require('./RouterProveedor')(app);
+    require('./RouterPedido')(app);
 
 }

@@ -1,41 +1,49 @@
-const db = require('../Models')
-const Proveedor = db.proveedor;
+const db = require('../Models');
+const Conductor = db.conductor;
+
 
 exports.findAll = (req, res) => {
-    Proveedor.findAll()
+    Conductor.findAll()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving proveedores."
+                message: err.message || "Some error occurred while retrieving conductores."
             });
         });
 }
 
 exports.create = (req, res) => {
-    const proveedor = {
-        CifProveedor: req.body.CifProveedor,
+    const conductor = {
         nombre: req.body.nombre,
-        direccion: req.body.direccion,
+        apellido: req.body.apellido,
         telefono: req.body.telefono,
         email: req.body.email,
-        idCategoria: req.body.idCategoria
+        idVehiculo: req.body.idVehiculo,
     };
 
-    Proveedor.create(proveedor)
+    Conductor.create(conductor)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the proveedor."
+                message: err.message || "Some error occurred while creating the conductor."
             });
         });
 }
 
 exports.update = (req, res) => {
-    Proveedor.update(req.body, { where: { CifProveedor: req.params.id } })
+    const conductor = {
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        telefono: req.body.telefono,
+        email: req.body.email,
+        idVehiculo: req.body.idVehiculo
+    };
+
+    Conductor.update(conductor, { where: { idConductor: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -43,19 +51,19 @@ exports.update = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update Customer with CifProveedor=${req.params.id}. Maybe Customer was not found or req.body is empty!`
+                    message: `Cannot update Customer with idConductor=${req.params.id}. Maybe Customer was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while updating the proveedor."
+                message: err.message || "Some error occurred while updating the conductor."
             });
         });
 }
 
 exports.delete = (req, res) => {
-    Proveedor.destroy({ where: { CifProveedor: req.params.id } })
+    Conductor.destroy({ where: { idConductor: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -63,13 +71,14 @@ exports.delete = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Customer with CifProveedor=${req.params.id}. Maybe Customer was not found!`
+                    message: `Cannot delete Customer with idConductor=${req.params.id}. Maybe Customer was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while deleting the proveedor."
+                message: err.message || "Some error occurred while deleting the conductor."
             });
         });
 }
+

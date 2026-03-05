@@ -4,10 +4,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        placa: {
-            type: Sequelize.STRING,
-
-        },
         marca: {
             type: Sequelize.STRING,
 
@@ -16,11 +12,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
 
         },
+        color: {
+            type: Sequelize.STRING,
+
+        },
         idTipo: {
             type: Sequelize.INTEGER,
 
         }
-
     });
 
     /**

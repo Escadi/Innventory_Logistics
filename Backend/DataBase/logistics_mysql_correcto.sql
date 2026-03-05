@@ -162,6 +162,15 @@ INSERT INTO tipoVehiculo (tipoVehiculo) VALUES
 ('Camión'),
 ('Furgoneta');
 
+INSERT INTO tipoVehiculo (tipoVehiculo) VALUES
+('Coche'),
+('Moto'),
+('Bicicleta'),
+('Patinete'),
+('Barco');
+
+
+
 INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria) VALUES
 (1001,'Proveedor Tech','Calle A','600111111','tech@mail.com',1),
 (1002,'Proveedor Food','Calle B','600222222','food@mail.com',2);
@@ -170,17 +179,17 @@ INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,c
 ('CIF001','Cliente Uno','Calle 1','611111111','c1@mail.com','35001','Las Palmas','España'),
 ('CIF002','Cliente Dos','Calle 2','622222222','c2@mail.com','35002','Las Palmas','España');
 
-INSERT INTO vehiculo (matricula,placa,marca,modelo,idTipo) VALUES
-('1234ABC','PLACA1','Mercedes','Actros',1),
-('5678DEF','PLACA2','Ford','Transit',2);
+INSERT INTO vehiculo (matricula,color,marca,modelo,idTipo) VALUES
+('1234ABC','Blanco','Mercedes','Actros',1),
+('5678DEF','Negro','Ford','Transit',2);
 
 INSERT INTO empleado (nombre,apellido,email,telefono,idCentro,idCargo,idDepartamento) VALUES
 ('Juan','Perez','juan@mail.com','600000001',1,1,1),
 ('Ana','Garcia','ana@mail.com','600000002',2,2,2);
 
-INSERT INTO producto (nombreProducto,idEmpleado,idProveedor,idCategoria) VALUES
-('Portatil',1,1001,1),
-('Camiseta',2,1002,3);
+INSERT INTO producto (nombreProducto,descripcion,precio,idEmpleado,idProveedor,idCategoria) VALUES
+('Portatil','Portatil de alta gama',1000.50,1,1001,1),
+('Camiseta','Camiseta de algodon',20.50,2,1002,3);
 
 INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad) VALUES
 (1,2,50),

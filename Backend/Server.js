@@ -88,6 +88,7 @@ actualizarDB();
  * IMPORTAMOS LAS RUTAS DESDE EL INDEX DE ROUTER
  * ------------------------------------------------------------------------------
  */
+
 require('./Router/RouteIndex')(app);
 
 
@@ -98,7 +99,7 @@ app.listen(PORT, async () => {
     // Only use ngrok in development
     if (process.env.NODE_ENV !== 'production') {
         try {
-            const listener = await ngrok.connect({ addr: PORT, authtoken: process.env.NGROK_API });
+            const listener = await ngrok.connect({ addr: PORT, authtoken: process.env.NGROK_API }); // conectamos NGROK desde .env con | process.env.NGROK_API |
             console.log('\n========================================');
             console.log(' NGROK URL:', listener.url());
             console.log('========================================\n');
