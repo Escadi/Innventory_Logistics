@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Myservice } from '../service/myservice';
 
 @Component({
   selector: 'app-product-page',
@@ -8,73 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductPagePage implements OnInit {
   //VARIABLES PARA EL FILTRO DE CATEGORIAS
-  selectedCategory: any[] = [
-    {
-      id: 1,
-      valor: 'todos',
-      nombre: 'Todos'
-    },
-    {
-      id: 2,
-      valor: 'papeleria',
-      nombre: 'Papeleria'
-    },
-    {
-      id: 3,
-      valor: 'limpieza',
-      nombre: 'Limpieza'
-    },
-    {
-      id: 4,
-      valor: 'alimentacion',
-      nombre: 'Alimentacion'
-    },
-    {
-      id: 5,
-      valor: 'merchandising',
-      nombre: 'Merchandising'
-    },
-    {
-      id: 6,
-      valor: 'tecnologia',
-      nombre: 'Tecnologia'
-    }
-  ];
+  selectedCategory: any[] = [];
 
-  products = [
-    {
-      id: 1,
-      name: 'Producto 1',
-      description: 'Descripción del producto 1',
-      price: 10,
-      stock: 100,
-      category: 'Limpieza',
-      image: 'https://ionicframework.com/docs/img/demos/card-media.png'
-    },
-    {
-      id: 2,
-      name: 'Producto 2',
-      description: 'Descripción del producto 2',
-      price: 20,
-      stock: 200,
-      category: 'Limpieza',
-      image: 'https://ionicframework.com/docs/img/demos/card-media.png'
-    },
-    {
-      id: 3,
-      name: 'Producto 3',
-      description: 'Descripción del producto 3',
-      price: 30,
-      stock: 300,
-      category: 'Papeleria',
-      image: 'https://ionicframework.com/docs/img/demos/card-media.png'
-    }
-  ]
-  // Variable para controlar la visibilidad del modal
+  products: any[] = [];
   isModalOpen: boolean = false;
 
 
-  constructor() { }
+  constructor(
+    private myservice: Myservice
+  ) { }
 
   ngOnInit() {
   }
@@ -92,4 +35,30 @@ export class ProductPagePage implements OnInit {
     this.isModalOpen = false;
   }
 
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCIONES PARA OBTENER LOS GET DE CADA UNO DE LAS FUNCIONALIDADES 
+   * --------------------------------------------------------------------------------------------------------
+   */
+
+  getAllData() {
+    this.myservice.getProductos().subscribe({ //OBTENER LOS PRODUCTOS
+      next: (res: any) => {
+        this.products = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+
+    this.myservice.getCategorias().subscribe({ //OBTENER LAS CATEGORIAS
+      next: (res: any) => {
+        this.selectedCategory = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+
+  }
 }

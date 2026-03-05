@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Myservice } from 'src/app/service/myservice';
 
 @Component({
@@ -16,17 +17,14 @@ export class ProductListPage implements OnInit {
   centrosTrabajo: any[] = [];
   departamentos: any[] = [];
 
-  //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO Y EDITAR PRODUCTO
+  //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO
   idProducto: string = '';
   nombreProducto: string = '';
   descripcion: string = '';
-  categoria: number = 0;
-  idEmpleado: number = 0;
+  idCategoria: number = 0;
+  idEmpleado: number = 1;
   precio: number = 0;
   imagen: string = '';
-
-
-
 
   //VARIABLES DEL MODAL
   isModalOpen: boolean = false;
@@ -35,13 +33,13 @@ export class ProductListPage implements OnInit {
 
   constructor(
     private myservice: Myservice,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
     this.getAllData();
   }
-
 
   /**
    * --------------------------------------------------------------------------------------------------------
@@ -91,13 +89,13 @@ export class ProductListPage implements OnInit {
    * FUNCIONES CRUD PARA PRODUCTOS , CREAR , MODIFICAR Y ELIMINAR PRODUCTO
    * -------------------------------------------------------------------------------------------------------
    */
-  createProduct() {
+  createProduct() { // CREAMOS EL PRODUCTO
     const product = {
       idProducto: this.idProducto,
       nombreProducto: this.nombreProducto,
       descripcion: this.descripcion,
       idEmpleado: this.idEmpleado,
-      idcategoria: this.categoria,
+      idCategoria: this.idCategoria,
       precio: this.precio,
       imagen: this.imagen
     }
@@ -110,7 +108,7 @@ export class ProductListPage implements OnInit {
         this.idProducto = '';
         this.nombreProducto = '';
         this.descripcion = '';
-        this.categoria = 0;
+        this.idCategoria = 0;
         this.idEmpleado = 0;
         this.precio = 0;
         this.imagen = '';
@@ -121,22 +119,70 @@ export class ProductListPage implements OnInit {
     });
   }
 
-  updateProduct() {
+  updateProduct(id: number) { // ACTUALIZAMOS EL PRODUCTO ENVIANDO LOS DATOS AL ION-MODAL
+    const product = {
+      idProducto: this.idProducto,
+      nombreProducto: this.nombreProducto,
+      descripcion: this.descripcion,
+      idEmpleado: this.idEmpleado,
+      idcategoria: this.idCategoria,
+      precio: this.precio,
+      imagen: this.imagen
+    }
 
-  }
-
-  deleteProduct(id: number) {
-    this.myservice.deleteProductos(id).subscribe({
+    this.myservice.putProductos(id, product).subscribe({
       next: (res: any) => {
         console.log(res);
         this.getAllData();
+        this.closeModal();
+        this.idProducto = '';
+        this.nombreProducto = '';
+        this.descripcion = '';
+        this.idCategoria = 0;
+        this.idEmpleado = 0;
+        this.precio = 0;
+        this.imagen = '';
       },
       error: (err: any) => {
         console.log(err);
       }
     });
+
   }
 
+  async deleteProduct(id: number) {
+    // ELIMINAMOS EL PRODUCTO CON EL BOTON QUE SE ENCUENTRA EN EL GRID
+    const alert = await this.alertController.create({
+      header: 'Eliminando Producto',
+      message: '¿Desea eliminar este producto?\n'
+        + 'Codigo: ' + id,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.myservice.deleteProductos(id).subscribe({
+              next: (res: any) => {
+                console.log(res);
+                this.getAllData();
+              },
+              error: (err: any) => {
+                console.log(err);
+              }
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
 
   /**

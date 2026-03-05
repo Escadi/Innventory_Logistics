@@ -104,7 +104,7 @@
         </ion-item>
         <ion-item lines="none">
           <ion-label position="stacked">Categoria Producto</ion-label>
-          <ion-select placeholder="Categoria del producto" [(ngModel)]="categoria">
+          <ion-select placeholder="Categoria del producto" [(ngModel)]="idCategoria">
             <ion-select-option *ngFor="let categoria of selectedCategory" [value]="categoria.idCategoria">
               {{categoria.nombreCategoria}}
             </ion-select-option>
@@ -214,38 +214,34 @@
           <ion-segment-content id="second">
             <ion-item lines="none">
               <ion-label position="stacked">Codigo Producto</ion-label>
-              <ion-input type="text" placeholder="Codigo del producto"></ion-input>
+              <ion-input type="text" placeholder="Codigo del producto" [(ngModel)]="idProducto"></ion-input>
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Nombre Producto</ion-label>
-              <ion-input type="text" placeholder="Nombre del producto"></ion-input>
+              <ion-input type="text" placeholder="Nombre del producto" [(ngModel)]="nombreProducto"></ion-input>
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Categoria Producto</ion-label>
-              <ion-select label="" placeholder="Categoria Producto">
+              <ion-select label="" placeholder="Categoria Producto" [(ngModel)]="idCategoria">
                 <ion-select-option [value]="categoria.idCategoria" *ngFor="let categoria of selectedCategory">
                   {{categoria.nombreCategoria}}
                 </ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item lines="none">
-              <ion-label position="stacked">Stock Producto</ion-label>
-              <ion-input type="number" placeholder="Stock del producto"></ion-input>
-            </ion-item>
-            <ion-item lines="none">
               <ion-label position="stacked">Precio Producto</ion-label>
-              <ion-input type="number" placeholder="Precio del producto"></ion-input>
+              <ion-input type="number" placeholder="Precio del producto" [(ngModel)]="precio"></ion-input>
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Imagen Producto</ion-label>
-              <ion-input type="file" placeholder="Imagen del producto"></ion-input>
+              <ion-input type="file" placeholder="Imagen del producto" [(ngModel)]="imagen"></ion-input>
             </ion-item>
 
             <!------------------------------------------------------------------------------------------------
             BOTON PARA ACTUALIZAR EL PRODUCTO
             -------------------------------------------------------------------------------------------------->
             <ion-button expand="block" class="ion-margin">
-              <ion-icon name="add" slot="start"></ion-icon>
+              <ion-icon name=" add" slot="start"></ion-icon>
               Actualizar Producto
             </ion-button>
           </ion-segment-content>
