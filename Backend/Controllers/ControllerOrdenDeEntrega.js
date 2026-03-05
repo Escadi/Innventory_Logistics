@@ -4,6 +4,7 @@ const OrdenDeEntrega = db.ordenDeEntrega;
 exports.findAll = (req, res) => {
     OrdenDeEntrega.findAll()
         .then(data => {
+            aaa
             res.send(data);
         })
         .catch(err => {

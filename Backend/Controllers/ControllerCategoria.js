@@ -1,8 +1,12 @@
 const db = require('../Models');
 const Categoria = db.categoria;
 
-exports.findAll = (req, res) => {
-    Categoria.findAll()
+exports.findAll = async (req, res) => {
+    Categoria.findAll({
+        attributes: {
+            exclude: ['nombreCategoria']
+        }
+    })
         .then(data => {
             res.send(data);
         })

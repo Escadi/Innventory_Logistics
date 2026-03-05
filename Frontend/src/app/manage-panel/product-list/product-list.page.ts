@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Myservice } from 'src/app/service/myservice';
 
 @Component({
   selector: 'app-product-list',
@@ -10,49 +11,48 @@ import { Router } from '@angular/router';
 export class ProductListPage implements OnInit {
 
   //VARIABLES PARA EL FILTRO DE CATEGORIAS
-  selectedCategory: any[] = [
-    {
-      id: 1,
-      valor: 'todos',
-      nombre: 'Todos'
-    },
-    {
-      id: 2,
-      valor: 'papeleria',
-      nombre: 'Papeleria'
-    },
-    {
-      id: 3,
-      valor: 'limpieza',
-      nombre: 'Limpieza'
-    },
-    {
-      id: 4,
-      valor: 'alimentacion',
-      nombre: 'Alimentacion'
-    },
-    {
-      id: 5,
-      valor: 'merchandising',
-      nombre: 'Merchandising'
-    },
-    {
-      id: 6,
-      valor: 'tecnologia',
-      nombre: 'Tecnologia'
-    }
-  ];
+  selectedCategory: any[] = [];
+  productos: any[] = [];
 
 
   //VARIABLES DEL MODAL
   isModalOpen: boolean = false;
   isEditModal: boolean = false;
+  isAddProductModal: boolean = false;
 
   constructor(
+    private myservice: Myservice,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.getAllData();
+  }
+
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCIONES PARA OBTENER LOS PRODUCTOS
+   * --------------------------------------------------------------------------------------------------------
+   */
+  getAllData() {
+    this.myservice.getProductos().subscribe({ //OBTENER LOS PRODUCTOS
+      next: (res: any) => {
+        this.productos = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+
+    this.myservice.getCategorias().subscribe({ //OBTENER LAS CATEGORIAS
+      next: (res: any) => {
+        this.selectedCategory = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
 
   /**
@@ -66,6 +66,14 @@ export class ProductListPage implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  openAddProductModal() {
+    this.isAddProductModal = true;
+  }
+
+  closeAddProductModal() {
+    this.isAddProductModal = false;
   }
 
   /**
