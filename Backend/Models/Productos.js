@@ -1,9 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
     const Producto = sequelize.define("producto", {
         idProducto: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             primaryKey: true,
-            autoIncrement: true
         },
         nombreProducto: {
             type: Sequelize.STRING,
@@ -26,6 +25,9 @@ module.exports = (sequelize, Sequelize) => {
         idCategoria: {
             type: Sequelize.INTEGER,
 
+        },
+        filename: {
+            type: Sequelize.STRING,
         }
     });
     /**

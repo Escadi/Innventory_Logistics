@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Myservice } from 'src/app/service/myservice';
+import { PhotoService } from 'src/app/service/photo-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-list',
@@ -11,32 +13,44 @@ import { Myservice } from 'src/app/service/myservice';
 })
 export class ProductListPage implements OnInit {
 
-  //VARIABLES PARA EL FILTRO DE CATEGORIAS
+  //API URL
+  apiUrl = environment.apiUrl;
+
+  //VARIABLES PARA EL FILTROS
   selectedCategory: any[] = [];
   productos: any[] = [];
   centrosTrabajo: any[] = [];
   departamentos: any[] = [];
 
   //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO
+  idProducto: string = '';
   nombreProducto: string = '';
   descripcion: string = '';
   idCategoria: number = 0;
   idEmpleado: number = 1;
   precio: number = 0;
-  imagen: string = '';
+  filename: File | null = null;
+  imagePreview: string | null = null;
 
   //VARIABLES PARA EL FORMULARIO DE AGREGAR CATEGORIA
   nombreCategoria: string = '';
+
+  //VARIABLE PARA LA CAPTURA DE LA FOTO
+  capturePhoto: any = null;
 
   //VARIABLES DEL MODAL
   isModalOpen: boolean = false;
   isEditModal: boolean = false;
   isAddProductModal: boolean = false;
 
+  //PRODUCTO SELECCIONADO PARA ACTUALIZAR
+  selectedProduct: any = null;
+
   constructor(
     private myservice: Myservice,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private photoService: PhotoService
   ) { }
 
   ngOnInit() {
@@ -92,26 +106,23 @@ export class ProductListPage implements OnInit {
    * -------------------------------------------------------------------------------------------------------
    */
   createProduct() { // CREAMOS EL PRODUCTO
-    const product = {
-      nombreProducto: this.nombreProducto,
-      descripcion: this.descripcion,
-      idEmpleado: this.idEmpleado,
-      idCategoria: this.idCategoria,
-      precio: this.precio,
-      imagen: this.imagen
+    const formData = new FormData();
+    formData.append('idProducto', this.idProducto);
+    formData.append('nombreProducto', this.nombreProducto);
+    formData.append('descripcion', this.descripcion);
+    formData.append('idEmpleado', this.idEmpleado.toString());
+    formData.append('idCategoria', this.idCategoria.toString());
+    formData.append('precio', this.precio.toString());
+    if (this.filename) {
+      formData.append('file', this.filename);
     }
 
-    this.myservice.postProductos(product).subscribe({
+    this.myservice.postProductos(formData).subscribe({
       next: (res: any) => {
         console.log(res);
         this.getAllData();
         this.closeModal();
-        this.nombreProducto = '';
-        this.descripcion = '';
-        this.idCategoria = 0;
-        this.idEmpleado = 0;
-        this.precio = 0;
-        this.imagen = '';
+        this.resetForm();
       },
       error: (err: any) => {
         console.log(err);
@@ -119,27 +130,25 @@ export class ProductListPage implements OnInit {
     });
   }
 
-  updateProduct(id: number) { // ACTUALIZAMOS EL PRODUCTO ENVIANDO LOS DATOS AL ION-MODAL
-    const product = {
-      nombreProducto: this.nombreProducto,
-      descripcion: this.descripcion,
-      idEmpleado: this.idEmpleado,
-      idcategoria: this.idCategoria,
-      precio: this.precio,
-      imagen: this.imagen
+  updateProduct() { // ACTUALIZAMOS EL PRODUCTO ENVIANDO LOS DATOS AL ION-MODAL
+    if (!this.selectedProduct) return;
+    const id = this.selectedProduct.idProducto;
+    const formData = new FormData();
+    formData.append('nombreProducto', this.nombreProducto);
+    formData.append('descripcion', this.descripcion);
+    formData.append('idEmpleado', this.idEmpleado.toString());
+    formData.append('idCategoria', this.idCategoria.toString());
+    formData.append('precio', this.precio.toString());
+    if (this.filename) {
+      formData.append('file', this.filename);
     }
 
-    this.myservice.putProductos(id, product).subscribe({
+    this.myservice.putProductos(id, formData).subscribe({
       next: (res: any) => {
         console.log(res);
         this.getAllData();
-        this.closeModal();
-        this.nombreProducto = '';
-        this.descripcion = '';
-        this.idCategoria = 0;
-        this.idEmpleado = 0;
-        this.precio = 0;
-        this.imagen = '';
+        this.closeAddProductModal();
+        this.resetForm();
       },
       error: (err: any) => {
         console.log(err);
@@ -252,14 +261,84 @@ export class ProductListPage implements OnInit {
     this.isModalOpen = false;
   }
 
-  openAddProductModal() {
+  openAddProductModal(producto: any) {
+    this.selectedProduct = producto;
+    this.idProducto = producto.idProducto;
+    this.nombreProducto = producto.nombreProducto;
+    this.descripcion = producto.descripcion;
+    this.idCategoria = producto.idCategoria;
+    this.idEmpleado = producto.idEmpleado;
+    this.precio = producto.precio;
     this.isAddProductModal = true;
+    if (producto.filename) {
+      this.imagePreview = this.apiUrl + '/api/images/' + producto.filename;
+    } else {
+      this.imagePreview = null;
+    }
   }
 
   closeAddProductModal() {
     this.isAddProductModal = false;
+    this.selectedProduct = null;
+    this.resetForm();
   }
 
+  resetForm() {
+    this.idProducto = '';
+    this.nombreProducto = '';
+    this.descripcion = '';
+    this.idCategoria = 0;
+    this.idEmpleado = 1;
+    this.precio = 0;
+    this.filename = null;
+    this.imagePreview = null;
+  }
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCION PARA SUBIR  EL ARCHIVO DE IMAGEN
+   * --------------------------------------------------------------------------------------------------------
+   */
+  async uploadImage() {
+    const data = await this.photoService.pickImage();
+    this.capturePhoto = data.webPath;
+    if (data.webPath) {
+      this.imagePreview = data.webPath;
+      const response = await fetch(data.webPath);
+      const blob = await response.blob();
+      this.filename = new File([blob], 'image.jpg', { type: blob.type || 'image/jpeg' });
+    }
+  }
+
+  /**
+ * -------------------------------------------------------------------------------------------------------
+ * FUNCION PARA REALIZAR LA FOTO CON LA CAMARA DEL MOVIL O POR WEB CAM
+ * -------------------------------------------------------------------------------------------------------
+ */
+  discardImage() {
+    this.capturePhoto = "";
+  }
+
+  /**
+* -------------------------------------------------------------------------------------------------------
+* REALIZAMOS UNA FUNCION PARA COMPROBAR LA IMAGEN Y LANZARLA POR HTML
+* -------------------------------------------------------------------------------------------------------
+*/
+  getImage(filename: string) {
+    if (!filename) {
+      return "https://ionicframework.com/docs/img/demos/avatar.svg";
+    }
+
+    return this.apiUrl + "api/images/" + filename;
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.filename = file;
+      this.imagePreview = URL.createObjectURL(file);
+    }
+  }
   /**
    * --------------------------------------------------------------------------------------------------------
    * FUNCIONES PARA LA NAVEGACION

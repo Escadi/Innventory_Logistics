@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const ngrok = require('@ngrok/ngrok');
-//const cors = require('cors');
 const path = require('path');
 
 
@@ -32,11 +31,29 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// Custom route to bypass ngrok warning for images
+app.get('/api/images/:filename', (req, res) => {
+    const filename = req.params.filename;
+    console.log(filename);
+    const imagePath = path.join(__dirname, 'public/images', filename);
+
+    // Check if file exists
+    if (require('fs').existsSync(imagePath)) {
+        res.setHeader('ngrok-skip-browser-warning', 'true');
+        res.sendFile(imagePath);
+    } else {
+        res.status(404).send('Image not found');
+    }
+});
+
+//DIRECTORIO PUBLICO DE MULTER PARA GUARDAR Y VER LAS IMAGENES
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 const db = require('./Models');
 
@@ -99,7 +116,10 @@ app.listen(PORT, async () => {
     // Only use ngrok in development
     if (process.env.NODE_ENV !== 'production') {
         try {
-            const listener = await ngrok.connect({ addr: PORT, authtoken: process.env.NGROK_API }); // conectamos NGROK desde .env con | process.env.NGROK_API |
+            const listener = await ngrok.connect({
+                addr: PORT,
+                authtoken: process.env.NGROK_API
+            }); // conectamos NGROK desde .env con | process.env.NGROK_API |
             console.log('\n========================================');
             console.log(' NGROK URL:', listener.url());
             console.log('========================================\n');

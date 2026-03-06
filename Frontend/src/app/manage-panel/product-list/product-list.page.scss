@@ -7,6 +7,10 @@ $color-letters: #f38508;
 $color-lettersOff: #000000;
 $borderRadius: 20px;
 
+ion-header {
+    box-shadow: none;
+}
+
 /*------------------------------------------------------------------------------------------------
 ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC....)
 ------------------------------------------------------------------------------------------------*/

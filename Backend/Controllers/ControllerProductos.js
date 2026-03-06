@@ -18,12 +18,14 @@ exports.findAll = (req, res) => {
 
 exports.create = (req, res) => {
     const producto = {
+        idProducto: req.body.idProducto,
         nombreProducto: req.body.nombreProducto,
         descripcion: req.body.descripcion,
         precio: req.body.precio,
         idEmpleado: req.body.idEmpleado,
         idProveedor: req.body.idProveedor,
-        idCategoria: req.body.idCategoria
+        idCategoria: req.body.idCategoria,
+        filename: req.file ? req.file.filename : ""
     };
 
     Producto.create(producto)
@@ -38,15 +40,27 @@ exports.create = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    Producto.update(req.body, { where: { idProducto: req.params.id } })
+    const updateProducto = {
+        nombreProducto: req.body.nombreProducto,
+        descripcion: req.body.descripcion,
+        precio: req.body.precio,
+        idEmpleado: req.body.idEmpleado,
+        idCategoria: req.body.idCategoria
+    };
+
+    if (req.file) {
+        updateProducto.filename = req.file.filename;
+    }
+
+    Producto.update(updateProducto, { where: { idProducto: req.params.id } })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Customer was updated successfully."
+                    message: "Producto was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Customer with idProducto=${req.params.id}. Maybe Customer was not found or req.body is empty!`
+                    message: `Cannot update Producto with idProducto=${req.params.id}. Maybe Producto was not found or req.body is empty!`
                 });
             }
         })

@@ -167,4 +167,40 @@ export class Myservice {
     return this.http.delete(this.endpointsDepartamentos + '/' + id, { headers });
   }
 
+  /**
+ * ------------------------------------------------------------------------------------------------------------
+ * FUNCIONES DE LOS PROVEEDORES | GET , PUT , POST , DELETE |
+ * ------------------------------------------------------------------------------------------------------------
+ */
+
+  getProveedores() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsProveedores, { headers });
+  }
+
+  postProveedores(proveedor: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsProveedores, proveedor, { headers });
+  }
+
+  putProveedores(id: string, proveedor: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsProveedores + '/' + id, proveedor, { headers });
+  }
+
+  deleteProveedores(id: string) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsProveedores + '/' + id, { headers });
+  }
 }
+
+
+

@@ -1,3 +1,8 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Gestión de los Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
 
   <!------------------------------------------------------------------------------------------------
@@ -43,8 +48,9 @@
             <ion-icon name="trash"></ion-icon>
           </ion-button>
         </div>
-        <ion-card button (click)="openAddProductModal()">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <ion-card button (click)="openAddProductModal(producto)">
+          <img [src]="getImage(producto.filename)"
+            style="max-width: 200px; max-height: 200px; border-radius: 8px; margin: 0 auto; display: block; margin-top: 10px;" />
           <ion-card-header>
             <ion-label class="product-info">
               <h2>Producto: {{producto.idProducto}}</h2>
@@ -109,7 +115,7 @@
           <ion-segment-content id="addProducto">
             <ion-item lines="none">
               <ion-label position="stacked">Codigo Producto</ion-label>
-              <ion-input type="text" placeholder="Codigo del producto"></ion-input>
+              <ion-input type="text" placeholder="Codigo del producto" [(ngModel)]="idProducto"></ion-input>
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Nombre Producto</ion-label>
@@ -133,7 +139,7 @@
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Imagen Producto</ion-label>
-              <ion-input type="file" placeholder="Imagen del producto" [(ngModel)]="imagen"></ion-input>
+              <input type="file" accept="image/*" (change)="onFileSelected($event)" />
             </ion-item>
             <!------------------------------------------------------------------------------------------------
               BOTON PARA AGREGAR UN NUEVO PRODUCTO
@@ -254,7 +260,8 @@
           <ion-segment-content id="second">
             <ion-item lines="none">
               <ion-label position="stacked">Codigo Producto</ion-label>
-              <ion-input type="text" placeholder="Codigo del producto"></ion-input>
+              <ion-input type="text" placeholder="Codigo del producto" [value]="idProducto"
+                [readonly]="true"></ion-input>
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Nombre Producto</ion-label>
@@ -269,19 +276,23 @@
               </ion-select>
             </ion-item>
             <ion-item lines="none">
+              <ion-label position="stacked">Empleado</ion-label>
+              <ion-input type="number" placeholder="Empleado" [(ngModel)]="idEmpleado"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
               <ion-label position="stacked">Precio Producto</ion-label>
               <ion-input type="number" placeholder="Precio del producto" [(ngModel)]="precio"></ion-input>
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Imagen Producto</ion-label>
-              <ion-input type="file" placeholder="Imagen del producto" [(ngModel)]="imagen"></ion-input>
+              <input type="file" accept="image/*" (change)="onFileSelected($event)" />
             </ion-item>
 
             <!------------------------------------------------------------------------------------------------
             BOTON PARA ACTUALIZAR EL PRODUCTO
             -------------------------------------------------------------------------------------------------->
-            <ion-button expand="block" class="ion-margin">
-              <ion-icon name=" add" slot="start"></ion-icon>
+            <ion-button expand="block" class="ion-margin" (click)="updateProduct()">
+              <ion-icon name="create" slot="start"></ion-icon>
               Actualizar Producto
             </ion-button>
           </ion-segment-content>

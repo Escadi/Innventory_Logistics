@@ -48,13 +48,11 @@ CREATE TABLE IF NOT EXISTS clientes (
     pais VARCHAR(100)
 );
 
-
-
 CREATE TABLE IF NOT EXISTS vehiculo (
     matricula VARCHAR(20) PRIMARY KEY,
-    placa VARCHAR(20),
     marca VARCHAR(50),
     modelo VARCHAR(50),
+    color VARCHAR(100),
     idTipo INT,
     FOREIGN KEY (idTipo) REFERENCES tipoVehiculo(idTipo)
 );
@@ -74,19 +72,21 @@ CREATE TABLE IF NOT EXISTS empleado (
 );
 
 CREATE TABLE IF NOT EXISTS producto (
-    idProducto INT AUTO_INCREMENT PRIMARY KEY,
+    idProducto VARCHAR(255) PRIMARY KEY,
     nombreProducto VARCHAR(100),
+    descripcion VARCHAR(255),
+    precio DECIMAL(10,2),
     idEmpleado INT,
     idProveedor INT,
     idCategoria INT,
     FOREIGN KEY (idEmpleado) REFERENCES empleado(idEmpleado),
-    FOREIGN KEY (idProveedor) REFERENCES proveedor(cifProveedor),
+    FOREIGN KEY (idProveedor) REFERENCES proveedor(CifProveedor),
     FOREIGN KEY (idCategoria) REFERENCES categoria(idCategoria)
 );
 
 CREATE TABLE IF NOT EXISTS detallesProducto (
     idDetalle INT AUTO_INCREMENT PRIMARY KEY,
-    idProducto INT,
+    idProducto VARCHAR(255),
     idDepartamento INT,
     cantidad INT,
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
@@ -160,16 +160,12 @@ INSERT INTO cargo (nombreCargo) VALUES
 
 INSERT INTO tipoVehiculo (tipoVehiculo) VALUES
 ('Camión'),
-('Furgoneta');
-
-INSERT INTO tipoVehiculo (tipoVehiculo) VALUES
+('Furgoneta'),
 ('Coche'),
 ('Moto'),
 ('Bicicleta'),
 ('Patinete'),
 ('Barco');
-
-
 
 INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria) VALUES
 (1001,'Proveedor Tech','Calle A','600111111','tech@mail.com',1),
@@ -179,21 +175,21 @@ INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,c
 ('CIF001','Cliente Uno','Calle 1','611111111','c1@mail.com','35001','Las Palmas','España'),
 ('CIF002','Cliente Dos','Calle 2','622222222','c2@mail.com','35002','Las Palmas','España');
 
-INSERT INTO vehiculo (matricula,color,marca,modelo,idTipo) VALUES
-('1234ABC','Blanco','Mercedes','Actros',1),
-('5678DEF','Negro','Ford','Transit',2);
+INSERT INTO vehiculo (matricula,marca,modelo,color,idTipo) VALUES
+('1234ABC','Mercedes','Actros','Blanco',1),
+('5678DEF','Ford','Transit','Negro',2);
 
 INSERT INTO empleado (nombre,apellido,email,telefono,idCentro,idCargo,idDepartamento) VALUES
 ('Juan','Perez','juan@mail.com','600000001',1,1,1),
 ('Ana','Garcia','ana@mail.com','600000002',2,2,2);
 
-INSERT INTO producto (nombreProducto,descripcion,precio,idEmpleado,idProveedor,idCategoria) VALUES
-('Portatil','Portatil de alta gama',1000.50,1,1001,1),
-('Camiseta','Camiseta de algodon',20.50,2,1002,3);
+INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,idProveedor,idCategoria) VALUES
+('1','Portatil','Portatil de alta gama',1000.50,1,1001,1),
+('2','Camiseta','Camiseta de algodon',20.50,2,1002,3);
 
 INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad) VALUES
-(1,2,50),
-(2,1,30);
+('1',2,50),
+('2',1,30);
 
 INSERT INTO pedido (idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
 ('CIF001',1,1,'2024-01-01','Pendiente'),

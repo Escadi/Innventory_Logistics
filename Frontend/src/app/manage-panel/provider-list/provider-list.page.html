@@ -1,12 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Gestión de los Proveedores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <div class="search-container">
     <ion-button (click)="goToAdminHome()">
       <ion-icon name="arrow-back"></ion-icon>
     </ion-button>
     <ion-searchbar placeholder="CIF, DNI, Nombre, Telefono ...."></ion-searchbar>
-    <ion-button>
+    <ion-button (click)="openModal()">
       <ion-icon name="add"></ion-icon>
       Nuevo Proveedor
     </ion-button>
   </div>
+
+  <!------------------------------------------------------------------------------------------------------------
+    LISTADO DE PROVEEDORES DENTRO DE UN GRID 
+  ------------------------------------------------------------------------------------------------------------->
+  <ion-grid class="listContainer">
+    <ion-row>
+      <ion-col size="10" size-md="4" size-lg="4" *ngFor="let proveedor of proveedores">
+        <div class="deleteButton">
+          <ion-button (click)="deleteProveedor(proveedor.CifProveedor)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+        <ion-item button (click)="editProveedor(proveedor)">
+          <ion-label class="product-info">
+            <h2>CIF: {{proveedor.CifProveedor }}</h2>
+            <p><span>Nombre:</span> {{ proveedor.nombre }}</p>
+            <p><span>Email:</span> {{ proveedor.email }}</p>
+            <p><span>Telefono:</span> {{ proveedor.telefono }}</p>
+            <p><span>Direccion:</span> {{ proveedor.direccion }}</p>
+            <p><span>Categoria:</span> {{ proveedor.idCategoria }}</p>
+          </ion-label>
+          <ion-button>
+            <ion-icon name="mail-outline"></ion-icon>
+          </ion-button>
+          <ion-button>
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <!------------------------------------------------------------------------------------------------
+  MODAL PARA AGREGAR UN NUEVO PRODUCTO
+  -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{updateProveedor ? 'Actualizar Proveedor' : 'Nuevo Proveedor'}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <!------------------------------------------------------------------------------------------------
+      FORMULARIO PARA AGREGAR UN NUEVO PRODUCTO DIVIDIDO EN SEGMENTOS
+      -------------------------------------------------------------------------------------------------->
+      <ion-content>
+        <ion-item lines="none">
+          <ion-label position="stacked">Cif del Proveedor</ion-label>
+          <ion-input type="text" placeholder="Cif del proveedor" [(ngModel)]="Proveedor.CifProveedor"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input type="text" placeholder="Nombre del proveedor" [(ngModel)]="Proveedor.nombre"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Dirección</ion-label>
+          <ion-textarea type="text" placeholder="Detalles del la dirección"
+            [(ngModel)]="Proveedor.direccion"></ion-textarea>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Correo Electronico</ion-label>
+          <ion-input type="text" placeholder="Correo Electronico" [(ngModel)]="Proveedor.email"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Telefono</ion-label>
+          <ion-input type="text" placeholder="Precio del producto" [(ngModel)]="Proveedor.telefono"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Categoria del proveedor</ion-label>
+          <ion-select placeholder="Categoria del producto" [(ngModel)]="Proveedor.idCategoria">
+            <ion-select-option *ngFor="let categoria of selectedCategory" [value]="categoria.idCategoria">
+              {{categoria.nombreCategoria}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!------------------------------------------------------------------------------------------------
+              BOTON PARA AGREGAR UN NUEVO PRODUCTO
+            -------------------------------------------------------------------------------------------------->
+        <ion-button expand="block" class="ion-margin" (click)="createProveedor()">
+          <ion-icon name="add" slot="start"></ion-icon>
+          {{updateProveedor ? 'Actualizar Proveedor' : 'Nuevo Proveedor'}}
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
