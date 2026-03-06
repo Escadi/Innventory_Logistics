@@ -1,6 +1,16 @@
-// LEYEND FOR THE COLOR VARIABLES
+//variables
 $primaryColor: #f58422;
 $secondaryColor: #000000;
+$backgroundColor: #f5f5f5;
+$color-hover: #f58422;
+$color-letters: #f38508;
+$color-lettersOff: #000000;
+$borderRadius: 20px;
+
+
+ion-header {
+    box-shadow: none;
+}
 
 /*
 ------------------------------------------------------------------------------------------
@@ -17,8 +27,6 @@ $secondaryColor: #000000;
     --padding-bottom: 15px;
     --padding-start: 10px;
     --padding-end: 10px;
-
-
 }
 
 /*
@@ -60,6 +68,122 @@ $secondaryColor: #000000;
     ion-icon {
         width: 30px;
         height: 30px;
+    }
+}
+
+
+.listCliente {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 91.5%;
+    margin-left: 4.25%;
+
+    ion-item {
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 2px 0 $color-hover;
+
+    }
+
+    ion-button {
+        --background: #f58422;
+        --background-hover: #f58422;
+        --background-activated: #f58422;
+        --background-focused: #f58422;
+        --color: #ffffff;
+        --color-hover: #ffffff;
+        --color-activated: #ffffff;
+        --color-focused: #ffffff;
+        --border-radius: 50px;
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+    }
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    h2 {
+        font-size: 15px;
+        font-weight: bold;
+        color: $color-letters;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    p {
+        font-size: 15px;
+
+        span {
+            font-weight: bold;
+            color: $color-letters;
+        }
+    }
+}
+
+.product-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    p {
+        color: $color-letters;
+        font-size: 15px;
+    }
+
+    h3 {
+        color: $color-lettersOff;
+        font-size: 15px;
+    }
+}
+
+.product-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    p {
+        color: $color-letters;
+        font-size: 15px;
+    }
+
+    h3 {
+        color: $color-lettersOff;
+        font-size: 15px;
+    }
+}
+
+.deleteButton {
+    position: absolute;
+    top: 0px;
+    bottom: unset;
+    right: 0px;
+    z-index: 2;
+
+    ion-button {
+        --background: #ce0404;
+        --color: #ffffff;
+        --border-radius: 50px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+
+        &:hover {
+            --background: #ee6767;
+
+            ion-icon {
+                color: #000000;
+            }
+        }
     }
 }
 

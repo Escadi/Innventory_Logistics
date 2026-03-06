@@ -23,8 +23,12 @@ export class ProviderListPage implements OnInit {
     email: '',
     idCategoria: 0
   };
+
+
   //VARIABLE PARA EDITAR 
   updateProveedor: number | null = null;
+
+
   //VARIABLES DE LOS MODAL
   isModalOpen: boolean = false;
 

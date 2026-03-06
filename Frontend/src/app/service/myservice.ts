@@ -16,7 +16,7 @@ export class Myservice {
   endpointsPedidos = `${this.baseUrl}/api/pedido`;
   endpointsProveedores = `${this.baseUrl}/api/proveedor`;
   endpointsCategorias = `${this.baseUrl}/api/categoria`;
-  endpointsClientes = `${this.baseUrl}/api/cliente`;
+  endpointsClientes = `${this.baseUrl}/api/clientes`;
   endpointsDetallePedido = `${this.baseUrl}/api/detalle_pedido`;
   endpointsDetalleProducto = `${this.baseUrl}/api/detalle_producto`;
   endpointsDetalleProveedor = `${this.baseUrl}/api/detalle_proveedor`;
@@ -200,6 +200,74 @@ export class Myservice {
     };
     return this.http.delete(this.endpointsProveedores + '/' + id, { headers });
   }
+
+  /**
+* ------------------------------------------------------------------------------------------------------------
+* FUNCIONES DE LOS CLIENTES | GET , PUT , POST , DELETE |
+* ------------------------------------------------------------------------------------------------------------
+*/
+
+  getClientes() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsClientes, { headers });
+  }
+
+  postClientes(cliente: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsClientes, cliente, { headers });
+  }
+
+  putClientes(id: string, cliente: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsClientes + '/' + id, cliente, { headers });
+  }
+
+  deleteClientes(id: string) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsClientes + '/' + id, { headers });
+  }
+  /**
+* ------------------------------------------------------------------------------------------------------------
+* FUNCIONES DE LOS DETALLES DE LOS PRODUCTOS | GET , PUT , POST , DELETE |
+* ------------------------------------------------------------------------------------------------------------
+*/
+
+  getDetalleProductos() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsDetalleProducto, { headers });
+  }
+
+  postDetalleProductos(detalleProducto: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsDetalleProducto, detalleProducto, { headers });
+  }
+
+  putDetalleProductos(id: string, detalleProducto: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsDetalleProducto + '/' + id, detalleProducto, { headers });
+  }
+
+  deleteDetalleProductos(id: string) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsDetalleProducto + '/' + id, { headers });
+  }
+
 }
 
 

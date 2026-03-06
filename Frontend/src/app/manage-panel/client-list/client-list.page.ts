@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Myservice } from 'src/app/service/myservice';
 
 @Component({
   selector: 'app-client-list',
@@ -9,15 +10,19 @@ import { Router } from '@angular/router';
 })
 export class ClientListPage implements OnInit {
 
+  clientes: any[] = [];
+
   //VARIABLES PARA EL MODAL
   isOpenModal: boolean = false;
   isEditModal: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private myService: Myservice
   ) { }
 
   ngOnInit() {
+    this.getAll();
   }
 
   /**
@@ -31,6 +36,23 @@ export class ClientListPage implements OnInit {
 
   closeModal() {
     this.isOpenModal = false;
+  }
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCIONES PARA VER TODOS LOS CLIENTES
+   * --------------------------------------------------------------------------------------------------------
+   */
+  getAll() {
+
+    this.myService.getClientes().subscribe({
+      next: (res: any) => {
+        this.clientes = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
 
   /**
