@@ -302,8 +302,29 @@ MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
                 transform: scale(0.98);
             }
         }
+
+
+    }
+
+    .labelCategoria {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 7px 2px 8px rgba($primaryColor, 0.12);
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: $primaryColor;
+        margin-bottom: 20px;
+        --padding-top: 20px;
+        --padding-bottom: 20px;
+        --padding-start: 20px;
+        --padding-end: 20px;
     }
 }
+
+
+
 
 /*------------------------------------------------------------------------------------------------
 MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL) DE DETALLE PRODUCTO

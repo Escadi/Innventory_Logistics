@@ -18,13 +18,15 @@ export class ProductListPage implements OnInit {
   departamentos: any[] = [];
 
   //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO
-  idProducto: string = '';
   nombreProducto: string = '';
   descripcion: string = '';
   idCategoria: number = 0;
   idEmpleado: number = 1;
   precio: number = 0;
   imagen: string = '';
+
+  //VARIABLES PARA EL FORMULARIO DE AGREGAR CATEGORIA
+  nombreCategoria: string = '';
 
   //VARIABLES DEL MODAL
   isModalOpen: boolean = false;
@@ -91,7 +93,6 @@ export class ProductListPage implements OnInit {
    */
   createProduct() { // CREAMOS EL PRODUCTO
     const product = {
-      idProducto: this.idProducto,
       nombreProducto: this.nombreProducto,
       descripcion: this.descripcion,
       idEmpleado: this.idEmpleado,
@@ -105,7 +106,6 @@ export class ProductListPage implements OnInit {
         console.log(res);
         this.getAllData();
         this.closeModal();
-        this.idProducto = '';
         this.nombreProducto = '';
         this.descripcion = '';
         this.idCategoria = 0;
@@ -121,7 +121,6 @@ export class ProductListPage implements OnInit {
 
   updateProduct(id: number) { // ACTUALIZAMOS EL PRODUCTO ENVIANDO LOS DATOS AL ION-MODAL
     const product = {
-      idProducto: this.idProducto,
       nombreProducto: this.nombreProducto,
       descripcion: this.descripcion,
       idEmpleado: this.idEmpleado,
@@ -135,7 +134,6 @@ export class ProductListPage implements OnInit {
         console.log(res);
         this.getAllData();
         this.closeModal();
-        this.idProducto = '';
         this.nombreProducto = '';
         this.descripcion = '';
         this.idCategoria = 0;
@@ -169,6 +167,62 @@ export class ProductListPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             this.myservice.deleteProductos(id).subscribe({
+              next: (res: any) => {
+                console.log(res);
+                this.getAllData();
+              },
+              error: (err: any) => {
+                console.log(err);
+              }
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * CRUD PARA CATEGORIAS ELIMINAR Y AGREGAR
+   * --------------------------------------------------------------------------------------------------------
+   */
+  createCategory() {
+    const category = {
+      nombreCategoria: this.nombreCategoria
+    }
+
+    this.myservice.postCategorias(category).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.getAllData();
+        this.closeModal();
+        this.nombreCategoria = '';
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+  async deleteCategory(id: number) {
+    const alert = await this.alertController.create({
+      header: 'Eliminando Categoria',
+      message: '¿Desea eliminar esta categoria?\n'
+        + 'Codigo: ' + id,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.myservice.deleteCategorias(id).subscribe({
               next: (res: any) => {
                 console.log(res);
                 this.getAllData();

@@ -32,13 +32,6 @@ export class ManageHomePage implements OnInit {
       route: '/dashboard-control/product-list'
     },
     {
-      title: 'Gestionar Categorias',
-      description: 'Crear, modificar y eliminar categorias de los productos.',
-      icon: 'pricetag-outline',
-      color: 'success',
-      route: '/dashboard-control/product-category'
-    },
-    {
       title: 'Gestionar Proveedores',
       description: 'Crear, modificar y eliminar proveedores.',
       icon: 'id-card-outline',

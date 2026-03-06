@@ -10,8 +10,7 @@ import { Myservice } from '../service/myservice';
 export class ProductPagePage implements OnInit {
   //VARIABLES PARA EL FILTRO DE CATEGORIAS
   selectedCategory: any[] = [];
-
-  products: any[] = [];
+  productos: any[] = [];
   isModalOpen: boolean = false;
 
 
@@ -44,7 +43,7 @@ export class ProductPagePage implements OnInit {
   getAllData() {
     this.myservice.getProductos().subscribe({ //OBTENER LOS PRODUCTOS
       next: (res: any) => {
-        this.products = res;
+        this.productos = res;
       },
       error: (err: any) => {
         console.log(err);

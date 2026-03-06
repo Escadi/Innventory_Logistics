@@ -45,10 +45,6 @@ const routes: Routes = [
         loadChildren: () => import('../manage-panel/product-list/product-list.module').then(m => m.ProductListPageModule)
       },
       {
-        path: 'product-category',
-        loadChildren: () => import('../manage-panel/product-category/product-category.module').then(m => m.ProductCategoryPageModule)
-      },
-      {
         path: 'provider-list',
         loadChildren: () => import('../manage-panel/provider-list/provider-list.module').then(m => m.ProviderListPageModule)
       },
