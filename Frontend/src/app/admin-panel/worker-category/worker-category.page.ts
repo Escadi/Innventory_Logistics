@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertControl } from 'src/app/service/alert-control';
 import { Myservice } from 'src/app/service/myservice';
 
 @Component({
@@ -55,7 +55,7 @@ export class WorkerCategoryPage implements OnInit {
   constructor(
     private router: Router,
     private workerService: Myservice,
-    private alertController: AlertController
+    private alert: AlertControl
   ) { }
 
   ngOnInit() {
@@ -108,7 +108,7 @@ export class WorkerCategoryPage implements OnInit {
   closeModalCargo() {
     this.isModalCloseCargo = true;
     this.isModalOpenCargo = false;
-    this.resetCentroTrabajo();
+    this.resetCargos();
   }
 
   /**
@@ -154,6 +154,7 @@ export class WorkerCategoryPage implements OnInit {
    * FUNCIONES CRUD PARA LOS  DEPARTAMENTOS | POST , PUT , DELETE |
    * -----------------------------------------------------------------------------------------------
    */
+  //CREAMOS UNA FUNCION PARA EL CAMBIO DENTRO DEL MODEL CON DEPARTAMENTOS PARA PODER EDITAR Y AGREGAR EN EL MISMO MODEL
   editingDepartamento(departamentos: any) {
     this.departamento = {
       idDepartamento: departamentos.idDepartamento,
@@ -162,7 +163,7 @@ export class WorkerCategoryPage implements OnInit {
     this.isEditingDepartamento = departamentos.idDepartamento;
     this.openModalDepartamento();
   }
-
+  //CREAMOS Y EDITAMOS EN LA MISMA FUNCION
   async createDepartamento() {
     if (!this.isEditingDepartamento) {
       this.workerService.postDepartamentos(this.departamento).subscribe({
@@ -176,72 +177,37 @@ export class WorkerCategoryPage implements OnInit {
         }
       });
     } else {
-      const alert = await this.alertController.create({
-        header: 'Editar Departamento',
-        message: '¿Está seguro de que desea editar este departamento?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirmado cancelacion de departamento');
-            }
+      const confirmado = await this.alert.alertControl('Editar Departamento', 'Está seguro de que desea editar este departamento?');
+      if (confirmado) {
+        this.workerService.putDepartamentos(this.departamento.idDepartamento, this.departamento).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.getDepartamentos();
+            this.closeModalDepartamento();
           },
-          {
-            text: 'Editar',
-            handler: () => {
-              this.workerService.putDepartamentos(this.departamento.idDepartamento, this.departamento).subscribe({
-                next: (res: any) => {
-                  console.log(res);
-                  this.getDepartamentos();
-                  this.closeModalDepartamento();
-                },
-                error: (err: any) => {
-                  console.log(err);
-                }
-              });
-            }
+          error: (err: any) => {
+            console.log(err);
           }
-        ]
-      });
-      await alert.present();
+        });
+      }
+
     }
   }
 
   //ELIMINAR DEPARTAMENTO
   async deleteDepartamento(id: number) {
-    const alert = await this.alertController.create({
-      header: 'Eliminar Departamento',
-      message: '¿Quiere eliminar este departamento?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('confirmado cancelacion eliminar departamento');
-          }
+    const confirmado = await this.alert.alertControl('Eliminar Departamento', '¿Quiere eliminar este departamento?');
+    if (confirmado) {
+      this.workerService.deleteDepartamentos(id).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getDepartamentos();
         },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.workerService.deleteDepartamentos(id).subscribe({
-              next: (res: any) => {
-                console.log(res);
-                this.getDepartamentos();
-              },
-              error: (err: any) => {
-                console.log(err);
-              }
-            });
-          }
+        error: (err: any) => {
+          console.log(err);
         }
-
-      ]
-    });
-
-    await alert.present();
+      });
+    }
   }
   /**
 * -----------------------------------------------------------------------------------------------
@@ -282,81 +248,45 @@ export class WorkerCategoryPage implements OnInit {
         }
       });
     } else {
-      const alert = await this.alertController.create({
-        header: 'ACtualizar Centro trabajo',
-        message: '¿Quiere Actualizar este Centro?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('confirmado cancelacion eliminar Centro');
-            }
+      const confirmado = await this.alert.alertControl('Editar Centro', '¿Quieres editar este centro?');
+      if (confirmado) {
+        this.workerService.putCentrosTrabajo(this.centroTrabajo.idCentro, this.centroTrabajo).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.getCentrosTrabajo();
+            this.closeModalCentro();
           },
-          {
-            text: 'Eliminar',
-            handler: () => {
-              this.workerService.putCentrosTrabajo(this.centroTrabajo.idCentro, this.centroTrabajo).subscribe({
-                next: (res: any) => {
-                  console.log(res);
-                  this.getCentrosTrabajo();
-                  this.closeModalCentro();
-                },
-                error: (err: any) => {
-                  console.log(err);
-                }
-              });
-            }
+          error: (err: any) => {
+            console.log(err);
           }
-
-        ]
-      });
-
-      await alert.present();
-
+        });
+      }
     }
   }
 
   //ELIMINAR DEPARTAMENTO
   async deleteCentroTrabajo(id: number) {
-    const alert = await this.alertController.create({
-      header: 'Eliminar Departamento',
-      message: '¿Quiere eliminar este departamento?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('confirmado cancelacion eliminar departamento');
-          }
+    const confirmado = await this.alert.alertControl('Eliminar centro', '¿Quieres eliminar este centro?');
+    if (confirmado) {
+      this.workerService.deleteCentrosTrabajo(id).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getCentrosTrabajo();
         },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.workerService.deleteCentrosTrabajo(id).subscribe({
-              next: (res: any) => {
-                console.log(res);
-                this.getCentrosTrabajo();
-              },
-              error: (err: any) => {
-                console.log(err);
-              }
-            });
-          }
+        error: (err: any) => {
+          console.log(err);
         }
-
-      ]
-    });
-
-    await alert.present();
+      });
+    }
   }
+
+
+
   /**
-* -----------------------------------------------------------------------------------------------
-* RESET DE LOS CENTROS DE TRABAJO
-* -----------------------------------------------------------------------------------------------
-*/
+  * -----------------------------------------------------------------------------------------------
+  * RESET DE LOS CENTROS DE TRABAJO
+  * -----------------------------------------------------------------------------------------------
+  */
   resetCentroTrabajo() {
     this.centroTrabajo = {
       idCentro: 0,
@@ -365,10 +295,10 @@ export class WorkerCategoryPage implements OnInit {
     this.isEditingCentroTrabajo = null;
   }
   /**
-* -----------------------------------------------------------------------------------------------
-* FUNCIONES CRUD DE LOS CARGOS EN LA EMPRESA | POST , PUT Y DELETE |
-* -----------------------------------------------------------------------------------------------
-*/
+  * -----------------------------------------------------------------------------------------------
+  * FUNCIONES CRUD DE LOS CARGOS EN LA EMPRESA | POST , PUT Y DELETE |
+  * -----------------------------------------------------------------------------------------------
+  */
   editingCargo(cargo: any) {
     this.cargoEmpresa = {
       idCargo: cargo.idCargo,
@@ -388,93 +318,59 @@ export class WorkerCategoryPage implements OnInit {
         }
       });
     } else {
-      const alert = await this.alertController.create({
-        header: 'Actualizar Cargo en la empresa',
-        message: '¿Quiere Actualizar este Cargo?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('confirmado cancelacion eliminar cargo');
-            }
+      const confirmado = await this.alert.alertControl('Editar Cargo', '¿Quieres editar este cargo?');
+      if (confirmado) {
+        this.workerService.putCargo(this.cargoEmpresa.idCargo, this.cargoEmpresa).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.getCargoEmpresa();
+            this.closeModalCargo();
           },
-          {
-            text: 'Eliminar',
-            handler: () => {
-              this.workerService.putCargo(this.cargoEmpresa.idCargo, this.cargoEmpresa).subscribe({
-                next: (res: any) => {
-                  console.log(res);
-                  this.getCargoEmpresa();
-                  this.closeModalCargo();
-                },
-                error: (err: any) => {
-                  console.log(err);
-                }
-              });
-            }
+          error: (err: any) => {
+            console.log(err);
           }
-
-        ]
-      });
-      await alert.present();
+        });
+      }
     }
   }
 
   async deleteCargoEmpresa(id: number) {
-    const alert = await this.alertController.create({
-      header: 'Eliminar Cargo en la empresa',
-      message: '¿Quiere eliminar ese cargo?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('confirmado cancelacion eliminar cargo');
-          }
+    const confirmado = await this.alert.alertControl('Eliminar Cargo', '¿Quieres eliminar este cargo?');
+    if (confirmado) {
+      this.workerService.deleteCargo(id).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getCargoEmpresa();
         },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.workerService.deleteCentrosTrabajo(id).subscribe({
-              next: (res: any) => {
-                console.log(res);
-                this.getCargoEmpresa();
-              },
-              error: (err: any) => {
-                console.log(err);
-              }
-            });
-          }
+        error: (err: any) => {
+          console.log(err);
         }
-
-      ]
-    });
-    await alert.present();
+      });
+    }
   }
 
+
+
   /**
-* -----------------------------------------------------------------------------------------------
-* RESET DE LOS CARGOS EN LA EMPRESA
-* -----------------------------------------------------------------------------------------------
-*/
+  * -----------------------------------------------------------------------------------------------
+  * RESET DE LOS CARGOS EN LA EMPRESA
+  * -----------------------------------------------------------------------------------------------
+  */
   resetCargos() {
     this.cargoEmpresa = {
       idCargo: 0,
       nombreCargo: ''
     }
-    this.isEditingCentroTrabajo = null;
+    this.isEditingCargoEmpresa = null;
   }
 
 
 
   /**
-* -----------------------------------------------------------------------------------------------
-* ROUTER PARA LAS VENTANAS 
-* -----------------------------------------------------------------------------------------------
-*/
+  * -----------------------------------------------------------------------------------------------
+  * ROUTER PARA LAS VENTANAS 
+  * -----------------------------------------------------------------------------------------------
+  */
 
 
   goToAdminHome() {
