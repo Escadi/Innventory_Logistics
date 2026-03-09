@@ -24,11 +24,11 @@ export class Myservice {
   endpointsDetalleCliente = `${this.baseUrl}/api/detalle_cliente`;
   endpointsCentrosTrabajo = `${this.baseUrl}/api/centroTrabajo`;
   endpointsDepartamentos = `${this.baseUrl}/api/departamento`;
+  endpointCargo = `${this.baseUrl}/api/cargos`;
 
 
   constructor(
-    private http: HttpClient,
-    private router: Router
+    private http: HttpClient
   ) { }
 
   /**
@@ -268,6 +268,38 @@ export class Myservice {
     return this.http.delete(this.endpointsDetalleProducto + '/' + id, { headers });
   }
 
+  /**
+* ------------------------------------------------------------------------------------------------------------
+* FUNCIONES DE LOS CARGOS | GET , PUT , POST , DELETE |
+* ------------------------------------------------------------------------------------------------------------
+*/
+  getCargos() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointCargo, { headers })
+  }
+
+  postCargo(cargo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointCargo, cargo, { headers })
+  }
+
+  putCargo(id: number, cargo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointCargo + '/' + id, cargo, { headers });
+  }
+
+  deleteCargo(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointCargo + '/' + id, { headers });
+  }
 }
 
 

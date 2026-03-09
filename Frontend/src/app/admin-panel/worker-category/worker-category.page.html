@@ -1,12 +1,149 @@
 <ion-content [fullscreen]="true">
-  <div class="search-container">
-    <ion-button (click)="goToAdminHome()">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
-    <ion-searchbar placeholder="Buscar Categoría ...."></ion-searchbar>
-    <ion-button>
-      <ion-icon name="add"></ion-icon>
-      Nueva Categoría
-    </ion-button>
+  <div class="segment-container">
+    <!-------------------------------------------------------------------------------------------------
+    PARTIMOS EL SEGMENTO DE LA VENTANA EN LA PARTE SUPERIOR EN 3 PARTES 
+    ------------------------------------------------------------------------------------------------->
+    <ion-segment>
+      <ion-segment-button value="first" content-id="first">
+        <ion-label>Cargo en la empresa</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="second" content-id="second">
+        <ion-label>Departamentos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="third" content-id="third">
+        <ion-label>Centro de trabajo</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-segment-view>
+      <!-------------------------------------------------------------------------------------------------
+      SEGMENTO DE CARGO EN LA EMPRESA
+      ------------------------------------------------------------------------------------------------->
+      <ion-segment-content id="first">
+        <div class="search-container">
+          <ion-button (click)="goToAdminHome()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+          <ion-searchbar placeholder="Nombre, ............"></ion-searchbar>
+          <ion-button (click)="openModalCargo()">
+            <ion-icon name="add"></ion-icon>
+            Nuevo
+          </ion-button>
+        </div>
+        <div>
+          <ion-item *ngFor="let cargo of cargosEmpresa">
+            <ion-label>{{cargo.nombreCargo}}</ion-label>
+            <ion-button (click)="editingCargo(cargo)">
+              <ion-icon name="pencil"></ion-icon>
+            </ion-button>
+            <ion-button (click)="deleteDepartamento(departamento.idDepartamento)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+      </ion-segment-content>
+      <!-------------------------------------------------------------------------------------------------
+      SEGMENTO DE DEPARTAMENTOS
+      ------------------------------------------------------------------------------------------------->
+      <ion-segment-content id="second">
+        <div class="search-container">
+          <ion-button (click)="goToAdminHome()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+          <ion-searchbar placeholder="Nombre, ............"></ion-searchbar>
+          <ion-button (click)="openModalDepartamento()">
+            <ion-icon name="add"></ion-icon>
+            Nuevo
+          </ion-button>
+        </div>
+        <div>
+          <ion-item *ngFor="let departamento of departamentos">
+            <ion-label>{{departamento.nombreDepartamento}}</ion-label>
+            <ion-button (click)="editingDepartamento(departamento)">
+              <ion-icon name="pencil"></ion-icon>
+            </ion-button>
+            <ion-button (click)="deleteDepartamento(departamento.idDepartamento)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+      </ion-segment-content>
+      <!-------------------------------------------------------------------------------------------------
+      SEGMENTO DE CENTRO DE TRABAJO
+      ------------------------------------------------------------------------------------------------->
+      <ion-segment-content id="third">
+        <div class="search-container">
+          <ion-button (click)="goToAdminHome()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+          <ion-searchbar placeholder="Nombre, ............"></ion-searchbar>
+          <ion-button (click)="openModalCentro()">
+            <ion-icon name="add"></ion-icon>
+            Nuevo
+          </ion-button>
+        </div>
+        <div class="centroList">
+          <ion-item *ngFor="let centroTrabajo of centrosTrabajo">
+            <ion-label>{{centroTrabajo.nombreCentro}}</ion-label>
+            <ion-button (click)="editingCentroTrabajo(centroTrabajo)">
+              <ion-icon name="pencil"></ion-icon>
+            </ion-button>
+            <ion-button (click)="deleteCentroTrabajo(centroTrabajo.idCentro)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+      </ion-segment-content>
+    </ion-segment-view>
   </div>
+  <!-------------------------------------------------------------------------------------------------
+      ION MODAL DE DEPARTAMENTOS PARA CREAR Y ACTUALIZAR
+      ------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpenDepartamento" (didDismiss)="closeModalDepartamento()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title> {{isEditingDepartamento ? 'Actualizar Departamento' : 'Nuevo Departamento'}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModalDepartamento()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-item>
+          <ion-label>Nombre Departamento</ion-label>
+          <ion-input [(ngModel)]="departamento.nombreDepartamento"></ion-input>
+        </ion-item>
+        <ion-button (click)="createDepartamento()">
+          {{isEditingDepartamento ? 'Actualizar' : 'Guardar'}}</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-------------------------------------------------------------------------------------------------
+      ION MODAL DE CENTROS DE TRABAJO PARA CREAR Y ACTUALIZAR
+      ------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpenCentro" (didDismiss)="closeModalCentro()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title> {{isEditingCentroTrabajo ? 'Actualizar Centro Trabajo' : 'Nuevo Centro Trabajo'}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModalCentro()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-item>
+          <ion-label>Centro de trabajo</ion-label>
+          <ion-input [(ngModel)]="centroTrabajo.nombreCentro"></ion-input>
+        </ion-item>
+        <ion-button (click)="createCentroTrabajo()">
+          {{isEditingCentroTrabajo ? 'Actualizar' : 'Guardar'}}</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

@@ -65,6 +65,8 @@ export class ProviderListPage implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+    this.ResetProveedor();
+
   }
 
   /**

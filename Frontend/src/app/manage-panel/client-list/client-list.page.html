@@ -24,18 +24,20 @@
     <ion-row>
       <ion-col size="10" size-md="4" size-lg="4" *ngFor="let cliente of clientes">
         <div class="deleteButton">
-          <ion-button>
+          <ion-button (click)="deleteCliente(cliente.cifCliente)">
             <ion-icon name="trash"></ion-icon>
           </ion-button>
         </div>
-        <ion-item button>
+        <ion-item button (click)="isUpdateCliente(cliente)">
           <ion-label class="cliente-info">
-            <h2>CIF: {{cliente.CifCliente}}</h2>
+            <h2>CIF: {{cliente.cifCliente}}</h2>
             <p><span>Nombre:</span> {{cliente.nombre}}</p>
-            <p><span>Email:</span> qweqwe</p>
-            <p><span>Telefono:</span> qweqwe</p>
-            <p><span>Direccion:</span> qweqwe</p>
-            <p><span>Categoria:</span> qweqwe</p>
+            <p><span>Email:</span> {{cliente.correo}}</p>
+            <p><span>Telefono:</span> {{cliente.telefono}}</p>
+            <p><span>Direccion:</span> {{cliente.direccion}}</p>
+            <p><span>Codigo Postal:</span> {{cliente.codigoPostal}}</p>
+            <p><span>Ciudad:</span> {{cliente.ciudad}}</p>
+            <p><span>Pais:</span> {{cliente.pais}}</p>
           </ion-label>
           <ion-button>
             <ion-icon name="mail-outline"></ion-icon>
@@ -47,6 +49,71 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <!------------------------------------------------------------------------------------------------
+  MODAL PARA AGREGAR UN NUEVO PRODUCTO
+  -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{isEditCliente ? 'Actualizar Cliente' : 'Nuevo Cliente'}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <!------------------------------------------------------------------------------------------------
+      FORMULARIO PARA AGREGAR UN NUEVO PRODUCTO DIVIDIDO EN SEGMENTOS
+      -------------------------------------------------------------------------------------------------->
+      <ion-content>
+        <ion-item lines="none">
+          <ion-label position="stacked">Cif del Cliente</ion-label>
+          <ion-input type="text" placeholder="Cif del cliente" [(ngModel)]="cliente.cifCliente"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input type="text" placeholder="Nombre del cliente" [(ngModel)]="cliente.nombre"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Dirección</ion-label>
+          <ion-textarea type="text" placeholder="Detalles del la dirección"
+            [(ngModel)]="cliente.direccion"></ion-textarea>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Correo Electronico</ion-label>
+          <ion-input type="text" placeholder="Correo Electronico" [(ngModel)]="cliente.correo"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Telefono</ion-label>
+          <ion-input type="text" placeholder="Precio del producto" [(ngModel)]="cliente.telefono"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Codigo Postal</ion-label>
+          <ion-input type="text" placeholder="Codigo Postal" [(ngModel)]="cliente.codigoPostal"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Ciudad</ion-label>
+          <ion-input type="text" placeholder="Ciudad" [(ngModel)]="cliente.ciudad"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Pais</ion-label>
+          <ion-input type="text" placeholder="Pais" [(ngModel)]="cliente.pais"></ion-input>
+        </ion-item>
+
+        <!------------------------------------------------------------------------------------------------
+              BOTON PARA AGREGAR UN NUEVO PRODUCTO
+            -------------------------------------------------------------------------------------------------->
+        <ion-button expand="block" class="ion-margin" (click)="createCliente()">
+          <ion-icon name="add" slot="start"></ion-icon>
+          {{isEditCliente ? 'Actualizar Cliente' : 'Nuevo Cliente'}}
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 
 </ion-content>

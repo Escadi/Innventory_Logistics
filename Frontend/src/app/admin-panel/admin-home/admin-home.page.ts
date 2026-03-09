@@ -26,7 +26,7 @@ export class AdminHomePage implements OnInit {
     },
     {
       title: 'Estructura y Roles',
-      description: 'Gestionar el organigrama, departamentos y niveles de acceso.',
+      description: 'Gestionar el organigrama, departamentos , niveles de acceso y centros de trabajo .',
       icon: 'share-social-outline',
       color: 'success',
       route: '/dashboard-control/worker-category'
