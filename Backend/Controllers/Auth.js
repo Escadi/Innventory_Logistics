@@ -1,6 +1,5 @@
 const db = require("../Models");
 const Login = db.login;
-const Worker = db.empleado;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -15,7 +14,7 @@ exports.login = async (req, res) => {
     try {
         const user = await Login.findOne({
             where: { idEmpleado: idEmpleado },
-            include: [{ model: Worker, as: 'empleado' }]
+            include: [{ model: db.empleado, as: 'empleado' }]
         });
 
         if (!user) {

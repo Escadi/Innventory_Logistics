@@ -3,13 +3,13 @@ const db = require('../Models');
 const Empleado = db.empleado;
 const Login = db.login;
 
+
 exports.findAll = (req, res) => {
     Empleado.findAll({
         include: [
             { model: db.cargo, as: 'cargo' },
             { model: db.centroTrabajo, as: 'centroTrabajo' },
             { model: db.departamento, as: 'departamento' },
-            { model: db.login, as: 'login' }
         ]
     })
         .then(data => {
@@ -36,17 +36,21 @@ exports.create = async (req, res) => {
     try {
         const data = await Empleado.create(empleado);
 
-        const passwordToHash = req.body.temporaryPassword;
-        const role = req.body.role;
+        const passwordToHash = req.body.temporalPassword;
+        const role = req.body.rol;
         const saltRounds = 10;
 
         const hashedPassword = await bcrypt.hash(passwordToHash, saltRounds);
 
-        await Login.create({
+        const login = {
             idEmpleado: data.idEmpleado,
             contrasena: hashedPassword,
-            role: role
-        });
+            rol: role
+        };
+
+        console.log(login)
+        await Login.create(login);
+
 
         res.send(data);
     } catch (err) {

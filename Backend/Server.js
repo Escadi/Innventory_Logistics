@@ -27,8 +27,6 @@ app.use((req, res, next) => {
 });
 
 
-
-
 // DEBUG LOGGING
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
@@ -66,7 +64,7 @@ app.use(express.urlencoded({ extended: true }));
  */
 app.use((req, res, next) => {
     const tokenHeader = req.headers['authorization'] || req.header('authorization');
-    
+
     if (!tokenHeader) {
         return next();
     }
@@ -75,14 +73,14 @@ app.use((req, res, next) => {
         const base64Credentials = tokenHeader.split(' ')[1];
         const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
         const [idEmpleado, contrasena] = credentials.split(':');
-        
+
         if (!req.body) req.body = {};
         req.body.idEmpleado = idEmpleado;
         req.body.contrasena = contrasena;
 
         return next();
     }
-    
+
     const token = tokenHeader.replace(/Bearer /i, '');
     jwt.verify(token, process.env.JWT_SECRET || "secret-key", (err, decoded) => {
         if (err) {
@@ -153,7 +151,7 @@ const PORT = process.env.DB_PORT;
 app.listen(PORT, async () => {
     console.log(`Server is running on port ${PORT}`);
 
-    // Only use ngrok in development
+    // SOLO USAR NGROK CUANDO ESTA EN DESARROLLO
     if (process.env.NODE_ENV !== 'production') {
         try {
             const listener = await ngrok.connect({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AlertControl } from 'src/app/service/alert-control';
 import { Myservice } from 'src/app/service/myservice';
 import { PhotoService } from 'src/app/service/photo-service';
 import { environment } from 'src/environments/environment';
@@ -49,7 +50,7 @@ export class ProductListPage implements OnInit {
   constructor(
     private myservice: Myservice,
     private router: Router,
-    private alertController: AlertController,
+    private alertController: AlertControl,
     private photoService: PhotoService
   ) { }
 
@@ -130,7 +131,7 @@ export class ProductListPage implements OnInit {
     });
   }
 
-  updateProduct() { // ACTUALIZAMOS EL PRODUCTO ENVIANDO LOS DATOS AL ION-MODAL
+  async updateProduct() { // ACTUALIZAMOS EL PRODUCTO ENVIANDO LOS DATOS AL ION-MODAL
     if (!this.selectedProduct) return;
     const id = this.selectedProduct.idProducto;
     const formData = new FormData();
@@ -142,54 +143,44 @@ export class ProductListPage implements OnInit {
     if (this.filename) {
       formData.append('file', this.filename);
     }
-
-    this.myservice.putProductos(id, formData).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.getAllData();
-        this.closeAddProductModal();
-        this.resetForm();
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    });
+    const confirmado = await this.alertController.alertControl('Editar Producto', '¿Quiereres Editar el producto');
+    if (confirmado) {
+      this.myservice.putProductos(id, formData).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getAllData();
+          this.closeAddProductModal();
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      });
+    }
 
   }
 
   async deleteProduct(id: number) {
     // ELIMINAMOS EL PRODUCTO CON EL BOTON QUE SE ENCUENTRA EN EL GRID
-    const alert = await this.alertController.create({
-      header: 'Eliminando Producto',
-      message: '¿Desea eliminar este producto?\n'
-        + 'Codigo: ' + id,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Cancelado');
-          }
+    const confirmado = await this.alertController.alertControl('Eliminar Producto', '¿Quiereres eliminar el producto');
+    if (confirmado) {
+      this.myservice.deleteProductos(id).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getAllData();
         },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.myservice.deleteProductos(id).subscribe({
-              next: (res: any) => {
-                console.log(res);
-                this.getAllData();
-              },
-              error: (err: any) => {
-                console.log(err);
-              }
-            });
-          }
+        error: (err: any) => {
+          console.log(err);
         }
-      ]
-    });
-    await alert.present();
+      });
+
+
+
+    }
+
   }
+
+
 
   /**
    * --------------------------------------------------------------------------------------------------------
@@ -215,36 +206,18 @@ export class ProductListPage implements OnInit {
   }
 
   async deleteCategory(id: number) {
-    const alert = await this.alertController.create({
-      header: 'Eliminando Categoria',
-      message: '¿Desea eliminar esta categoria?\n'
-        + 'Codigo: ' + id,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Cancelado');
-          }
+    const confirmado = await this.alertController.alertControl('Eliminar Categoria', '¿Quiereres eliminar la categoria');
+    if (confirmado) {
+      this.myservice.deleteCategorias(id).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getAllData();
         },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.myservice.deleteCategorias(id).subscribe({
-              next: (res: any) => {
-                console.log(res);
-                this.getAllData();
-              },
-              error: (err: any) => {
-                console.log(err);
-              }
-            });
-          }
+        error: (err: any) => {
+          console.log(err);
         }
-      ]
-    });
-    await alert.present();
+      });
+    }
   }
 
 
@@ -311,19 +284,19 @@ export class ProductListPage implements OnInit {
   }
 
   /**
- * -------------------------------------------------------------------------------------------------------
- * FUNCION PARA REALIZAR LA FOTO CON LA CAMARA DEL MOVIL O POR WEB CAM
- * -------------------------------------------------------------------------------------------------------
- */
+  * -------------------------------------------------------------------------------------------------------
+  * FUNCION PARA REALIZAR LA FOTO CON LA CAMARA DEL MOVIL O POR WEB CAM
+  * -------------------------------------------------------------------------------------------------------
+  */
   discardImage() {
     this.capturePhoto = "";
   }
 
   /**
-* -------------------------------------------------------------------------------------------------------
-* REALIZAMOS UNA FUNCION PARA COMPROBAR LA IMAGEN Y LANZARLA POR HTML
-* -------------------------------------------------------------------------------------------------------
-*/
+  * -------------------------------------------------------------------------------------------------------
+  * REALIZAMOS UNA FUNCION PARA COMPROBAR LA IMAGEN Y LANZARLA POR HTML
+  * -------------------------------------------------------------------------------------------------------
+  */
   getImage(filename: string) {
     if (!filename) {
       return "https://ionicframework.com/docs/img/demos/avatar.svg";

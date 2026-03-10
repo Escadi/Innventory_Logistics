@@ -12,8 +12,6 @@ exports.getLogin = (req, res) => {
             });
         });
 };
-
-
 exports.create = (req, res) => {
 
     const login = {

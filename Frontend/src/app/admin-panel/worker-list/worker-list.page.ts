@@ -109,7 +109,9 @@ export class WorkerListPage implements OnInit {
 
   /***
    * ----------------------------------------------------------------------------
-   * METODOS PARA CRUD DE TODOS LOS EMPLEADOS | POST , PUT Y DELETE |
+   * METODOS PARA CRUD DE TODOS LOS EMPLEADOS | POST , PUT Y DELETE | 
+   * LA VARIABLE CONFIRMADO ES UN CONTROLLADOR DE ALERTAS QUE SE LLAMA DESDE:
+   * /SERVICE/ALERTCONTROL
    * ----------------------------------------------------------------------------
    */
 
@@ -119,20 +121,21 @@ export class WorkerListPage implements OnInit {
         next: (res: any) => {
           this.getAll();
           this.closeModal();
-          this.resetEmpleado();
+
         },
         error: (err: any) => {
           console.log(err);
         }
       });
     } else {
+
       const confirmado = await this.alertController.alertControl('Editar Empleado', 'Está seguro de que desea editar este empleado?');
       if (confirmado) {
         this.myService.putWorker(this.empleado.idEmpleado, this.empleado).subscribe({
           next: (res: any) => {
             this.getAll();
             this.closeModal();
-            this.resetEmpleado();
+
           },
           error: (err: any) => {
             console.log(err);
