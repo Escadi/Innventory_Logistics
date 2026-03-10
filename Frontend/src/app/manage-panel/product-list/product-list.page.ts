@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource, GalleryPhoto, Photo } from '@capacitor/camera';
 import { AlertController } from '@ionic/angular';
 import { AlertControl } from 'src/app/service/alert-control';
 import { Myservice } from 'src/app/service/myservice';
@@ -24,6 +25,7 @@ export class ProductListPage implements OnInit {
   departamentos: any[] = [];
 
   //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO
+
   idProducto: string = '';
   nombreProducto: string = '';
   descripcion: string = '';
@@ -56,6 +58,74 @@ export class ProductListPage implements OnInit {
 
   ngOnInit() {
     this.getAllData();
+  }
+
+
+  /**
+   * ----------------------------------------------------------------------------------------------------
+   * TODAS LAS FUNCIONES DE MULTER EN LA PARTE BAJA PARA LA SUBIDA DE ARCHIVOS Y VER EN HTML
+   * 
+   * -------  --- --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+   */
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCION PARA SUBIR  EL ARCHIVO DE IMAGEN
+   * --------------------------------------------------------------------------------------------------------
+   */
+  async uploadImage() {
+    const data = await this.photoService.pickImage();
+    this.capturePhoto = data.webPath;
+    if (data.webPath) {
+      this.imagePreview = data.webPath;
+      const response = await fetch(data.webPath);
+      const blob = await response.blob();
+      this.filename = new File([blob], 'image.jpg', { type: blob.type || 'image/jpeg' });
+    }
+  }
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCION PARA SUBIR  EL ARCHIVO DE IMAGEN POR CAMARA
+   * --------------------------------------------------------------------------------------------------------
+   */
+  pickImage() {
+    this.photoService.takePhoto().then(data => {
+      this.capturePhoto = data.webPath ? data.webPath : "";
+    });
+  }
+
+  /**
+  * -------------------------------------------------------------------------------------------------------
+  * FUNCION PARA REALIZAR LA FOTO CON LA CAMARA DEL MOVIL O POR WEB CAM
+  * -------------------------------------------------------------------------------------------------------
+  */
+  discardImage() {
+    this.capturePhoto = null;
+    this.filename = null;
+    this.imagePreview = null;
+  }
+
+  /**
+  * -------------------------------------------------------------------------------------------------------
+  * REALIZAMOS UNA FUNCION PARA COMPROBAR LA IMAGEN Y LANZARLA POR HTML
+  * -------------------------------------------------------------------------------------------------------
+  */
+  getImage(filename: string) {
+    if (!filename || filename === 'null' || filename === 'undefined') {
+      return "https://ionicframework.com/docs/img/demos/avatar.svg";
+    } else {
+      // Retorns the image from the API bypass route
+      return `${this.apiUrl}/api/images/${filename}`;
+    }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.filename = file;
+      this.imagePreview = URL.createObjectURL(file);
+    }
   }
 
   /**
@@ -173,11 +243,7 @@ export class ProductListPage implements OnInit {
           console.log(err);
         }
       });
-
-
-
     }
-
   }
 
 
@@ -244,7 +310,7 @@ export class ProductListPage implements OnInit {
     this.precio = producto.precio;
     this.isAddProductModal = true;
     if (producto.filename) {
-      this.imagePreview = this.apiUrl + '/api/images/' + producto.filename;
+      this.imagePreview = producto.filename;
     } else {
       this.imagePreview = null;
     }
@@ -267,51 +333,6 @@ export class ProductListPage implements OnInit {
     this.imagePreview = null;
   }
 
-  /**
-   * --------------------------------------------------------------------------------------------------------
-   * FUNCION PARA SUBIR  EL ARCHIVO DE IMAGEN
-   * --------------------------------------------------------------------------------------------------------
-   */
-  async uploadImage() {
-    const data = await this.photoService.pickImage();
-    this.capturePhoto = data.webPath;
-    if (data.webPath) {
-      this.imagePreview = data.webPath;
-      const response = await fetch(data.webPath);
-      const blob = await response.blob();
-      this.filename = new File([blob], 'image.jpg', { type: blob.type || 'image/jpeg' });
-    }
-  }
-
-  /**
-  * -------------------------------------------------------------------------------------------------------
-  * FUNCION PARA REALIZAR LA FOTO CON LA CAMARA DEL MOVIL O POR WEB CAM
-  * -------------------------------------------------------------------------------------------------------
-  */
-  discardImage() {
-    this.capturePhoto = "";
-  }
-
-  /**
-  * -------------------------------------------------------------------------------------------------------
-  * REALIZAMOS UNA FUNCION PARA COMPROBAR LA IMAGEN Y LANZARLA POR HTML
-  * -------------------------------------------------------------------------------------------------------
-  */
-  getImage(filename: string) {
-    if (!filename) {
-      return "https://ionicframework.com/docs/img/demos/avatar.svg";
-    }
-
-    return this.apiUrl + "api/images/" + filename;
-  }
-
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.filename = file;
-      this.imagePreview = URL.createObjectURL(file);
-    }
-  }
   /**
    * --------------------------------------------------------------------------------------------------------
    * FUNCIONES PARA LA NAVEGACION

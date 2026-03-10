@@ -49,7 +49,7 @@
           </ion-button>
         </div>
         <ion-card button (click)="openAddProductModal(producto)">
-          <img [src]="getImage(producto.filename)"
+          <img [src]="producto.filename | secureImage | async"
             style="max-width: 200px; max-height: 200px; border-radius: 8px; margin: 0 auto; display: block; margin-top: 10px;" />
           <ion-card-header>
             <ion-label class="product-info">
@@ -139,8 +139,25 @@
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Imagen Producto</ion-label>
-              <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+              <div class="imagenModal">
+                <ion-button fill="outline" (click)="uploadImage()">
+                  <ion-icon name="camera" slot="start"></ion-icon>
+                  Cámara
+                </ion-button>
+                <ion-button fill="outline" (click)="fileInput.click()">
+                  <ion-icon name="folder" slot="start"></ion-icon>
+                  Archivo
+                </ion-button>
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)"
+                  style="display: none;" />
+              </div>
             </ion-item>
+            <div *ngIf="imagePreview" class="imagenModalPreview">
+              <img [src]="imagePreview | secureImage | async" />
+              <ion-button fill="clear" color="danger" (click)="discardImage()">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
             <!------------------------------------------------------------------------------------------------
               BOTON PARA AGREGAR UN NUEVO PRODUCTO
             -------------------------------------------------------------------------------------------------->
@@ -285,8 +302,26 @@
             </ion-item>
             <ion-item lines="none">
               <ion-label position="stacked">Imagen Producto</ion-label>
-              <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+              <div class="buttonImagenContainer">
+                <ion-button fill="outline" (click)="pickImage()">
+                  <ion-icon name="camera" slot="start"></ion-icon>
+                  Cámara
+                </ion-button>
+                <ion-button fill="outline" (click)="fileInputEdit.click()">
+                  <ion-icon name="folder" slot="start"></ion-icon>
+                  Archivo
+                </ion-button>
+                <input #fileInputEdit type="file" accept="image/*" (change)="onFileSelected($event)"
+                  style="display: none;" />
+              </div>
             </ion-item>
+            <div *ngIf="imagePreview" style="text-align: center; margin-top: 10px;">
+              <img [src]="imagePreview | secureImage | async"
+                style="max-width: 200px; max-height: 200px; border-radius: 8px;" />
+              <ion-button fill="clear" color="danger" (click)="discardImage()">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
 
             <!------------------------------------------------------------------------------------------------
             BOTON PARA ACTUALIZAR EL PRODUCTO

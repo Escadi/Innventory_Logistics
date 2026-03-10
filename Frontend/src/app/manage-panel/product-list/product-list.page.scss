@@ -119,7 +119,8 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
         img {
             width: 100%;
             height: 200px;
-            object-fit: contain; /* changed from cover to contain for better product display */
+            object-fit: contain;
+            /* changed from cover to contain for better product display */
         }
     }
 
@@ -130,7 +131,8 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
         --color: var(--color-primary);
         --color-hover: var(--color-text-inverse);
         --color-activated: var(--color-text-inverse);
-        --border-radius: 8px; /* replaced 50px pill with standard rounded rect */
+        --border-radius: 8px;
+        /* replaced 50px pill with standard rounded rect */
         --box-shadow: none;
         margin-top: 10px;
         margin-left: 10px;
@@ -328,6 +330,26 @@ MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
     }
 }
 
+.imagenModal {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+
+}
+
+.imagenModalPreview {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.buttonImagenContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
 
 
 
