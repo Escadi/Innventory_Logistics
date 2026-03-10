@@ -1,7 +1,4 @@
-//variables colores
-$background-color-header: #ffffff;
-$color-letters: #E66A00;
-$color-hover: #ff9933;
+// Using global CSS variables from global.scss
 
 :host {
     display: flex;
@@ -13,19 +10,19 @@ $color-hover: #ff9933;
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: $background-color-header;
+    background-color: var(--color-surface);
     border-bottom: 2px solid #e0e0e0;
     flex-shrink: 0;
     z-index: 10;
 
     ion-button {
-        color: $color-letters;
+        color: var(--color-text-brand);
         font-weight: bold;
         font-size: 13px;
 
         &.active-tab {
-            --color: $color-hover;
-            border-bottom: 3px solid $color-hover;
+            --color: var(--color-primary-hover);
+            border-bottom: 3px solid var(--color-primary-hover);
         }
     }
 }
@@ -47,14 +44,14 @@ $color-hover: #ff9933;
     align-items: center;
 
     ion-button {
-        color: $color-letters;
+        color: var(--color-text-brand);
         font-weight: bold;
         font-size: 13px;
     }
 
     ion-icon {
         font-size: 24px;
-        color: $color-letters;
+        color: var(--color-text-brand);
         margin-left: 10px;
     }
 

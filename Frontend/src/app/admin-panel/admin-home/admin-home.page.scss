@@ -1,5 +1,5 @@
 .admin-bg {
-    --background: #f4f5f8;
+    --background: var(--color-background);
 }
 
 .admin-header {
@@ -16,19 +16,19 @@
     h1 {
         font-weight: 700;
         margin: 0;
-        color: #1a1a1a;
+        color: var(--color-text-main);
     }
 
     p {
-        color: #666;
+        color: var(--color-text-muted);
         font-size: 1.1em;
     }
 }
 
 .module-card {
     margin: 10px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--shadow-md);
     transition: transform 0.2s ease;
 
     &.clickable:active {
@@ -57,7 +57,7 @@
     }
 
     &.primary {
-        background: linear-gradient(135deg, #3880ff, #3171e0);
+        background: var(--color-primary);
     }
 
     &.success {
@@ -65,7 +65,7 @@
     }
 
     &.warning {
-        background: linear-gradient(135deg, #ffc409, #e0ac08);
+        background: var(--ion-color-warning);
     }
 }
 
@@ -78,7 +78,7 @@
 
     p {
         margin: 0;
-        color: #777;
+        color: var(--color-text-muted);
         font-size: 0.9em;
     }
 }

@@ -1,12 +1,8 @@
-// VARIABLES DE COLORES DEL PANEL
+// USING GLOBAL CSS VARIABLES NOW
 $primary-color: #e48213;
-$secondary-color: #000000;
-$accent-color: #ffffff;
-$text-color: #000000;
-$background-color: #f5f5f5;
 
 ion-content {
-    --background: #{$background-color};
+    --background: var(--color-background);
 }
 
 .login-wrapper {
@@ -21,9 +17,9 @@ ion-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: $accent-color;
+    background: var(--color-surface);
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(228, 130, 19, 0.18);
+    box-shadow: var(--shadow-primary);
     padding: 48px 40px 36px;
     width: 100%;
     max-width: 420px;
@@ -61,11 +57,11 @@ ion-content {
 }
 
 .login-button {
-    --background: #{$primary-color};
-    --background-hover: darken($primary-color, 8%);
-    --color: white;
+    --background: var(--color-primary);
+    --background-hover: var(--color-primary-hover);
+    --color: var(--color-text-inverse);
     --border-radius: 12px;
-    --box-shadow: 0 4px 12px rgba(228, 130, 19, 0.35);
+    --box-shadow: var(--shadow-primary);
     width: 100%;
     margin-top: 12px;
     font-size: 1rem;
@@ -82,7 +78,7 @@ ion-content {
     span {
         flex: 1;
         height: 1px;
-        background: #e0e0e0;
+        background: var(--color-border);
     }
 }
 
@@ -90,7 +86,7 @@ ion-content {
     text-align: center;
 
     .signup-button {
-        --color: #{$primary-color};
+        --color: var(--color-primary);
         font-size: 0.85rem;
         font-weight: 600;
         text-transform: none;

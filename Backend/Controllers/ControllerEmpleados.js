@@ -1,8 +1,17 @@
+const bcrypt = require('bcrypt');
 const db = require('../Models');
 const Empleado = db.empleado;
+const Login = db.login;
 
 exports.findAll = (req, res) => {
-    Empleado.findAll()
+    Empleado.findAll({
+        include: [
+            { model: db.cargo, as: 'cargo' },
+            { model: db.centroTrabajo, as: 'centroTrabajo' },
+            { model: db.departamento, as: 'departamento' },
+            { model: db.login, as: 'login' }
+        ]
+    })
         .then(data => {
             res.send(data);
         })
@@ -13,7 +22,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     const empleado = {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
@@ -24,15 +33,27 @@ exports.create = (req, res) => {
         idDepartamento: req.body.idDepartamento
     };
 
-    Empleado.create(empleado)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the empleado."
-            });
+    try {
+        const data = await Empleado.create(empleado);
+
+        const passwordToHash = req.body.temporaryPassword;
+        const role = req.body.role;
+        const saltRounds = 10;
+
+        const hashedPassword = await bcrypt.hash(passwordToHash, saltRounds);
+
+        await Login.create({
+            idEmpleado: data.idEmpleado,
+            contrasena: hashedPassword,
+            role: role
         });
+
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({
+            message: err.message || "Some error occurred while creating the empleado."
+        });
+    }
 };
 
 exports.update = (req, res) => {

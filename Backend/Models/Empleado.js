@@ -78,6 +78,12 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
+        Empleado.hasOne(models.login, {
+            foreignKey: "idEmpleado",
+            as: "login",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
     };
 
     return Empleado;

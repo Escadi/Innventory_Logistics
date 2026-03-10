@@ -15,5 +15,6 @@ module.exports = app => {
     require('./RouteDetallesProducto')(app);
     require('./RouteDetallePedido')(app);
     require('./RouteOrdenDeEntrega')(app);
+    require('./AuthRoute')(app);
 
 }

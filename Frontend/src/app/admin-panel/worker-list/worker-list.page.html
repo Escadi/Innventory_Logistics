@@ -4,14 +4,130 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <div class="search-container">
-    <ion-button (click)="goToAdminHome()">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
-    <ion-searchbar placeholder="DNI, Nombre o Apellido ...."></ion-searchbar>
-    <ion-button>
-      <ion-icon name="add"></ion-icon>
-      Nuevo Empleado
-    </ion-button>
+  <div class="containerPrincipal">
+    <div class="search-container">
+      <ion-button (click)="goToAdminHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-searchbar placeholder="DNI, Nombre o Apellido ...."></ion-searchbar>
+      <ion-button (click)="openModal()">
+        <ion-icon name="add"></ion-icon>
+        Nuevo Empleado
+      </ion-button>
+    </div>
+    <div class="table-container">
+      <ion-item button (click)="editWorker(worker)" *ngFor="let worker of workers" lines="none">
+        <ion-label class="ion-text-wrap">
+          <div class="workerName">
+            <h2>Empleado: <p>{{ worker.idEmpleado }}</p>
+            </h2>
+            <h2>Nombre y apellidos: <p>{{ worker.nombre }} {{ worker.apellido }}</p>
+            </h2>
+          </div>
+          <div class="workerInfo">
+            <h4>Telefono: </h4>
+            <p>{{ worker.telefono }}</p>
+            <h4>Correo Electronico: </h4>
+            <p>{{ worker.email }}</p>
+            <h4>Cargo: </h4>
+            <p>{{ worker.cargo.nombreCargo }}</p>
+            <h4>Centro de Trabajo: </h4>
+            <p>{{ worker.centroTrabajo.nombreCentro }}</p>
+            <h4>Departamento: </h4>
+            <p>{{ worker.departamento.nombreDepartamento }}</p>
+          </div>
+        </ion-label>
+
+        <ion-button slot="end" (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()"
+          class="deleteButton">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
   </div>
+
+  <!------------------------------------------------------------------------------------------------
+  MODAL PARA AGREGAR UN NUEVO CLIENTE
+  -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{isEditEmpleado ? 'Actualizar Empleado' : 'Nuevo Empleado'}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <!------------------------------------------------------------------------------------------------
+      FORMULARIO PARA AGREGAR UN NUEVO CLIENTE
+      -------------------------------------------------------------------------------------------------->
+      <ion-content>
+        <ion-item lines="none">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input type="text" placeholder="Nombre del Trabajador" [(ngModel)]="empleado.nombre"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input type="text" placeholder="Apellido del Trabajador" [(ngModel)]="empleado.apellido"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Correo Electronico</ion-label>
+          <ion-input type="text" placeholder="Correo Electronico" [(ngModel)]="empleado.email"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Telefono</ion-label>
+          <ion-input type="text" placeholder="Telefono del Trabajador" [(ngModel)]="empleado.telefono"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Departamento</ion-label>
+          <ion-select [(ngModel)]="empleado.idDepartamento">
+            <ion-select-option *ngFor="let departamento of departamentos" [value]="departamento.idDepartamento">
+              {{ departamento.nombreDepartamento }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Centro de Trabajo</ion-label>
+          <ion-select [(ngModel)]="empleado.idCentro">
+            <ion-select-option *ngFor="let centro of centrosTrabajo" [value]="centro.idCentro">
+              {{ centro.nombreCentro }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Cargo</ion-label>
+          <ion-select [(ngModel)]="empleado.idCargo">
+            <ion-select-option *ngFor="let cargo of cargos" [value]="cargo.idCargo">
+              {{ cargo.nombreCargo }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Rol en el Sistema</ion-label>
+          <ion-select [(ngModel)]="empleado.rol" placeholder="Seleccione Rol">
+            <ion-select-option value="Empleado">Empleado</ion-select-option>
+            <ion-select-option value="Supervisor">Supervisor</ion-select-option>
+            <ion-select-option value="Admin">Admin</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item lines="none" *ngIf="!isEditEmpleado">
+          <ion-label position="stacked">Contraseña Temporal <small>(El usuario la cambiará luego)</small></ion-label>
+          <ion-input type="text" placeholder="Ej. temporal123" [(ngModel)]="empleado.temporalPassword"></ion-input>
+        </ion-item>
+
+        <!------------------------------------------------------------------------------------------------
+              BOTON PARA AGREGAR UN NUEVO PRODUCTO
+            -------------------------------------------------------------------------------------------------->
+        <ion-button expand="block" class="ion-margin" (click)="createEmpleado()">
+          <ion-icon name="add" slot="start"></ion-icon>
+          {{isEditEmpleado ? 'Actualizar Empleado' : 'Nuevo Empleado'}}
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

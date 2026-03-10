@@ -25,6 +25,7 @@ export class Myservice {
   endpointsCentrosTrabajo = `${this.baseUrl}/api/centroTrabajo`;
   endpointsDepartamentos = `${this.baseUrl}/api/departamento`;
   endpointCargo = `${this.baseUrl}/api/cargos`;
+  endpointWorker = `${this.baseUrl}/api/empleados`;
 
 
   constructor(
@@ -299,6 +300,39 @@ export class Myservice {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.delete(this.endpointCargo + '/' + id, { headers });
+  }
+
+  /**
+   * ----------------------------------------------------------------------------------
+   * FUNCIONES DE LOS TRABAJADORES | GET , PUT , POST , DELETE |
+   * ----------------------------------------------------------------------------------
+   */
+
+  getAllWorkers() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointWorker, { headers })
+  }
+
+  postWorker(worker: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointWorker, worker, { headers })
+  }
+  putWorker(id: number, worker: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointWorker + '/' + id, worker, { headers });
+  }
+
+  deleteWorker(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointWorker + '/' + id, { headers });
   }
 }
 

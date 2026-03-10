@@ -1,5 +1,5 @@
 .admin-bg {
-    --background: #f4f5f8;
+    --background: var(--color-background);
 }
 
 .admin-header {
@@ -16,20 +16,26 @@
     h1 {
         font-weight: 700;
         margin: 0;
-        color: #1a1a1a;
+        color: var(--color-text-main);
     }
 
     p {
-        color: #666;
+        color: var(--color-text-muted);
         font-size: 1.1em;
     }
 }
 
 .module-card {
     margin: 10px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: var(--shadow-md);
+    }
 
     &.clickable:active {
         transform: scale(0.98);
@@ -52,20 +58,22 @@
     margin-right: 20px;
 
     ion-icon {
-        font-size: 32px;
-        color: white;
+        font-size: 28px;
     }
 
     &.primary {
-        background: linear-gradient(135deg, #3880ff, #3171e0);
+        background: rgba(var(--color-primary-rgb), 0.1);
+        ion-icon { color: var(--color-primary); }
     }
 
     &.success {
-        background: linear-gradient(135deg, #2dd36f, #28ba62);
+        background: rgba(45, 211, 111, 0.1); /* fallback rgba for success */
+        ion-icon { color: var(--color-success, #2dd36f); }
     }
 
     &.warning {
-        background: linear-gradient(135deg, #ffc409, #e0ac08);
+        background: rgba(255, 196, 9, 0.1); /* fallback rgba for warning */
+        ion-icon { color: var(--ion-color-warning); }
     }
 }
 
@@ -78,7 +86,7 @@
 
     p {
         margin: 0;
-        color: #777;
+        color: var(--color-text-muted);
         font-size: 0.9em;
     }
 }

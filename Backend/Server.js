@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const ngrok = require('@ngrok/ngrok');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 
 app.use((req, res, next) => {
@@ -24,6 +25,9 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+
+
 
 // DEBUG LOGGING
 app.use((req, res, next) => {
@@ -53,6 +57,42 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+/**
+ * ------------------------------------------------------------------------------------------------
+ * VALIDACION DE TOKEN BÁSICO PARA EL USUARIO Y CONTRASEÑA
+ * ------------------------------------------------------------------------------------------------
+ */
+app.use((req, res, next) => {
+    const tokenHeader = req.headers['authorization'] || req.header('authorization');
+    
+    if (!tokenHeader) {
+        return next();
+    }
+
+    if (tokenHeader.toLowerCase().startsWith('basic ')) {
+        const base64Credentials = tokenHeader.split(' ')[1];
+        const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+        const [idEmpleado, contrasena] = credentials.split(':');
+        
+        if (!req.body) req.body = {};
+        req.body.idEmpleado = idEmpleado;
+        req.body.contrasena = contrasena;
+
+        return next();
+    }
+    
+    const token = tokenHeader.replace(/Bearer /i, '');
+    jwt.verify(token, process.env.JWT_SECRET || "secret-key", (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Invalid token' });
+        }
+        req.user = decoded;
+        next();
+    });
+
+});
 
 
 const db = require('./Models');

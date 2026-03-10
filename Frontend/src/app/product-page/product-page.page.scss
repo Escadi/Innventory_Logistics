@@ -1,14 +1,9 @@
-//variables colores
-$background-color-header: #ffffff;
-$primaryColor: #f58422;
-$secondaryColor: #000000;
-$color-letters: #E66A00;
-$color-hover: #ff9933;
+// Using global CSS variables from global.scss
 
 .search-container {
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    background-color: white;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--border-radius-main);
+    background-color: var(--color-surface);
     width: 90%;
     margin: 16px auto;
     margin-top: 20px;
@@ -19,9 +14,10 @@ $color-hover: #ff9933;
     align-items: center;
 
     ion-segment-button {
-        --indicator-color: #f58422;
-        --color: #000000;
-        --color-checked: #f58422;
+        --indicator-color: var(--color-primary);
+        --color: var(--color-text-muted);
+        --color-checked: var(--color-primary);
+        --border-radius: 6px;
     }
 }
 
@@ -40,15 +36,14 @@ $color-hover: #ff9933;
     }
 
     ion-button {
-        --background: #f58422;
-        --background-hover: #f58422;
-        --background-activated: #f58422;
-        --background-focused: #f58422;
-        --color: #ffffff;
-        --color-hover: #ffffff;
-        --color-activated: #ffffff;
-        --color-focused: #ffffff;
-        --border-radius: 50px;
+        --background: rgba(var(--color-primary-rgb), 0.1);
+        --background-hover: var(--color-primary);
+        --background-activated: var(--color-primary);
+        --color: var(--color-primary);
+        --color-hover: var(--color-text-inverse);
+        --color-activated: var(--color-text-inverse);
+        --border-radius: 8px; /* replaced 50px pill with standard rounded rect */
+        --box-shadow: none;
         --padding-top: 10px;
         --padding-bottom: 10px;
         --padding-start: 10px;
@@ -74,9 +69,10 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
     margin-right: 10px;
 
     ion-segment-button {
-        --indicator-color: #f58422;
-        --color: #000000;
-        --color-checked: #f58422;
+        --indicator-color: var(--color-primary);
+        --color: var(--color-text-muted);
+        --color-checked: var(--color-primary);
+        --border-radius: 6px;
     }
 }
 
@@ -100,30 +96,38 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
         justify-content: center;
         align-items: center;
         margin: 10px;
-        border-radius: 20px;
-        box-shadow: 0 2px 2px 0 $color-hover;
+        border-radius: var(--border-radius-main);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--color-border-subtle);
         --padding-top: 10px;
         --padding-bottom: 10px;
         --padding-start: 10px;
         --padding-end: 10px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
 
         img {
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            object-fit: contain;
         }
 
     }
 
     ion-button {
-        --background: #f58422;
-        --background-hover: #f58422;
-        --background-activated: #f58422;
-        --background-focused: #f58422;
-        --color: #ffffff;
-        --color-hover: #ffffff;
-        --color-activated: #ffffff;
-        --color-focused: #ffffff;
+        --background: var(--color-primary);
+        --background-hover: var(--color-primary-hover);
+        --background-activated: var(--color-primary-hover);
+        --background-focused: var(--color-primary-hover);
+        --color: var(--color-text-inverse);
+        --color-hover: var(--color-text-inverse);
+        --color-activated: var(--color-text-inverse);
+        --color-focused: var(--color-text-inverse);
         --border-radius: 50px;
         margin-top: 10px;
         margin-left: 10px;
@@ -139,7 +143,7 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
     h2 {
         font-size: 15px;
         font-weight: bold;
-        color: $color-letters;
+        color: var(--color-text-brand);
     }
 
     h3 {
@@ -157,23 +161,25 @@ MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
 .modalinput {
     --height: 90%;
     --width: 30%;
-    --border-radius: 16px;
-    --box-shadow: 0 8px 30px rgba($primaryColor, 0.25);
+    --border-radius: var(--border-radius-main);
+    --box-shadow: var(--shadow-md);
 
     ion-toolbar {
-        --background: #ffffff;
-        --border-width: 0;
-        --padding-start: 8px;
-        --padding-end: 8px;
+        --background: var(--color-surface);
+        --border-width: 0 0 1px 0;
+        --border-style: solid;
+        --border-color: var(--color-border-subtle);
+        --padding-start: 16px;
+        --padding-end: 16px;
 
         ion-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: $secondaryColor;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-text-main);
         }
 
         ion-button {
-            --color: $primaryColor;
+            --color: var(--color-text-muted);
             font-size: 22px;
         }
     }
@@ -183,33 +189,34 @@ MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
         --padding-bottom: 24px;
         --padding-start: 24px;
         --padding-end: 24px;
-        --background: #fafafa;
+        --background: var(--color-surface);
 
         ion-item {
-            --background: #ffffff;
-            --padding-top: 8px;
-            --padding-bottom: 8px;
+            --background: var(--color-surface);
+            --padding-top: 4px;
+            --padding-bottom: 4px;
             --padding-start: 16px;
             --padding-end: 16px;
-            --border-radius: 12px;
+            --border-radius: var(--border-radius-sm);
             --inner-border-width: 0;
             margin-bottom: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba($primaryColor, 0.12);
-            transition: box-shadow 0.2s ease;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--color-border-subtle);
+            box-shadow: none;
+            transition: border-color 0.2s ease;
 
-            &:hover {
-                box-shadow: 0 4px 14px rgba($primaryColor, 0.22);
+            &:hover, &:focus-within {
+                border-color: var(--color-primary);
             }
         }
 
         ion-label {
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            color: $primaryColor;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-muted);
             margin-bottom: 4px;
+            text-transform: none;
+            letter-spacing: normal;
         }
 
         ion-input {
@@ -217,20 +224,20 @@ MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
             --padding-bottom: 8px;
             --padding-start: 0;
             --padding-end: 0;
-            --placeholder-color: #b0b0b0;
+            --placeholder-color: var(--color-border);
             --placeholder-font-weight: 400;
-            --color: $secondaryColor;
+            --color: var(--color-text-main);
             font-size: 15px;
         }
 
         ion-button[expand="block"] {
-            --background: #f58422;
-            --background-hover: darken($primaryColor, 8%);
-            --background-activated: darken($primaryColor, 12%);
-            --border-radius: 12px;
-            --box-shadow: 0 4px 14px rgba($primaryColor, 0.35);
-            --color: #ffffff;
-            font-weight: 600;
+            --background: var(--color-primary);
+            --background-hover: var(--color-primary-hover);
+            --background-activated: var(--color-primary-hover);
+            --border-radius: var(--border-radius-sm);
+            --box-shadow: none;
+            --color: var(--color-text-inverse);
+            font-weight: 500;
             font-size: 15px;
             letter-spacing: 0.5px;
             height: 48px;

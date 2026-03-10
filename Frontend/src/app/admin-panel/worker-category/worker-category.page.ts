@@ -18,7 +18,7 @@ export class WorkerCategoryPage implements OnInit {
 
 
 
-  //EDITAR TANTO DEPARTAMENTOS COMO CENTROS DE TRABAJO
+  //EDITAR TANTO DEPARTAMENTOS COMO CENTROS DE TRABAJO COMO CARGO EMPRESA
   isEditingDepartamento: number | null = null;
   isEditingCentroTrabajo: number | null = null;
   isEditingCargoEmpresa: number | null = null;
