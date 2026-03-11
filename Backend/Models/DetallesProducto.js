@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
 
         },
+        idCentro: {
+            type: Sequelize.INTEGER,
+        },
         cantidad: {
             type: Sequelize.INTEGER,
 
@@ -43,6 +46,13 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
+        DetallesProducto.belongsTo(models.centroTrabajo, {
+            foreignKey: "idCentro",
+            targetKey: "idCentro",
+            as: "centroTrabajo",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        })
 
         // QUE TABLAS SE RELACIONAN CON ESTA TABLA
         DetallesProducto.hasMany(models.detalleCarrito, {

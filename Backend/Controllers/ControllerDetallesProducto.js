@@ -2,7 +2,13 @@ const db = require('../Models');
 const DetallesProducto = db.detalleProducto;
 
 exports.findAll = (req, res) => {
-    DetallesProducto.findAll()
+    DetallesProducto.findAll({
+        include: [
+            { model: db.producto, as: 'producto' },
+            { model: db.departamento, as: 'departamento' },
+            { model: db.centroTrabajo, as: 'centroTrabajo' }
+        ]
+    })
         .then(data => {
             res.send(data);
         })
@@ -17,6 +23,7 @@ exports.create = (req, res) => {
     const detallesProducto = {
         idProducto: req.body.idProducto,
         idDepartamento: req.body.idDepartamento,
+        idCentroTrabajo: req.body.idCentro,
         cantidad: req.body.cantidad
     };
 

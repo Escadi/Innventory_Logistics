@@ -18,10 +18,7 @@ export class Myservice {
   endpointsCategorias = `${this.baseUrl}/api/categoria`;
   endpointsClientes = `${this.baseUrl}/api/clientes`;
   endpointsDetallePedido = `${this.baseUrl}/api/detalle_pedido`;
-  endpointsDetalleProducto = `${this.baseUrl}/api/detalle_producto`;
-  endpointsDetalleProveedor = `${this.baseUrl}/api/detalle_proveedor`;
-  endpointsDetalleCategoria = `${this.baseUrl}/api/detalle_categoria`;
-  endpointsDetalleCliente = `${this.baseUrl}/api/detalle_cliente`;
+  endpointsDetalleProducto = `${this.baseUrl}/api/detalleProducto`;
   endpointsCentrosTrabajo = `${this.baseUrl}/api/centroTrabajo`;
   endpointsDepartamentos = `${this.baseUrl}/api/departamento`;
   endpointCargo = `${this.baseUrl}/api/cargos`;

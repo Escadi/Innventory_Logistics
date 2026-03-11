@@ -15,8 +15,13 @@
     CATEGORIAS DE LOS PRODUCTOS
     -------------------------------------------------------------------------------------------------->
     <div class="segmentFilter">
-      <ion-segment *ngFor="let categoria of selectedCategory">
-        <ion-segment-button value="categoria.value">
+      <ion-segment [(ngModel)]="filtroSegmento" (ionChange)="filterProductsBySegment($event)" scrollable>
+        <!-- Botón para ver "Todos" -->
+        <ion-segment-button [value]="0">
+          <ion-label>Todos</ion-label>
+        </ion-segment-button>
+        <!-- Botones generados dinámicamente -->
+        <ion-segment-button *ngFor="let categoria of selectedCategory" [value]="categoria.idCategoria">
           <ion-label>{{ categoria.nombreCategoria }}</ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -29,8 +34,15 @@
       <ion-button (click)="goToAdminHome()">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
-      <ion-searchbar placeholder="Código, Nombre, ...."></ion-searchbar>
-      <ion-button (click)="openModal()">
+      <ion-searchbar placeholder="Código, Nombre, ...." *ngIf="productos.length > 0"
+        (ionInput)="filterProducts($event)"></ion-searchbar>
+      <ion-item lines="none">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-toggle justify="end" [(ngModel)]="isChangeToogle" class="tooglePersonalizado">
+        </ion-toggle>
+        <ion-icon name="reorder-four-outline"></ion-icon>
+      </ion-item>
+      <ion-button class="newProductButton" (click)="openModal()">
         <ion-icon name="add"></ion-icon>
         Nuevo Producto y categoria
       </ion-button>
@@ -40,9 +52,9 @@
   <!------------------------------------------------------------------------------------------------
   TABLA DE PRODUCTOS
   -------------------------------------------------------------------------------------------------->
-  <ion-grid class="products-container">
+  <ion-grid class="products-container" *ngIf="!isChangeToogle">
     <ion-row>
-      <ion-col size="10" size-md="4" size-lg="3" *ngFor="let producto of productos">
+      <ion-col size="11" size-md="5" size-lg="3" *ngFor="let producto of filtroProductos">
         <div class="deleteButton">
           <ion-button (click)="deleteProduct(producto.idProducto)">
             <ion-icon name="trash"></ion-icon>
@@ -66,16 +78,47 @@
           </ion-card-header>
           <ion-card-content>
             <ion-label class="product-category">
-              <h2>{{producto.categoria?.nombreCategoria}}</h2>
+              <ion-chip>{{producto.categoria?.nombreCategoria}}</ion-chip>
             </ion-label>
             <ion-label class="product-price">
-              <h2>Precio: {{producto.precio}} €</h2>
+              <h2><span>Precio: </span> {{producto.precio}} €</h2>
             </ion-label>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <!--------------------------------------------------------------------------------------- 
+  DIV CON LA LISTA DE PRODUCTOS EN FORMA DE LISTA
+  ---------------------------------------------------------------------------------------->
+  <ion-list class="products-list" *ngIf="isChangeToogle">
+    <ion-item *ngFor="let producto of filtroProductos" lines="none">
+      <ion-avatar slot="start">
+        <img [src]="producto.filename | secureImage | async"
+          style="max-width: 200px; max-height: 200px; border-radius: 8px; margin: 0 auto; display: block; margin-top: 10px;" />
+      </ion-avatar>
+      <ion-label>
+        <h2>Producto: {{producto.idProducto}}</h2>
+        <h3>{{producto.nombreProducto}}</h3>
+      </ion-label>
+      <!--ROW DE LA DESCRIPCION Y LA CATEGORIA-->
+      <div class="product-description">
+
+        <ion-chip>{{producto.categoria?.nombreCategoria}}</ion-chip>
+
+        <p>{{producto.descripcion}}</p>
+
+        <h2>{{producto.precio}} €</h2>
+
+      </div>
+      <ion-button (click)="openAddProductModal(producto)">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+      <ion-button (click)="deleteProduct(producto.idProducto)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
   <!------------------------------------------------------------------------------------------------
   MODAL PARA AGREGAR UN NUEVO PRODUCTO
   -------------------------------------------------------------------------------------------------->

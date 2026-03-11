@@ -178,9 +178,9 @@ INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,id
 ('1','Portatil','Portatil de alta gama',1000.50,1,1001,1),
 ('2','Camiseta','Camiseta de algodon',20.50,2,1002,3);
 
-INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad) VALUES
-('1',2,50),
-('2',1,30);
+INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
+('1',2,50,1),
+('2',1,30,1);
 
 INSERT INTO pedido (idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
 ('CIF001',1,1,'2024-01-01','Pendiente'),
@@ -230,7 +230,8 @@ INSERT INTO departamento (nombreDepartamento) VALUES
 INSERT INTO centroTrabajo (nombreCentro) VALUES
 ('Centro Valencia'),   -- idCentro = 3
 ('Centro Sevilla'),    -- idCentro = 4
-('Centro Bilbao');     -- idCentro = 5
+('Centro Bilbao'),     -- idCentro = 5
+('Centro Las Palmas');
 
 
 -- =========================
@@ -384,35 +385,55 @@ INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,id
 -- DETALLES PRODUCTO
 -- idDetalleProducto se genera por orden: 1..30
 -- =========================
-INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad) VALUES
-('3',1,40),   -- 3
-('4',1,60),   -- 4
-('5',2,100),  -- 5
-('6',2,80),   -- 6
-('7',1,45),   -- 7
-('8',1,25),   -- 8
-('9',3,35),   -- 9
-('10',3,20),  -- 10
-('11',2,55),  -- 11
-('12',3,70),  -- 12
-('13',1,22),  -- 13
-('14',3,18),  -- 14
-('15',2,90),  -- 15
-('16',2,120), -- 16
-('17',1,40),  -- 17
-('18',1,65),  -- 18
-('19',3,50),  -- 19
-('20',2,110), -- 20
-('21',1,28),  -- 21
-('22',3,33),  -- 22
-('23',2,95),  -- 23
-('24',1,47),  -- 24
-('25',3,26),  -- 25
-('26',1,37),  -- 26
-('27',3,150), -- 27
-('28',1,42),  -- 28
-('29',2,31),  -- 29
-('30',1,19);  -- 30
+INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
+('3',1,40,2),   -- 3
+('4',1,60,5),   -- 4
+('5',2,100,5),  -- 5
+('6',2,80,5),   -- 6
+('7',1,45,6),   -- 7
+('8',1,25,5),   -- 8
+('9',3,35,6),   -- 9
+('10',3,20,6),  -- 10
+('11',2,55,2),  -- 11
+('12',3,70,6),  -- 12
+('13',1,22,5),  -- 13
+('14',3,18,2),  -- 14
+('15',2,90,5),  -- 15
+('16',2,120,2), -- 16
+('17',1,40,6),  -- 17
+('18',1,65,3),  -- 18
+('19',3,50,6),  -- 19
+('20',2,110,5), -- 20
+('21',1,28,2),  -- 21
+('22',3,33,5),  -- 22
+('23',2,95,6),  -- 23
+('24',1,47,2),  -- 24
+('25',3,26,5),  -- 25
+('26',1,37,5),  -- 26
+('27',3,150,6), -- 27
+('28',1,42,5),  -- 28
+('29',2,31,2),  -- 29
+('30',1,19,1);  -- 30
+
+INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
+('1',1,40,2),   -- 3
+('2',1,60,5),   -- 4
+('3',2,100,5),  -- 5
+('4',2,80,5),   -- 6
+('5',1,45,6),   -- 7
+('6',1,25,5),   -- 8
+('7',3,35,6),   -- 9
+('8',3,20,6),  -- 10
+('1',2,55,2),  -- 11
+('2',3,70,6),  -- 12
+('3',1,22,5),  -- 13
+('4',3,18,2),  -- 14
+('5',2,90,5),  -- 15
+('6',2,120,2), -- 16
+('7',1,40,6),  -- 17
+('8',1,65,3);
+
+
 
 
 -- =========================

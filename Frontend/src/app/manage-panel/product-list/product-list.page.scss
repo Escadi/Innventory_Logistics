@@ -11,10 +11,10 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 9px;
+    justify-content: center;
+    gap: 8px;
     margin-top: 10px;
     margin-left: 10px;
-    margin-right: 10px;
 
     ion-segment-button {
         --indicator-color: var(--color-primary);
@@ -53,6 +53,7 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
     margin-right: 10px;
 
     ion-searchbar {
+        width: 80%;
         margin-top: 10px;
         --border-radius: var(--border-radius-main);
         --background: var(--color-background);
@@ -74,11 +75,36 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
         --padding-end: 10px;
     }
 
+    .newProductButton {
+        width: 30%;
+    }
+
     ion-icon {
         width: 30px;
         height: 30px;
     }
+
+    ion-item {
+        width: 12%;
+        --background: transparent;
+        --border-radius: 50px;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+
+        ion-toggle {
+            --track-background: #ddd;
+            --track-background-checked: #ddd;
+            --handle-background: var(--color-primary);
+            --handle-background-checked: var(--color-primary);
+            --handle-max-height: auto;
+            --handle-border-radius: 4px;
+            --handle-box-shadow: none;
+        }
+    }
 }
+
+
 
 
 .products-header {
@@ -90,12 +116,33 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
     padding: 10px;
 }
 
+/*------------------------------------------------------------------------------------------------
+ESTILO DE LA TABLA DE PRODUCTOS EN FORMA DE GRID
+------------------------------------------------------------------------------------------------*/
 .products-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 80%;
     margin-left: 12px;
+
+    ion-row {
+        width: 120%;
+        margin-left: 19px;
+
+        ion-col {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            ion-card {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
+
+
 
     ion-card {
         justify-content: center;
@@ -140,6 +187,103 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
     }
 }
 
+/*------------------------------------------------------------------------------------------------
+ESTILO DE LA TABLA DE PRODUCTOS EN FORMA DE LISTA
+------------------------------------------------------------------------------------------------*/
+.products-list {
+    background: transparent;
+    margin-left: 4.25%;
+    width: 91.5%;
+
+    ion-item {
+        margin-bottom: 10px;
+        border-radius: var(--border-radius-main);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--color-border-subtle);
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            box-shadow: 0px, 0px, 2px, 0px var(--color-primary-hover);
+            transform: translateY(-2px);
+        }
+    }
+
+    ion-button {
+        --background: var(--color-primary);
+        --background-hover: var(--color-primary-hover);
+        --background-activated: var(--color-primary-hover);
+        --background-focused: var(--color-primary-hover);
+        --color: var(--color-text-inverse);
+        --color-hover: var(--color-text-inverse);
+        --color-activated: var(--color-text-inverse);
+        --color-focused: var(--color-text-inverse);
+        --border-radius: 50px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    ion-label {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+
+        h2 {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--color-text-brand);
+        }
+
+        h3 {
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    .product-description {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex: 4;
+        margin-left: 15px;
+
+        ion-chip {
+            justify-content: center;
+            --background: var(--color-chip-opacity);
+            --color: var(--color-text-brand);
+            --border-radius: 50px;
+            font-weight: 600;
+            width: 15%;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-text-brand);
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--color-text-muted);
+        }
+
+    }
+}
+
+/*------------------------------------------------------------------------------------------------
+INFORMACION DE LOS PRODUCTOS DENTRO DE LAS DOS LISTAS (NOMBRE, DESCRIPCION, etc...)
+------------------------------------------------------------------------------------------------*/
 .product-info {
     display: flex;
     flex-direction: column;
@@ -158,43 +302,72 @@ BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA (ESTILOS
     p {
         font-size: 15px;
     }
+
+    .product-name {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        padding-top: 10px;
+
+        p {
+            color: var(--color-text-muted);
+            font-size: 15px;
+        }
+
+        h3 {
+            color: var(--color-text-main);
+            font-size: 15px;
+        }
+    }
+
+    .product-description {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        padding-top: 10px;
+
+        p {
+            color: var(--color-text-muted);
+            font-size: 15px;
+        }
+
+        h3 {
+            color: var(--color-text-main);
+            font-size: 15px;
+        }
+    }
+
+
 }
 
-.product-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+.product-category {
+    ion-chip {
+        justify-content: center;
+        --background: var(--color-chip-opacity);
+        --color: var(--color-text-brand);
+        --border-radius: 50px;
+        font-weight: 600;
+        width: 50%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
 
-    p {
+.product-price {
+    h2 {
         color: var(--color-text-brand);
-        font-size: 15px;
-    }
 
-    h3 {
-        color: var(--color-text-main);
-        font-size: 15px;
+        span {
+            color: var(--color-text-muted);
+        }
     }
 }
 
-.product-description {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
 
-    p {
-        color: var(--color-text-brand);
-        font-size: 15px;
-    }
-
-    h3 {
-        color: var(--color-text-main);
-        font-size: 15px;
-    }
-}
 
 .deleteButton {
     position: absolute;
-    top: 0px;
+    top: -10px;
     bottom: unset;
     right: 0px;
     z-index: 1;

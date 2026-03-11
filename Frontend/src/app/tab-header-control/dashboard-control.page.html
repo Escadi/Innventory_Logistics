@@ -3,33 +3,35 @@
     <img src="assets/icon/InnventoryLogoLogistics.png" alt="Logo" class="logo"
       routerLink="/dashboard-control/dashboard-page" routerLinkActive="active-tab">
   </div>
-  <ion-button fill="clear" size="small" routerLink="/dashboard-control/product-page" routerLinkActive="active-tab">
-    Productos
-  </ion-button>
-  <ion-button fill="clear" size="small" routerLink="/dashboard-control/provider-page" routerLinkActive="active-tab">
-    Proveedores
-  </ion-button>
-  <ion-button fill="clear" size="small" routerLink="/dashboard-control/client-page" routerLinkActive="active-tab">
-    Clientes
-  </ion-button>
-  <ion-button fill="clear" size="small" routerLink="/dashboard-control/delivery-page" routerLinkActive="active-tab">
-    Pedidos
-  </ion-button>
-  <ion-button fill="clear" size="small" routerLink="/dashboard-control/manage-home" routerLinkActive="active-tab">
-    Panel de Gestión
-  </ion-button>
-  <ion-button fill="clear" size="small" routerLink="/dashboard-control/admin-home" routerLinkActive=" active-tab">
-    Panel Admin
-  </ion-button>
+  <div class="buttons">
+    <ion-button fill="clear" size="small" routerLink="/dashboard-control/product-page" routerLinkActive="active-tab">
+      Productos
+    </ion-button>
+    <ion-button fill="clear" size="small" routerLink="/dashboard-control/provider-page" routerLinkActive="active-tab">
+      Proveedores
+    </ion-button>
+    <ion-button fill="clear" size="small" routerLink="/dashboard-control/client-page" routerLinkActive="active-tab">
+      Clientes
+    </ion-button>
+    <ion-button fill="clear" size="small" routerLink="/dashboard-control/delivery-page" routerLinkActive="active-tab">
+      Pedidos
+    </ion-button>
+    <ion-button fill="clear" size="small" routerLink="/dashboard-control/manage-home" routerLinkActive="active-tab">
+      Panel de Gestión
+    </ion-button>
+    <ion-button fill="clear" size="small" routerLink="/dashboard-control/admin-home" routerLinkActive=" active-tab">
+      Panel Admin
+    </ion-button>
+  </div>
+
   <div class="logout">
     <ion-button fill="clear" size="small">
       <ion-icon name="cart-outline"></ion-icon>
       <ion-badge color="warning">10</ion-badge>
     </ion-button>
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/setting-page" routerLinkActive="active-tab">
-      <ion-icon name="person-outline"></ion-icon>
-      Perfil
-    </ion-button>
+    <ion-avatar button size="small" routerLink="/dashboard-control/setting-page" routerLinkActive="active-tab">
+      <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
     <ion-button fill="clear" size="small" (click)="getOut()">
       <ion-icon name="log-out-outline"></ion-icon>
     </ion-button>

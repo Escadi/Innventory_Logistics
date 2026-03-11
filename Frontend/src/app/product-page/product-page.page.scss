@@ -1,4 +1,7 @@
 // Using global CSS variables from global.scss
+ion-header {
+    box-shadow: none;
+}
 
 .search-container {
     box-shadow: var(--shadow-sm);
@@ -35,6 +38,18 @@
         margin-right: 20px;
     }
 
+    ion-item {
+        width: 10%;
+        --background: transparent;
+        --border-radius: 50px;
+        margin-top: 20px;
+        margin-left: 20px;
+
+        ion-segment {
+            align-items: center;
+        }
+    }
+
     ion-button {
         --background: rgba(var(--color-primary-rgb), 0.1);
         --background-hover: var(--color-primary);
@@ -42,7 +57,8 @@
         --color: var(--color-primary);
         --color-hover: var(--color-text-inverse);
         --color-activated: var(--color-text-inverse);
-        --border-radius: 8px; /* replaced 50px pill with standard rounded rect */
+        --border-radius: 8px;
+        /* replaced 50px pill with standard rounded rect */
         --box-shadow: none;
         --padding-top: 10px;
         --padding-bottom: 10px;
@@ -53,6 +69,16 @@
     ion-icon {
         width: 30px;
         height: 30px;
+    }
+
+    ion-toggle {
+        --track-background: #ddd;
+        --track-background-checked: #ddd;
+        --handle-background: var(--color-primary);
+        --handle-background-checked: var(--color-primary);
+        --handle-max-height: auto;
+        --handle-border-radius: 4px;
+        --handle-box-shadow: none;
     }
 }
 
@@ -89,8 +115,24 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 91.5%;
-    margin-left: 4.25%;
+    width: 80%;
+    margin-left: 12px;
+
+    ion-row {
+        width: 115%;
+        margin-left: 45px;
+
+        ion-col {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            ion-card {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
 
     ion-card {
         justify-content: center;
@@ -100,11 +142,11 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
         background: var(--color-surface);
         box-shadow: var(--shadow-sm);
         border: 1px solid var(--color-border-subtle);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
         --padding-top: 10px;
         --padding-bottom: 10px;
         --padding-start: 10px;
         --padding-end: 10px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
 
         &:hover {
             box-shadow: var(--shadow-md);
@@ -115,8 +157,49 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
             width: 100%;
             height: 200px;
             object-fit: contain;
+            /* changed from cover to contain for better product display */
         }
+    }
 
+    ion-button {
+        --background: rgba(var(--color-primary-rgb), 0.1);
+        --background-hover: var(--color-primary);
+        --background-activated: var(--color-primary);
+        --color: var(--color-primary);
+        --color-hover: var(--color-text-inverse);
+        --color-activated: var(--color-text-inverse);
+        --border-radius: 8px;
+        /* replaced 50px pill with standard rounded rect */
+        --box-shadow: none;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+/*------------------------------------------------------------------------------------------------
+ESTILO DE LA TABLA DE PRODUCTOS EN FORMA DE LISTA
+------------------------------------------------------------------------------------------------*/
+.products-list {
+    background: transparent;
+    margin-left: 4.25%;
+    width: 91.5%;
+
+    ion-item {
+        margin-bottom: 10px;
+        border-radius: var(--border-radius-main);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--color-border-subtle);
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            box-shadow: 0px, 0px, 2px, 0px var(--color-primary-hover);
+            transform: translateY(-2px);
+        }
     }
 
     ion-button {
@@ -133,8 +216,78 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
         margin-left: 10px;
         margin-bottom: 10px;
     }
+
+    ion-label {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+
+        h2 {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--color-text-brand);
+        }
+
+        h3 {
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    .product-description {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex: 4;
+        margin-left: 15px;
+
+        .centroChip {
+            justify-content: center;
+            --background: var(--color-chip-opacity);
+            --color: var(--color-text-brand);
+            --border-radius: 50px;
+            font-weight: 600;
+            width: 15%;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        .departamentoChip {
+            justify-content: center;
+            --background: var(--color-chip-opacity);
+            --color: var(--color-text-brand);
+            --border-radius: 50px;
+            font-weight: 600;
+            width: 15%;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-text-brand);
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--color-text-muted);
+        }
+
+    }
+
+
 }
 
+/*------------------------------------------------------------------------------------------------
+INFORMACION DE LOS PRODUCTOS DENTRO DE LAS DOS LISTAS (NOMBRE, DESCRIPCION, etc...)
+------------------------------------------------------------------------------------------------*/
 .product-info {
     display: flex;
     flex-direction: column;
@@ -148,10 +301,75 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
 
     h3 {
         font-size: 15px;
+        color: var(--color-text-main)
     }
 
     p {
         font-size: 15px;
+        color: var(--color-text-muted);
+
+    }
+
+    .product-name {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        padding-top: 10px;
+
+        p {
+            color: var(--color-text-muted);
+            font-size: 15px;
+        }
+
+        h3 {
+            color: var(--color-text-main);
+            font-size: 15px;
+        }
+    }
+
+    .product-description {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        padding-top: 10px;
+
+        p {
+            color: var(--color-text-muted);
+            font-size: 15px;
+        }
+
+        h3 {
+            color: var(--color-text-main);
+            font-size: 15px;
+        }
+    }
+
+
+}
+
+.product-category {
+    display: flex;
+    flex-direction: row;
+
+    ion-chip {
+        justify-content: center;
+        --background: var(--color-chip-opacity);
+        --color: var(--color-text-brand);
+        --border-radius: 50px;
+        font-weight: 600;
+        width: 50%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.product-stock {
+    h2 {
+        color: var(--color-text-brand);
+
+        span {
+            color: var(--color-text-muted);
+        }
     }
 }
 
@@ -205,7 +423,8 @@ MODAL PARA AGREGAR UN NUEVO PRODUCTO Y EDITAR PRODUCTO (ESTILOS DEL MODAL)
             box-shadow: none;
             transition: border-color 0.2s ease;
 
-            &:hover, &:focus-within {
+            &:hover,
+            &:focus-within {
                 border-color: var(--color-primary);
             }
         }

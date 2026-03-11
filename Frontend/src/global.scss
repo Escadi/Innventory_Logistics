@@ -60,29 +60,30 @@ ion-toolbar {
     --color-primary: #f58422;
     --color-primary-hover: #d9751e;
     --color-primary-rgb: 245, 132, 34; // For box-shadows with opacity
-    
+    --color-chip-opacity: #fce5d1;
+
     /* Backgrounds & Surfaces */
     --color-background: #f4f6f8;
     --color-surface: #ffffff;
     --color-surface-alt: #fafafa;
-    
+
     /* Typography */
     --color-text-main: #2c2c2c;
-    --color-text-brand: #f58422; 
+    --color-text-brand: #f58422;
     --color-text-muted: #666666;
     --color-text-inverse: #ffffff;
-    
+
     /* Status/Action Colors */
     --color-danger: #e74c3c;
     --color-danger-hover: #c0392b;
-    
+
     /* Borders & Shadows */
     --color-border: #e0e0e0;
     --color-border-subtle: #eaedf1;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.03);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04);
     --shadow-primary: 0 4px 10px rgba(245, 132, 34, 0.2);
-    
+
     /* Geometry */
     --border-radius-main: 12px;
     --border-radius-sm: 8px;

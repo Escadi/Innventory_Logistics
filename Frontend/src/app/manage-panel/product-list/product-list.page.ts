@@ -23,6 +23,8 @@ export class ProductListPage implements OnInit {
   productos: any[] = [];
   centrosTrabajo: any[] = [];
   departamentos: any[] = [];
+  filtroProductos: any[] = [];
+  filtroSegmento: number = 0;
 
   //VARIABLES PARA EL FORMULARIO DE AGREGAR PRODUCTO
 
@@ -49,6 +51,9 @@ export class ProductListPage implements OnInit {
   //PRODUCTO SELECCIONADO PARA ACTUALIZAR
   selectedProduct: any = null;
 
+  //VARIABLE PARA EL TOOGLE
+  isChangeToogle: boolean = false;
+
   constructor(
     private myservice: Myservice,
     private router: Router,
@@ -59,7 +64,47 @@ export class ProductListPage implements OnInit {
   ngOnInit() {
     this.getAllData();
   }
+  /***
+  /***
+   * FILTRAR PRODUCTOS POR BUSQUEDA (NOMBRE O CODIGO) MANTENIENDO EL FILTRO DE CATEGORIAS
+   */
+  filterProducts(event: any) {
+    const filtro = event.target.value?.toLowerCase() || "";
+    this.aplicarFiltros(filtro, this.filtroSegmento);
+  }
 
+  /***
+   * FILTRAR PRODUCTOS AL CAMBIAR EL SEGMENTO DE CATEGORIAS
+   */
+  filterProductsBySegment(event: any) {
+    this.filtroSegmento = event.detail.value;
+
+    // Obtener el valor del buscador si es que la barra existe 
+    // (podemos buscarlo directo del DOM o guardarlo en una variable, 
+    // pero aquí asumimos string vacío si no se usa Two-Way Binding en el searchbar)
+    const searchbar = document.querySelector('ion-searchbar') as HTMLIonSearchbarElement;
+    const filtroTexto = searchbar && searchbar.value ? searchbar.value.toLowerCase() : "";
+
+    this.aplicarFiltros(filtroTexto, this.filtroSegmento);
+  }
+
+  /***
+   * FUNCIÓN CENTRAL DE FILTRADO (Aplica tanto la búsqueda de texto como la del segmento)
+   */
+  aplicarFiltros(filtroTexto: string, idCategoria: number) {
+    this.filtroProductos = this.productos.filter((producto: any) => {
+      // 1. Validar texto
+      const nombre = producto.nombreProducto?.toLowerCase() || "";
+      const codigo = producto.idProducto?.toString().toLowerCase() || "";
+      const coincideTexto = !filtroTexto || nombre.includes(filtroTexto) || codigo.includes(filtroTexto);
+
+      // 2. Validar categoría (Si es 0 o indefinido, mostramos todos)
+      // Nota: Comparamos convirtiendo a String o Number para evitar problemas de tipos de la BD
+      const coincideCategoria = !idCategoria || idCategoria == 0 || producto.idCategoria == idCategoria;
+
+      return coincideTexto && coincideCategoria;
+    });
+  }
 
   /**
    * ----------------------------------------------------------------------------------------------------
@@ -138,6 +183,7 @@ export class ProductListPage implements OnInit {
     this.myservice.getProductos().subscribe({ //OBTENER LOS PRODUCTOS
       next: (res: any) => {
         this.productos = res;
+        this.filtroProductos = res;
       },
       error: (err: any) => {
         console.log(err);
