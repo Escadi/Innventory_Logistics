@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Myservice } from '../service/myservice';
 
 @Component({
   selector: 'app-provider-page',
@@ -8,73 +9,95 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProviderPagePage implements OnInit {
 
-  providers: any[] = [
-    {
-      id: 1,
-      name: 'Proveedor 1',
-      email: 'proveedor1@gmail.com',
-      phone: '123456789',
-      address: 'Calle 123',
-      city: 'Ciudad 1',
-      state: 'Estado 1',
-      zip: '12345',
-      country: 'Pais 1'
-    },
-    {
-      id: 2,
-      name: 'Proveedor 2',
-      email: 'proveedor2@gmail.com',
-      phone: '123456789',
-      address: 'Calle 123',
-      city: 'Ciudad 1',
-      state: 'Estado 1',
-      zip: '12345',
-      country: 'Pais 1'
-    },
-    {
-      id: 3,
-      name: 'Proveedor 3',
-      email: 'proveedor3@gmail.com',
-      phone: '123456789',
-      address: 'Calle 123',
-      city: 'Ciudad 1',
-      state: 'Estado 1',
-      zip: '12345',
-      country: 'Pais 1'
-    }
-  ];
-  //VARIABLES PARA EL FILTRO DE CATEGORIAS
-  selectedCategory: any[] = [
-    {
-      id: 1,
-      valor: 'todos',
-      nombre: 'Todos'
-    },
-    {
-      id: 2,
-      valor: 'papeleria',
-      nombre: 'Papeleria'
-    },
-    {
-      id: 3,
-      valor: 'limpieza',
-      nombre: 'Limpieza'
-    },
-    {
-      id: 4,
-      valor: 'alimentacion',
-      nombre: 'Alimentacion'
-    },
-    {
-      id: 5,
-      valor: 'merchandising',
-      nombre: 'Merchandising'
-    },
-  ];
+  //VARIABLES PARA PROVEEDORES Y CATEGORIAS
+  proveedores: any[] = [];
+  selectedCategory: any[] = [];
 
-  constructor() { }
+
+  //VARIABLES FILTROS
+  filtroProveedores: any[] = [];
+  filtroCategorias: any[] = [];
+  filtroSegmento: number = 0;
+  searchText: string = "";
+
+  //VARIABLES PARA EL TOOGLE
+  isChangeToogle: boolean = false;
+
+
+  constructor(
+    private myService: Myservice
+  ) { }
 
   ngOnInit() {
+    this.getAllData();
+  }
+
+  /***
+   * ---------------------------------------------------------------------------------------------
+   * FILTRAR PRODUCTOS POR BUSQUEDA (NOMBRE O CODIGO) MANTENIENDO EL FILTRO DE CATEGORIAS
+   * ---------------------------------------------------------------------------------------------
+   */
+  filterProveedor(event: any) {
+    this.searchText = event.target.value?.toLowerCase() || "";
+    this.aplicarFiltros(this.searchText, this.filtroSegmento);
+  }
+
+  /***
+   * ---------------------------------------------------------------------------------------------
+   * FILTRAR PRODUCTOS AL CAMBIAR EL SEGMENTO DE CATEGORIAS
+   * ---------------------------------------------------------------------------------------------
+   */
+  filterProductsBySegment(event: any) {
+    this.filtroSegmento = event.detail.value;
+    this.aplicarFiltros(this.searchText, this.filtroSegmento);
+  }
+
+  /***
+   * ---------------------------------------------------------------------------------------------
+   * FUNCIÓN CENTRAL DE FILTRADO (TANTO LA BUSQUEDA DE TEXTO COMO LA DEL SEGMENTO)
+   * ---------------------------------------------------------------------------------------------
+   */
+  aplicarFiltros(filtroTexto: string, idCategoria: number) {
+    this.filtroProveedores = this.proveedores.filter((proveedor: any) => {
+      //Validamos el  texto
+      const nombre = proveedor.nombre?.toLowerCase() || "";
+      const codigo = proveedor.CifProveedor?.toString().toLowerCase() || "";
+      const telefono = proveedor.telefono?.toString() || "";
+      const coincideTexto = !filtroTexto || nombre.includes(filtroTexto) || codigo.includes(filtroTexto) || telefono.includes(filtroTexto);
+
+      /**
+       * ----------------------------------------------------------------------------------------------------
+       * VALIDAMOS LA CATEGORIA (SI ES 0 O INDEFINIDO, MOSTRAMOS TODOS)
+       * NOTA: COMPARAMOS CONVIRTIENDO A STRING O NUMBER PARA EVITAR PROBLEMAS DE TIPOS DE LA BD
+       * ---------------------------------------------------------------------------------------------------- 
+       */
+      const coincideCategoria = !idCategoria || idCategoria == 0 || proveedor.idCategoria == idCategoria;
+      return coincideTexto && coincideCategoria;
+    });
+  }
+
+  /**
+   * --------------------------------------------------------------------------------------------------
+   * LLAMAR A TODOS LOS GET DE PROVEEDORES Y DE CATEGORIAS 
+   * --------------------------------------------------------------------------------------------------
+   */
+
+  getAllData() {
+
+    this.myService.getProveedores().subscribe({
+      next: (res: any) => {
+        this.proveedores = res;
+        this.filtroProveedores = res;
+      }
+    });
+    this.myService.getCategorias().subscribe({
+      next: (res: any) => {
+        this.selectedCategory = res;
+        this.filtroCategorias = res;
+      }
+    });
+
+
   }
 
 

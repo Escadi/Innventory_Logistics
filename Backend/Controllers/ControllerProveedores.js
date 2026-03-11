@@ -2,7 +2,10 @@ const db = require('../Models')
 const Proveedor = db.proveedor;
 
 exports.findAll = (req, res) => {
-    Proveedor.findAll()
+
+    Proveedor.findAll({
+        include: [{ model: db.categoria, as: "categoria" }]
+    })
         .then(data => {
             res.send(data);
         })

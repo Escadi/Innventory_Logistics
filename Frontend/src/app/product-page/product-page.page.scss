@@ -129,7 +129,6 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
 
             ion-card {
                 width: 100%;
-                margin: 0;
             }
         }
     }
@@ -138,7 +137,7 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
         justify-content: center;
         align-items: center;
         margin: 10px;
-        border-radius: var(--border-radius-main);
+        border-radius: var(--border-radius-card);
         background: var(--color-surface);
         box-shadow: var(--shadow-sm);
         border: 1px solid var(--color-border-subtle);

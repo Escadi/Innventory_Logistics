@@ -1,11 +1,10 @@
-//variables colores
-$background-color-header: #ffffff;
-$color-letters: #E66A00;
-$color-hover: #ff9933;
-
 /*------------------------------------------------------------------------------------------------
 ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC....)
 ------------------------------------------------------------------------------------------------*/
+ion-header {
+    box-shadow: none;
+}
+
 .segmentFilter {
     display: flex;
     flex-direction: row;
@@ -39,73 +38,233 @@ ESTILO DE LOS SEGMENTOS DE LOS FILTROS DE BUSQUEDA DE (TOTAL , PAPELERIA, ETC...
 .search-bar {
     display: flex;
     justify-content: center;
+    flex-direction: row;
     align-items: center;
     width: 100%;
     margin: 10px auto;
     margin-top: 20px;
 
     ion-searchbar {
-        width: 100%;
+        width: 80%;
         --border-radius: 50px;
-        margin-top: 20px;
         margin-right: 20px;
+    }
+
+    ion-toggle {
+        --track-background: #ddd;
+        --track-background-checked: #ddd;
+        --handle-background: var(--color-primary);
+        --handle-background-checked: var(--color-primary);
+        --handle-max-height: auto;
+        --handle-border-radius: 4px;
+        --handle-box-shadow: none;
+    }
+}
+
+.botones-proveedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ion-button {
+        --background: rgba(var(--color-primary-rgb), 0.1);
+        --background-hover: var(--color-primary);
+        --background-activated: var(--color-primary);
+        --color: var(--color-primary);
+        --color-hover: var(--color-text-inverse);
+        --color-activated: var(--color-text-inverse);
+        --border-radius: 8px;
+        /* replaced 50px pill with standard rounded rect */
+        --box-shadow: none;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.proveedor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    margin-left: 12px;
+
+    ion-row {
+        width: 115%;
+        margin-left: 60px;
+
+        ion-col {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            ion-card {
+                width: 100%;
+            }
+        }
+    }
+
+    ion-card {
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        border-radius: var(--border-radius-card);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--color-border-subtle);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+
+        &:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+    }
+
+    .proveedor-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+
+        h2 {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--color-text-brand);
+        }
+
+        h3 {
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--color-text-muted);
+
+            span {
+                font-weight: bold;
+                color: var(--color-text-main);
+            }
+        }
+    }
+
+    .proveedor-content-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+
+        h2 {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--color-text-brand);
+        }
+
+        h3 {
+            font-size: 15px;
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--color-text-muted);
+
+            span {
+                font-weight: bold;
+                color: var(--color-text-main);
+            }
+        }
+    }
+}
+
+.categoriaProveedor {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    ion-chip {
+        justify-content: center;
+        --background: var(--color-chip-opacity);
+        --color: var(--color-text-brand);
+        --border-radius: 50px;
+        font-weight: 600;
+        width: 50%;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 }
 
 .listContainer {
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 91.5%;
     margin-left: 4.25%;
 
+
     ion-item {
-        justify-content: center;
-        align-items: center;
-        margin: 10px;
-        border-radius: 20px;
-        box-shadow: 0 2px 2px 0 $color-hover;
-
-    }
-
-    ion-button {
-        --background: #f58422;
-        --background-hover: #f58422;
-        --background-activated: #f58422;
-        --background-focused: #f58422;
-        --color: #ffffff;
-        --color-hover: #ffffff;
-        --color-activated: #ffffff;
-        --color-focused: #ffffff;
-        --border-radius: 50px;
+        margin-bottom: 10px;
+        border-radius: var(--border-radius-main);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--color-border-subtle);
         --padding-top: 10px;
         --padding-bottom: 10px;
         --padding-start: 10px;
         --padding-end: 10px;
-    }
-}
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-.product-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-
-    h2 {
-        font-size: 15px;
-        font-weight: bold;
-        color: $color-letters;
-    }
-
-    h3 {
-        font-size: 15px;
-    }
-
-    p {
-        font-size: 15px;
-
-        span {
-            font-weight: bold;
-            color: $color-letters;
+        &:hover {
+            box-shadow: 0px, 0px, 2px, 0px var(--color-primary-hover);
+            transform: translateY(-2px);
         }
+
+        ion-label {
+            h2 {
+                font-size: 18px;
+                font-weight: bold;
+                color: var(--color-text-brand);
+            }
+
+            p {
+                font-size: 15px;
+                color: var(--color-text-muted);
+            }
+
+            h3 {
+                font-size: 15px;
+                color: var(--color-text-muted);
+
+                span {
+                    font-weight: bold;
+                    color: var(--color-text-main);
+                }
+            }
+        }
+    }
+
+    .proveedor-description {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex: 4;
+        margin-left: 15px;
+        margin-right: 30px;
+
+        ion-chip {
+            justify-content: center;
+            --background: var(--color-chip-opacity);
+            --color: var(--color-text-brand);
+            --border-radius: 50px;
+            font-weight: 600;
+            width: 15%;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+
+
     }
 }

@@ -1,14 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Listado de proveedores</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
-  <ion-content [fullscreen]="true">
     <div class="search-container">
       <!------------------------------------------------------------------------------------------------
     FILTROS DE CATEGORIAS REALIZADO CON SEGMENTOS DE IONIC PARA HACER UNA BUSQUEDA MAS RAPIDA DE LAS 
     CATEGORIAS DE LOS PRODUCTOS
     -------------------------------------------------------------------------------------------------->
       <div class="segmentFilter">
-        <ion-segment *ngFor="let category of selectedCategory" value="todos">
-          <ion-segment-button value="{{ category.valor }}">
-            <ion-label>{{ category.nombre }}</ion-label>
+        <ion-segment [(ngModel)]="filtroSegmento" (ionChange)="filterProductsBySegment($event)" scrollable>
+          <!-- Botón para ver "Todos" -->
+          <ion-segment-button [value]="0">
+            <ion-label>Todos</ion-label>
+          </ion-segment-button>
+          <!-- Botones generados dinámicamente -->
+          <ion-segment-button *ngFor="let categoria of selectedCategory" [value]="categoria.idCategoria">
+            <ion-label>{{ categoria.nombreCategoria }}</ion-label>
           </ion-segment-button>
         </ion-segment>
       </div>
@@ -16,32 +25,78 @@
     BARRA DE BUSQUEDA PARA BUSCAR POR CIF, NOMBRE, EMAIL, TELEFONO, ETC
     -------------------------------------------------------------------------------------------------->
       <div class="search-bar">
-        <ion-searchbar placeholder="CIF, Nombre, Email, Telefono,.........."></ion-searchbar>
+        <ion-searchbar placeholder="CIF, Nombre, Email, Telefono,.........."
+          [(ngModel)]="searchText"
+          (ionInput)="filterProveedor($event)"></ion-searchbar>
+        <ion-item lines="none">
+          <ion-icon name="apps-outline"></ion-icon>
+          <ion-toggle justify="end" [(ngModel)]="isChangeToogle">
+          </ion-toggle>
+          <ion-icon name="reorder-four-outline"></ion-icon>
+        </ion-item>
       </div>
     </div>
     <!------------------------------------------------------------------------------------------------
     LISTA DE PROVEEDORES
     -------------------------------------------------------------------------------------------------->
-    <ion-grid class="listContainer">
+    <ion-grid class="proveedor-container" *ngIf="!isChangeToogle">
       <ion-row>
-        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let provider of providers">
-          <ion-item>
-            <ion-label class="product-info">
-              <h2>CIF: {{provider.id }}</h2>
-              <p><span>Nombre:</span> {{ provider.name }}</p>
-              <p><span>Email:</span> {{ provider.email }}</p>
-              <p><span>Telefono:</span> {{ provider.phone }}</p>
-              <p><span>Direccion:</span> {{ provider.address }}</p>
-              <p><span>Ciudad:</span> {{ provider.city }}</p>
-            </ion-label>
-            <ion-button>
-              <ion-icon name="mail-outline"></ion-icon>
-            </ion-button>
-            <ion-button>
-              <ion-icon name="call-outline"></ion-icon>
-            </ion-button>
-          </ion-item>
+        <ion-col size="11" size-md="5" size-lg="3" *ngFor="let provider of filtroProveedores">
+          <ion-card>
+            <ion-card-header>
+              <div class="proveedor-info">
+                <h2><span>CIF: </span>{{ provider.CifProveedor }}</h2>
+                <p><span>Proveedor: </span></p>
+                <h3>{{ provider.nombre }}</h3>
+              </div>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="proveedor-content-info">
+                <p><span>Email:</span> {{ provider.email }}</p>
+                <p><span>Teléfono:</span> {{ provider.telefono }}</p>
+                <p><span>Dirección:</span> {{ provider.direccion }}</p>
+              </div>
+              <div class="categoriaProveedor">
+                <ion-chip>{{provider.categoria?.nombreCategoria || 'Sin Categoría'}}</ion-chip>
+              </div>
+              <div class="botones-proveedor">
+                <ion-button fill="clear">
+                  <ion-icon name="mail-outline"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear">
+                  <ion-icon name="call-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
+
+    <!--------------------------------------------------------------------------------------- 
+    DIV CON LA LISTA DE PROVEEDORES EN FORMA DE LISTA
+  ---------------------------------------------------------------------------------------->
+    <ion-list class="listContainer" *ngIf="isChangeToogle">
+      <ion-item *ngFor="let provider of filtroProveedores" lines="none">
+        <ion-label>
+          <h2>CIF: {{provider.CifProveedor}}</h2>
+          <h3><span>Proveedor : </span>{{provider.nombre}}</h3>
+          <h3><span>Dirección : </span>{{provider.direccion}}</h3>
+        </ion-label>
+        <!--ROW DE LA DESCRIPCION Y LA CATEGORIA-->
+        <div class="proveedor-description">
+          <ion-chip>{{provider.categoria?.nombreCategoria || 'Sin Categoría'}}</ion-chip>
+          <p>{{provider.telefono}}</p>
+          <h3>{{provider.email}}</h3>
+        </div>
+        <div class="botones-proveedor">
+          <ion-button fill="clear">
+            <ion-icon name="mail-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear">
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-content>

@@ -12,11 +12,6 @@ ion-header {
     margin-left: 10px;
     margin-right: 10px;
 
-    ion-searchbar {
-        --border-radius: var(--border-radius-main);
-        --background: var(--color-background);
-    }
-
     ion-button {
         --background: var(--color-primary);
         --background-hover: var(--color-primary-hover);
@@ -36,6 +31,32 @@ ion-header {
     ion-icon {
         width: 30px;
         height: 30px;
+    }
+
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        margin: 10px auto;
+        margin-top: 20px;
+
+        ion-searchbar {
+            width: 80%;
+            --border-radius: 50px;
+            margin-right: 20px;
+        }
+
+        ion-toggle {
+            --track-background: #ddd;
+            --track-background-checked: #ddd;
+            --handle-background: var(--color-primary);
+            --handle-background-checked: var(--color-primary);
+            --handle-max-height: auto;
+            --handle-border-radius: 4px;
+            --handle-box-shadow: none;
+        }
     }
 }
 

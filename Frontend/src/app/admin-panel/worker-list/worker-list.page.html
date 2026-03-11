@@ -5,47 +5,114 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="containerPrincipal">
+    <!--------------------------------------------------------------------------------------------------
+
+    ---------------------------------------------------------------------------------------------------->
     <div class="search-container">
       <ion-button (click)="goToAdminHome()">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
-      <ion-searchbar placeholder="DNI, Nombre o Apellido ...."></ion-searchbar>
+      <div class="search-bar">
+        <ion-searchbar placeholder="DNI, Nombre o Apellido ...."></ion-searchbar>
+        <ion-item lines="none">
+          <ion-icon name="apps-outline"></ion-icon>
+          <ion-toggle justify="end" [(ngModel)]="isChangeToogle">
+          </ion-toggle>
+          <ion-icon name="reorder-four-outline"></ion-icon>
+        </ion-item>
+      </div>
       <ion-button (click)="openModal()">
         <ion-icon name="add"></ion-icon>
         Nuevo Empleado
       </ion-button>
     </div>
-    <div class="table-container">
-      <ion-item button (click)="editWorker(worker)" *ngFor="let worker of workers" lines="none">
-        <ion-label class="ion-text-wrap">
-          <div class="workerName">
-            <h2>Empleado: <p>{{ worker.idEmpleado }}</p>
-            </h2>
-            <h2>Nombre y apellidos: <p>{{ worker.nombre }} {{ worker.apellido }}</p>
-            </h2>
-          </div>
-          <div class="workerInfo">
-            <h4>Telefono: </h4>
-            <p>{{ worker.telefono }}</p>
-            <h4>Correo Electronico: </h4>
-            <p>{{ worker.email }}</p>
-            <h4>Cargo: </h4>
-            <p>{{ worker.cargo.nombreCargo }}</p>
-            <h4>Centro de Trabajo: </h4>
-            <p>{{ worker.centroTrabajo.nombreCentro }}</p>
-            <h4>Departamento: </h4>
-            <p>{{ worker.departamento.nombreDepartamento }}</p>
-          </div>
-        </ion-label>
+    <!--------------------------------------------------------------------------------------------------
 
-        <ion-button slot="end" (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()"
-          class="deleteButton">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-item>
+    ---------------------------------------------------------------------------------------------------->
+    <div class="table-container" *ngIf="!isChangeToogle">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" size-md="5" size-lg="3" *ngFor="let worker of workers">
+            <ion-card (click)="editWorker(worker)" class="worker-card">
+              <ion-card-header>
+                <ion-card-title>
+                  <div class="trabajador-info">
+                    <h2>
+                      <ion-icon name="id-card-outline"></ion-icon>
+                      {{ worker.idEmpleado }}
+                    </h2>
+                    <h3>
+                      <ion-icon name="person-outline"></ion-icon>
+                      {{ worker.nombre }} {{ worker.apellido }}
+                    </h3>
+                  </div>
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <div class="trabajador-detalles">
+                  <p>
+                    <ion-icon name="call-outline"></ion-icon>
+                    {{ worker.telefono }}
+                  </p>
+                  <p>
+                    <ion-icon name="mail-open-outline"></ion-icon>
+                    {{ worker.email }}
+                  </p>
+                  <p>
+                    <ion-icon name="construct-outline"></ion-icon>
+                    {{ worker.cargo.nombreCargo }}
+                  </p>
+                  <p>
+                    <ion-icon name="business-outline"></ion-icon>
+                    {{ worker.centroTrabajo.nombreCentro }}
+                  </p>
+                  <p>
+                    <ion-icon name="bag-outline"></ion-icon>
+                    {{ worker.departamento.nombreDepartamento }}
+                  </p>
+                </div>
+                <ion-button (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()" class="deleteButton"
+                  fill="outline">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="table-container">
+      <ion-list *ngIf="isChangeToogle">
+        <ion-item *ngFor="let worker of workers" (click)="editWorker(worker)" class="worker-item" lines="full">
+          <ion-label class="ion-text-wrap">
+            <h2>Empleado: {{ worker.idEmpleado }}</h2>
+            <h3>Nombre y apellidos: {{ worker.nombre }} {{ worker.apellido }}</h3>
+
+            <h4>Telefono:</h4>
+            <p>{{ worker.telefono }}</p>
+
+            <h4>Correo Electronico:</h4>
+            <p>{{ worker.email }}</p>
+
+            <h4>Cargo:</h4>
+            <p>{{ worker.cargo.nombreCargo }}</p>
+
+            <h4>Centro de Trabajo:</h4>
+            <p>{{ worker.centroTrabajo.nombreCentro }}</p>
+
+            <h4>Departamento:</h4>
+            <p>{{ worker.departamento.nombreDepartamento }}</p>
+          </ion-label>
+
+          <ion-button slot="end" (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()"
+            class="deleteButton" fill="outline">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
     </div>
   </div>
-
   <!------------------------------------------------------------------------------------------------
   MODAL PARA AGREGAR UN NUEVO CLIENTE
   -------------------------------------------------------------------------------------------------->
@@ -129,5 +196,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
 </ion-content>

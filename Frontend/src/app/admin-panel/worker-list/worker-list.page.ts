@@ -17,6 +17,9 @@ export class WorkerListPage implements OnInit {
   //VARIABLES PARA PODER ACTUALIZAR
   isEditEmpleado: number | null = null;
 
+  //VARIABLES PARA CAMBIAR DE CARD A LIST
+  isChangeToogle: boolean = false;
+
 
   //VARIABLES PARA EL MODAL 
   isModalOpen: boolean = false;
