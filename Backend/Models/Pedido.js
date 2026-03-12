@@ -1,9 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
     const Pedido = sequelize.define("pedido", {
         idPedido: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             primaryKey: true,
-            autoIncrement: true
         },
         idCliente: {
             type: Sequelize.STRING,
@@ -38,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
         Pedido.belongsTo(models.clientes, {
             foreignKey: "idCliente",
             targetKey: "cifCliente",
-            as: "clientes",
+            as: "cliente",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

@@ -17,12 +17,13 @@ export class Myservice {
   endpointsProveedores = `${this.baseUrl}/api/proveedor`;
   endpointsCategorias = `${this.baseUrl}/api/categoria`;
   endpointsClientes = `${this.baseUrl}/api/clientes`;
-  endpointsDetallePedido = `${this.baseUrl}/api/detalle_pedido`;
+  endpointsDetallePedido = `${this.baseUrl}/api/detallePedido`;
   endpointsDetalleProducto = `${this.baseUrl}/api/detalleProducto`;
   endpointsCentrosTrabajo = `${this.baseUrl}/api/centroTrabajo`;
   endpointsDepartamentos = `${this.baseUrl}/api/departamento`;
   endpointCargo = `${this.baseUrl}/api/cargos`;
   endpointWorker = `${this.baseUrl}/api/empleados`;
+  endpointsOrdenesEntrega = `${this.baseUrl}/api/ordenesEntrega`;
 
 
   constructor(
@@ -331,7 +332,108 @@ export class Myservice {
     };
     return this.http.delete(this.endpointWorker + '/' + id, { headers });
   }
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA LOS PEDIDOS |GET , POST , PUT , DELETE |
+ * ---------------------------------------------------------------------------------------------
+ * */
+  getPedidos() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsPedidos, { headers });
+  }
+
+  postPedidos(pedido: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsPedidos, pedido, { headers });
+  }
+
+  putPedidos(id: number, pedido: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsPedidos + '/' + id, pedido, { headers });
+  }
+
+  deletePedidos(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsPedidos + '/' + id, { headers });
+  }
+
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA LOS DETALLES DE LOS PEDIDOS |GET , POST , PUT , DELETE |
+ * ---------------------------------------------------------------------------------------------
+ * */
+  getDetallePedidos() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsDetallePedido, { headers });
+  }
+
+  postDetallePedidos(detallePedido: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsDetallePedido, detallePedido, { headers });
+  }
+
+  putDetallePedidos(id: number, detallePedido: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsDetallePedido + '/' + id, detallePedido, { headers });
+  }
+
+  deleteDetallePedidos(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsDetallePedido + '/' + id, { headers });
+  }
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA ORDENES DE ENTREGA |GET , POST , PUT , DELETE |
+ * ---------------------------------------------------------------------------------------------
+ * */
+  getOrdenesEntrega() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsOrdenesEntrega, { headers });
+  }
+
+  postOrdenesEntrega(ordenEntrega: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsOrdenesEntrega, ordenEntrega, { headers });
+  }
+
+  putOrdenesEntrega(id: number, ordenEntrega: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsOrdenesEntrega + '/' + id, ordenEntrega, { headers });
+  }
+
+  deleteOrdenesEntrega(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsOrdenesEntrega + '/' + id, { headers });
+  }
 }
+
 
 
 

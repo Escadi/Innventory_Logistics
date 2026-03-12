@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Myservice } from '../service/myservice';
 
 @Component({
   selector: 'app-client-page',
@@ -7,10 +8,66 @@ import { Component, OnInit } from '@angular/core';
   standalone: false
 })
 export class ClientPagePage implements OnInit {
+  clientes: any[] = [];
 
-  constructor() { }
+  //VARIABLES PARA EL MODAL
+  isModalOpen: boolean = false;
+  isEditCliente: number | null = null;
+  isChangeToogle: boolean = false;
+
+  //VARIABLES CLIENTE PARA EL FORMULARIO
+  cliente: any = {
+    cifCliente: '',
+    nombre: '',
+    direccion: '',
+    telefono: '',
+    correo: '',
+    codigoPostal: '',
+    ciudad: '',
+    pais: ''
+  };
+
+
+  constructor(
+
+    private myService: Myservice,
+
+  ) { }
 
   ngOnInit() {
+    this.getAll();
+  }
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCIONES DEL MODAL PARA LOS BOTONES DE AGREGAR Y EDITAR CLIENTE
+   * --------------------------------------------------------------------------------------------------------
+   */
+  openModal() {
+    this.isModalOpen = true;
+
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+
+  /**
+   * --------------------------------------------------------------------------------------------------------
+   * FUNCIONES PARA VER TODOS LOS CLIENTES
+   * --------------------------------------------------------------------------------------------------------
+   */
+  getAll() {
+
+    this.myService.getClientes().subscribe({
+      next: (res: any) => {
+        this.clientes = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const QRcode = require('qrcode');
 const app = express();
 const ngrok = require('@ngrok/ngrok');
 const path = require('path');
@@ -32,6 +33,23 @@ app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
 });
+/**
+ * ----------------------------------------------------------------------------------------------------
+ * FUNCIÓN PARA CREAR UN CODIGO QR CUANDO GENERARAS EL PEDIDO CON EL TRACKER CORRESPONDIENTE
+ * PUDIENDO LEER DESPUES POR EL MOVIL 
+ * ---------------------------------------------------------------------------------------------------- 
+ */
+app.get('/api/pedidos/:idPedido', async (req, res) => {
+    try {
+        const id = req.params.idPedido;
+        const qrData = await QRcode.toDataURL(id);
+        res.send(`<img src="${qrData}" />`);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error generating QR code');
+    }
+});
+
 
 // Custom route to bypass ngrok warning for images
 app.get('/api/images/:filename', (req, res) => {
@@ -50,8 +68,6 @@ app.get('/api/images/:filename', (req, res) => {
 
 //DIRECTORIO PUBLICO DE MULTER PARA GUARDAR Y VER LAS IMAGENES
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

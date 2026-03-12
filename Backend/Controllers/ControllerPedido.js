@@ -1,8 +1,15 @@
 const db = require('../Models');
+const { v4: uuidv4 } = require('uuid');
 const Pedido = db.pedido;
 
 exports.findAll = (req, res) => {
-    Pedido.findAll()
+    Pedido.findAll({
+        include: [
+            { model: db.clientes, as: 'cliente' },
+            { model: db.empleado, as: 'empleado' },
+            { model: db.centroTrabajo, as: 'centroTrabajo' }
+        ]
+    })
         .then(data => {
             res.send(data);
         })
@@ -13,8 +20,10 @@ exports.findAll = (req, res) => {
         });
 }
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
+    const trackingNumber = 'TRK-' + uuidv4().split('-')[0].toUpperCase();
     const pedido = {
+        idPedido: trackingNumber,
         fechaPedido: req.body.fechaPedido,
         estado: req.body.estado,
         idCentro: req.body.idCentro,

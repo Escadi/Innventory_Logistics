@@ -16,6 +16,7 @@ export class ClientListPage implements OnInit {
   //VARIABLES PARA EL MODAL
   isModalOpen: boolean = false;
   isEditCliente: number | null = null;
+  isChangeToogle: boolean = false;
 
   //VARIABLES CLIENTE PARA EL FORMULARIO
   cliente: any = {

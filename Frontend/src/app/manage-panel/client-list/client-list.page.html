@@ -1,18 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Gestión de los Clientes</ion-title>
+    <ion-title>Gestión de los clientes</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
-  <!------------------------------------------------------------------------------------------------
-  BARRA DE BUSQUEDA Y BOTON DE AGREGAR EN LA PARTE SUPERIOR DE LA VENTANA
-  -------------------------------------------------------------------------------------------------->
-  <div class="searchtab">
-    <div class="search-container">
-      <ion-button (click)="goToAdminHome()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-      <ion-searchbar placeholder="Buscar DNI, Cif, Nombre , Telefono ...."></ion-searchbar>
+  <!--------------------------------------------------------------------------------------------------
+    BARRA DE BUSQUEDA CON TOGGLER Y BOTON AGREGAR EN LA PARTE SUPERIOR
+  ---------------------------------------------------------------------------------------------------->
+  <div class="search-container">
+    <ion-button (click)="goToAdminHome()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    <div class="search-bar">
+      <ion-searchbar placeholder="DNI, Cif, Nombre o Telefono ...."></ion-searchbar>
+      <ion-item lines="none">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-toggle justify="end" [(ngModel)]="isChangeToogle">
+        </ion-toggle>
+        <ion-icon name="reorder-four-outline"></ion-icon>
+      </ion-item>
       <ion-button (click)="openModal()">
         <ion-icon name="add"></ion-icon>
         Nuevo Cliente
@@ -20,35 +27,101 @@
     </div>
   </div>
 
-  <ion-grid class="listCliente">
-    <ion-row>
-      <ion-col size="10" size-md="4" size-lg="4" *ngFor="let cliente of clientes">
-        <div class="deleteButton">
-          <ion-button (click)="deleteCliente(cliente.cifCliente)">
+  <!--------------------------------------------------------------------------------------------------
+    TABLA DE CLIENTES EN FORMATO DE CARDS 
+    ---------------------------------------------------------------------------------------------------->
+  <div class="table-container" *ngIf="!isChangeToogle">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="5" size-lg="3" *ngFor="let client of clientes">
+          <ion-card class="worker-card">
+            <ion-card-header>
+              <ion-card-title>
+                <div class="cliente-info">
+                  <h2>
+                    <ion-icon name="id-card-outline"></ion-icon>
+                    {{ client.cifCliente }}
+                  </h2>
+                  <h3>
+                    <ion-icon name="person-outline"></ion-icon>
+                    {{ client.nombre }}
+                  </h3>
+                </div>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="cliente-detalles">
+                <p>
+                  <ion-icon name="call-outline"></ion-icon>
+                  {{ client.telefono }}
+                </p>
+                <p>
+                  <ion-icon name="mail-open-outline"></ion-icon>
+                  {{ client.correo }}
+                </p>
+                <p>
+                  <ion-icon name="location-outline"></ion-icon>
+                  {{ client.direccion }}
+                </p>
+                <p>
+                  <ion-icon name="map-outline"></ion-icon>
+                  {{ client.ciudad }}, {{ client.pais }}
+                </p>
+                <ion-chip button (click)="isUpdateCliente(client)">
+                  <ion-icon name="create-outline"></ion-icon>
+                  Editar
+                </ion-chip>
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <ion-button (click)="deleteCliente(client.cifCliente); $event.stopPropagation()" class="deleteButton"
+            fill="clear">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!--------------------------------------------------------------------------------------------------
+    TABLA DE CLIENTES EN FORMATO DE LISTA
+    ---------------------------------------------------------------------------------------------------->
+  <div>
+    <ion-list *ngIf="isChangeToogle" class="list-container">
+      <ion-item *ngFor="let client of clientes" (click)="isUpdateCliente(client)" class="cliente-info-list"
+        lines="full">
+        <ion-avatar>
+          <img alt="Client" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <div class="cliente-infoHeader-list">
+          <h2><ion-icon name="id-card-outline"></ion-icon>{{ client.cifCliente }}</h2>
+          <h3>{{ client.nombre }}</h3>
+        </div>
+        <ion-label class="cliente-detalles-list">
+          <p>
+            <ion-icon name="call-outline"></ion-icon>
+            {{ client.telefono }}
+          </p>
+          <p>
+            <ion-icon name="mail-open-outline"></ion-icon>
+            {{ client.correo }}
+          </p>
+          <p>
+            <ion-icon name="location-outline"></ion-icon>
+            {{ client.direccion }}
+          </p>
+        </ion-label>
+        <div class="botones-lista">
+          <ion-button slot="end" fill="clear">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" (click)="deleteCliente(client.cifCliente); $event.stopPropagation()" fill="clear">
             <ion-icon name="trash"></ion-icon>
           </ion-button>
         </div>
-        <ion-item button (click)="isUpdateCliente(cliente)">
-          <ion-label class="cliente-info">
-            <h2>CIF: {{cliente.cifCliente}}</h2>
-            <p><span>Nombre:</span> {{cliente.nombre}}</p>
-            <p><span>Email:</span> {{cliente.correo}}</p>
-            <p><span>Telefono:</span> {{cliente.telefono}}</p>
-            <p><span>Direccion:</span> {{cliente.direccion}}</p>
-            <p><span>Codigo Postal:</span> {{cliente.codigoPostal}}</p>
-            <p><span>Ciudad:</span> {{cliente.ciudad}}</p>
-            <p><span>Pais:</span> {{cliente.pais}}</p>
-          </ion-label>
-          <ion-button>
-            <ion-icon name="mail-outline"></ion-icon>
-          </ion-button>
-          <ion-button>
-            <ion-icon name="call-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
 
   <!------------------------------------------------------------------------------------------------
   MODAL PARA AGREGAR UN NUEVO CLIENTE
@@ -66,47 +139,40 @@
         </ion-toolbar>
       </ion-header>
 
-      <!------------------------------------------------------------------------------------------------
-      FORMULARIO PARA AGREGAR UN NUEVO CLIENTE
-      -------------------------------------------------------------------------------------------------->
       <ion-content>
         <ion-item lines="none">
-          <ion-label position="stacked">Cif del Cliente</ion-label>
-          <ion-input type="text" placeholder="Cif del cliente" [(ngModel)]="cliente.cifCliente"></ion-input>
+          <ion-icon name="id-card-outline"></ion-icon>
+          <ion-input type="text" placeholder="CIF del cliente" [(ngModel)]="cliente.cifCliente"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="stacked">Nombre</ion-label>
+          <ion-icon name="person-outline"></ion-icon>
           <ion-input type="text" placeholder="Nombre del cliente" [(ngModel)]="cliente.nombre"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="stacked">Dirección</ion-label>
-          <ion-textarea type="text" placeholder="Detalles del la dirección"
-            [(ngModel)]="cliente.direccion"></ion-textarea>
+          <ion-icon name="location-outline"></ion-icon>
+          <ion-textarea placeholder="Dirección" [(ngModel)]="cliente.direccion"></ion-textarea>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="stacked">Correo Electronico</ion-label>
-          <ion-input type="text" placeholder="Correo Electronico" [(ngModel)]="cliente.correo"></ion-input>
+          <ion-icon name="mail-open-outline"></ion-icon>
+          <ion-input type="text" placeholder="Correo Electrónico" [(ngModel)]="cliente.correo"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="stacked">Telefono</ion-label>
-          <ion-input type="text" placeholder="Precio del producto" [(ngModel)]="cliente.telefono"></ion-input>
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-input type="text" placeholder="Teléfono" [(ngModel)]="cliente.telefono"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Codigo Postal</ion-label>
-          <ion-input type="text" placeholder="Codigo Postal" [(ngModel)]="cliente.codigoPostal"></ion-input>
+        <ion-item lines="none">
+          <ion-icon name="pin-outline"></ion-icon>
+          <ion-input type="text" placeholder="Código Postal" [(ngModel)]="cliente.codigoPostal"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Ciudad</ion-label>
+        <ion-item lines="none">
+          <ion-icon name="business-outline"></ion-icon>
           <ion-input type="text" placeholder="Ciudad" [(ngModel)]="cliente.ciudad"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Pais</ion-label>
+        <ion-item lines="none">
+          <ion-icon name="globe-outline"></ion-icon>
           <ion-input type="text" placeholder="Pais" [(ngModel)]="cliente.pais"></ion-input>
         </ion-item>
 
-        <!------------------------------------------------------------------------------------------------
-              BOTON PARA AGREGAR UN NUEVO PRODUCTO
-            -------------------------------------------------------------------------------------------------->
         <ion-button expand="block" class="ion-margin" (click)="createCliente()">
           <ion-icon name="add" slot="start"></ion-icon>
           {{isEditCliente ? 'Actualizar Cliente' : 'Nuevo Cliente'}}
@@ -114,6 +180,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
-
 </ion-content>

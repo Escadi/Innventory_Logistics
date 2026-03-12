@@ -4,114 +4,128 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <div class="containerPrincipal">
-    <!--------------------------------------------------------------------------------------------------
-
-    ---------------------------------------------------------------------------------------------------->
-    <div class="search-container">
-      <ion-button (click)="goToAdminHome()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-      <div class="search-bar">
-        <ion-searchbar placeholder="DNI, Nombre o Apellido ...."></ion-searchbar>
-        <ion-item lines="none">
-          <ion-icon name="apps-outline"></ion-icon>
-          <ion-toggle justify="end" [(ngModel)]="isChangeToogle">
-          </ion-toggle>
-          <ion-icon name="reorder-four-outline"></ion-icon>
-        </ion-item>
-      </div>
+  <!--------------------------------------------------------------------------------------------------
+    BARRA DE BUSQUEDA CON TOGGLER Y BOTON AGREGAR EN LA PARTE SUPERIOR
+  ---------------------------------------------------------------------------------------------------->
+  <div class="search-container">
+    <ion-button (click)="goToAdminHome()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    <div class="search-bar">
+      <ion-searchbar placeholder="DNI, Nombre o Apellido ...."></ion-searchbar>
+      <ion-item lines="none">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-toggle justify="end" [(ngModel)]="isChangeToogle">
+        </ion-toggle>
+        <ion-icon name="reorder-four-outline"></ion-icon>
+      </ion-item>
       <ion-button (click)="openModal()">
         <ion-icon name="add"></ion-icon>
         Nuevo Empleado
       </ion-button>
     </div>
-    <!--------------------------------------------------------------------------------------------------
-
+  </div>
+  <!--------------------------------------------------------------------------------------------------
+    TABLA DE EMPLEADOS EN FORMATO DE CARDS 
     ---------------------------------------------------------------------------------------------------->
-    <div class="table-container" *ngIf="!isChangeToogle">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" size-md="5" size-lg="3" *ngFor="let worker of workers">
-            <ion-card (click)="editWorker(worker)" class="worker-card">
-              <ion-card-header>
-                <ion-card-title>
-                  <div class="trabajador-info">
-                    <h2>
-                      <ion-icon name="id-card-outline"></ion-icon>
-                      {{ worker.idEmpleado }}
-                    </h2>
-                    <h3>
-                      <ion-icon name="person-outline"></ion-icon>
-                      {{ worker.nombre }} {{ worker.apellido }}
-                    </h3>
-                  </div>
-                </ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <div class="trabajador-detalles">
-                  <p>
-                    <ion-icon name="call-outline"></ion-icon>
-                    {{ worker.telefono }}
-                  </p>
-                  <p>
-                    <ion-icon name="mail-open-outline"></ion-icon>
-                    {{ worker.email }}
-                  </p>
-                  <p>
-                    <ion-icon name="construct-outline"></ion-icon>
-                    {{ worker.cargo.nombreCargo }}
-                  </p>
-                  <p>
-                    <ion-icon name="business-outline"></ion-icon>
-                    {{ worker.centroTrabajo.nombreCentro }}
-                  </p>
-                  <p>
-                    <ion-icon name="bag-outline"></ion-icon>
-                    {{ worker.departamento.nombreDepartamento }}
-                  </p>
+  <div class="table-container" *ngIf="!isChangeToogle">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="5" size-lg="3" *ngFor="let worker of workers">
+          <ion-card class="worker-card">
+            <ion-card-header>
+              <ion-card-title>
+                <div class="trabajador-info">
+                  <h2>
+                    <ion-icon name="id-card-outline"></ion-icon>
+                    {{ worker.idEmpleado }}
+                  </h2>
+                  <h3>
+                    <ion-icon name="person-outline"></ion-icon>
+                    {{ worker.nombre }} {{ worker.apellido }}
+                  </h3>
                 </div>
-                <ion-button (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()" class="deleteButton"
-                  fill="outline">
-                  <ion-icon name="trash"></ion-icon>
-                </ion-button>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="trabajador-detalles">
+                <p>
+                  <ion-icon name="call-outline"></ion-icon>
+                  {{ worker.telefono }}
+                </p>
+                <p>
+                  <ion-icon name="mail-open-outline"></ion-icon>
+                  {{ worker.email }}
+                </p>
+                <p>
+                  <ion-icon name="construct-outline"></ion-icon>
+                  {{ worker.cargo.nombreCargo }}
+                </p>
+                <p>
+                  <ion-icon name="business-outline"></ion-icon>
+                  {{ worker.centroTrabajo.nombreCentro }}
+                </p>
+                <p>
+                  <ion-icon name="bag-outline"></ion-icon>
+                  {{ worker.departamento.nombreDepartamento }}
+                </p>
+                <ion-chip button (click)="editWorker(worker)">
+                  <ion-icon name="person-outline"></ion-icon>
+                  Perfil
+                </ion-chip>
+              </div>
 
-    <div class="table-container">
-      <ion-list *ngIf="isChangeToogle">
-        <ion-item *ngFor="let worker of workers" (click)="editWorker(worker)" class="worker-item" lines="full">
-          <ion-label class="ion-text-wrap">
-            <h2>Empleado: {{ worker.idEmpleado }}</h2>
-            <h3>Nombre y apellidos: {{ worker.nombre }} {{ worker.apellido }}</h3>
-
-            <h4>Telefono:</h4>
-            <p>{{ worker.telefono }}</p>
-
-            <h4>Correo Electronico:</h4>
-            <p>{{ worker.email }}</p>
-
-            <h4>Cargo:</h4>
-            <p>{{ worker.cargo.nombreCargo }}</p>
-
-            <h4>Centro de Trabajo:</h4>
-            <p>{{ worker.centroTrabajo.nombreCentro }}</p>
-
-            <h4>Departamento:</h4>
-            <p>{{ worker.departamento.nombreDepartamento }}</p>
-          </ion-label>
-
-          <ion-button slot="end" (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()"
-            class="deleteButton" fill="outline">
+            </ion-card-content>
+          </ion-card>
+          <ion-button (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()" class="deleteButton"
+            fill="clear">
             <ion-icon name="trash"></ion-icon>
           </ion-button>
-        </ion-item>
-      </ion-list>
-    </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!--------------------------------------------------------------------------------------------------
+    TABLA DE EMPLEADOS EN FORMATO DE LISTA
+    ---------------------------------------------------------------------------------------------------->
+  <div>
+    <ion-list *ngIf="isChangeToogle" class="list-container">
+      <ion-item *ngFor="let worker of workers" (click)="editWorker(worker)" class="trabajador-info-list" lines="full">
+        <ion-avatar>
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <div class="trabajador-infoHeader-list">
+          <h2><ion-icon name="id-card-outline"></ion-icon>{{ worker.idEmpleado }}</h2>
+          <h3>{{ worker.nombre }} {{ worker.apellido }}</h3>
+        </div>
+        <ion-label class="trabajador-detalles-list">
+          <p>
+            <ion-icon name="call-outline"></ion-icon>
+            {{ worker.telefono }}
+          </p>
+          <p>
+            <ion-icon name="mail-open-outline"></ion-icon>
+            {{ worker.email }}
+          </p>
+          <p>
+            <ion-icon name="business-outline"></ion-icon>
+            {{ worker.centroTrabajo.nombreCentro }}
+          </p>
+          <p>
+            <ion-icon name="bag-outline"></ion-icon>
+            {{ worker.departamento.nombreDepartamento }}
+          </p>
+        </ion-label>
+        <div class="botones-lista">
+          <ion-button slot="end" fill="clear">
+            <ion-icon name="person-outline"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" (click)="deleteEmpleado(worker.idEmpleado); $event.stopPropagation()" fill="clear">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
   </div>
   <!------------------------------------------------------------------------------------------------
   MODAL PARA AGREGAR UN NUEVO CLIENTE
@@ -134,23 +148,20 @@
       -------------------------------------------------------------------------------------------------->
       <ion-content>
         <ion-item lines="none">
-          <ion-label position="stacked">Nombre</ion-label>
+          <ion-icon name="person-outline" class="iconoUsuario"></ion-icon>
           <ion-input type="text" placeholder="Nombre del Trabajador" [(ngModel)]="empleado.nombre"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label position="stacked">Apellido</ion-label>
           <ion-input type="text" placeholder="Apellido del Trabajador" [(ngModel)]="empleado.apellido"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="stacked">Correo Electronico</ion-label>
+          <ion-icon name="mail-open-outline"></ion-icon>
           <ion-input type="text" placeholder="Correo Electronico" [(ngModel)]="empleado.email"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="stacked">Telefono</ion-label>
+          <ion-icon name="call-outline"></ion-icon>
           <ion-input type="text" placeholder="Telefono del Trabajador" [(ngModel)]="empleado.telefono"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Departamento</ion-label>
+          <ion-icon name="bag-outline"></ion-icon>
           <ion-select [(ngModel)]="empleado.idDepartamento">
             <ion-select-option *ngFor="let departamento of departamentos" [value]="departamento.idDepartamento">
               {{ departamento.nombreDepartamento }}
@@ -158,7 +169,7 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Centro de Trabajo</ion-label>
+          <ion-icon name="business-outline"></ion-icon>
           <ion-select [(ngModel)]="empleado.idCentro">
             <ion-select-option *ngFor="let centro of centrosTrabajo" [value]="centro.idCentro">
               {{ centro.nombreCentro }}
@@ -166,23 +177,23 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Cargo</ion-label>
-          <ion-select [(ngModel)]="empleado.idCargo">
+          <ion-icon name="construct-outline"></ion-icon>
+          <ion-select [(ngModel)]="empleado.idCargo" aria-placeholder="">
             <ion-select-option *ngFor="let cargo of cargos" [value]="cargo.idCargo">
               {{ cargo.nombreCargo }}
             </ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Rol en el Sistema</ion-label>
-          <ion-select [(ngModel)]="empleado.rol" placeholder="Seleccione Rol">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-select [(ngModel)]="empleado.rol" aria-placeholder="Seleccione Rol">
             <ion-select-option value="Empleado">Empleado</ion-select-option>
             <ion-select-option value="Supervisor">Supervisor</ion-select-option>
             <ion-select-option value="Admin">Admin</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item lines="none" *ngIf="!isEditEmpleado">
-          <ion-label position="stacked">Contraseña Temporal <small>(El usuario la cambiará luego)</small></ion-label>
+          <ion-icon name="lock-closed-outline"></ion-icon>
           <ion-input type="text" placeholder="Ej. temporal123" [(ngModel)]="empleado.temporalPassword"></ion-input>
         </ion-item>
 

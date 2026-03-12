@@ -12,6 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class ProviderListPage implements OnInit {
   proveedores: any[] = [];
   selectedCategory: any[] = [];
+  isChangeToogle: boolean = false;
 
 
   //VARIABLES PARA GUARDAR LOS PROVEDORES
