@@ -5,7 +5,9 @@
 </ion-header>
 <ion-content [fullscreen]="true">
 
-  <!-- barra de busqueda -->
+  <!--------------------------------------------------------------------------------------------------
+   BARRA DE BUSQUEDA EN LA PARTE SUPERIOR 
+   -------------------------------------------------------------------------------------------------->
   <div class="search-container">
     <div class="search-bar">
       <ion-searchbar placeholder="CIF, Nombre, Email, Telefono,.........." [(ngModel)]="searchText"></ion-searchbar>
@@ -23,17 +25,19 @@
     </div>
   </div>
 
-  <!-- contenedor de los pedidos -->
+  <!--------------------------------------------------------------------------------------------------
+   CONTENEDOR DE LOS PEDIDOS EN FORMA DE GRID
+   -------------------------------------------------------------------------------------------------->
   <div>
     <ion-grid *ngIf="!isChangeToogle" class="pedidos-grid-container">
       <ion-row>
         <ion-col size="11" size-md="5" size-lg="3" *ngFor="let pedido of pedidos">
-          <ion-card class="pedido-card">
+          <ion-card>
             <ion-card-header>
-              <ion-chip>
+              <ion-chip [color]="getStatusColor(pedido.estado)">
                 <ion-label>{{ pedido.estado }}</ion-label>
               </ion-chip>
-              <div class="info-Pedido">
+              <div class="info-pedido">
                 <h2>
                   <ion-icon name="qr-code-outline"></ion-icon>{{ pedido.idPedido }}
                 </h2>
@@ -41,22 +45,23 @@
                 <p><ion-icon name="send-outline"></ion-icon>{{ pedido.centroTrabajo.nombreCentro }}</p>
               </div>
             </ion-card-header>
+
             <ion-card-content>
+              <div class="line"></div>
               <div class="info-trabajador">
-                <h2><ion-icon name="person-outline"></ion-icon>{{ pedido.empleado.nombre }}</h2>
+                <h2><ion-icon name="person-outline"></ion-icon>{{ pedido.empleado.nombre + " " +
+                  pedido.empleado.apellido }}</h2>
+                <p><ion-icon name="mail-outline"></ion-icon>{{ pedido.empleado.centroTrabajo.nombreCentro }}</p>
                 <p><ion-icon name="calendar-outline"></ion-icon>{{ pedido.fechaPedido | date:'dd/MM/yyyy' }}</p>
               </div>
-
               <div class="grid-boton">
-                <ion-button fill="clear">
+                <ion-button fill="clear" (click)="openModalOrdenesEntrega(pedido.idPedido)">
                   <ion-icon name="eye-outline"></ion-icon>
                 </ion-button>
-
-                <ion-button fill="clear">
+                <ion-button fill="clear" (click)="isUpdatePedido(pedido)">
                   <ion-icon name="create-outline"></ion-icon>
                 </ion-button>
-
-                <ion-button fill="clear">
+                <ion-button fill="clear" (click)="deletePedido(pedido.idPedido)">
                   <ion-icon name="trash-outline"></ion-icon>
                 </ion-button>
               </div>
@@ -68,7 +73,9 @@
     </ion-grid>
   </div>
 
-  <!-- contenedor de los pedidos en lista -->
+  <!--------------------------------------------------------------------------------------------------
+   CONTENEDOR DE LOS PEDIDOS EN FORMA DE LISTA
+   -------------------------------------------------------------------------------------------------->
   <div class="pedidos-list-container">
     <ion-list *ngIf="isChangeToogle">
       <ion-item *ngFor="let pedido of pedidos">
@@ -80,4 +87,130 @@
       </ion-item>
     </ion-list>
   </div>
+  <!--------------------------------------------------------------------------------------------------
+   ION MODAL PARA ACTUALIZAR EL PEDIDO
+   -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpenUpdate" (ionModalDidDismiss)="closeModalUpdate()" class="modalOrdenEntrega">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Actualizar Pedido</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModalUpdate()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list class="ordenes-list-container">
+          <ion-item class="orden-item" lines="none">
+            <ion-label>
+              <ion-item>
+                <ion-input type="text" [(ngModel)]="idPedidoData"></ion-input>
+              </ion-item>
+              <ion-chip>
+                <ion-label>
+                  <ion-select [(ngModel)]="estado">
+                    <ion-select-option *ngFor="let e of estados" [value]="e">
+                      {{ e }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-label>
+              </ion-chip>
+              <div class="info-Pedido">
+                <p>
+                  <ion-icon name="people-outline"></ion-icon>
+                  <ion-select [(ngModel)]="idCliente">
+                    <ion-select-option *ngFor="let cliente of clientes" [value]="cliente.cifCliente">
+                      {{ cliente.nombre }}
+                    </ion-select-option>
+                  </ion-select>
+                </p>
+                <p>
+                  <ion-icon name="send-outline"></ion-icon>
+                  <ion-select [(ngModel)]="idCentro">
+                    <ion-select-option *ngFor="let centroTrabajo of centrosTrabajo" [value]="centroTrabajo.idCentro">
+                      {{ centroTrabajo.nombreCentro }}
+                    </ion-select-option>
+                  </ion-select>
+                </p>
+              </div>
+              <div class="grid-boton">
+                <ion-button fill="clear" (click)="onUpdate()">
+                  <ion-icon name="save-outline"></ion-icon>
+                  Actualizar
+                </ion-button>
+              </div>
+            </ion-label>
+
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!--------------------------------------------------------------------------------------------------
+   ION MODAL PARA LAS ORDENES DE ENTREGA EN FORMA DE GRID
+   -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModal()" class="modalOrdenEntrega">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Ordenes de entrega</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list class="ordenes-list-container">
+          <ion-item class="orden-item" *ngFor="let ordenEntrega of filtroOrdenesEntrega" lines="none">
+            <ion-label>
+              <ion-item>
+                <h2>{{ordenEntrega.idPedido}}</h2>
+              </ion-item>
+              <ion-chip>
+                <ion-label>{{ ordenEntrega.estado }}</ion-label>
+              </ion-chip>
+              <div class="info-Pedido">
+                <p>
+                  <ion-icon name="people-outline"></ion-icon>
+                  {{ ordenEntrega.fechaSalida ? (ordenEntrega.fechaSalida | date:'dd/MM/yyyy') : 'Pendiente' }}
+                </p>
+                <p>
+                  <ion-icon name="send-outline"></ion-icon>
+                  {{ ordenEntrega.fechaEntrega ? (ordenEntrega.fechaEntrega | date:'dd/MM/yyyy') : 'Pendiente' }}
+                </p>
+              </div>
+              <div class="info-trabajador">
+                <p>
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  {{ ordenEntrega.conductor?.nombre + ' ' + ordenEntrega.conductor?.apellido}}
+                </p>
+              </div>
+
+              <div class="grid-boton">
+                <ion-button fill="clear">
+                  <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                </ion-button>
+
+                <ion-button fill="clear">
+                  <ion-icon name="navigate-circle-outline"></ion-icon>
+                </ion-button>
+
+                <ion-button fill="clear">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-label>
+
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
 </ion-content>

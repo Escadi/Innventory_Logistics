@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         idPedido: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
 
         },
         fechaSalida: {
@@ -42,6 +42,13 @@ module.exports = (sequelize, Sequelize) => {
             foreignKey: "idPedido",
             targetKey: "idPedido",
             as: "pedido",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        OrdenDeEntrega.belongsTo(models.conductor, {
+            foreignKey: "idConductor",
+            targetKey: "idConductor",
+            as: "conductor",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });

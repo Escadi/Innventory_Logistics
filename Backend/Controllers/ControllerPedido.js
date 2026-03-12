@@ -6,7 +6,10 @@ exports.findAll = (req, res) => {
     Pedido.findAll({
         include: [
             { model: db.clientes, as: 'cliente' },
-            { model: db.empleado, as: 'empleado' },
+            {
+                model: db.empleado, as: 'empleado',
+                include: [{ model: db.centroTrabajo, as: 'centroTrabajo' }]
+            },
             { model: db.centroTrabajo, as: 'centroTrabajo' }
         ]
     })

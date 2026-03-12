@@ -2,6 +2,12 @@ ion-header {
     box-shadow: none;
 }
 
+.line {
+    height: 2px;
+    background-color: var(--color-border-subtle);
+    margin: 10px;
+}
+
 .search-container {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     border-radius: 20px;
@@ -39,6 +45,28 @@ ion-header {
         --handle-max-height: auto;
         --handle-border-radius: 4px;
         --handle-box-shadow: none;
+    }
+
+    ion-button {
+        --background: rgba(var(--color-primary-rgb), 0.1);
+        --background-hover: var(--color-primary);
+        --background-activated: var(--color-primary);
+        --color: var(--color-primary);
+        --color-activated: var(--color-text-inverse);
+        --border-radius: 20px;
+        /* replaced 50px pill with standard rounded rect */
+        --box-shadow: none;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+
+        &:hover {
+            scale: 1.08;
+        }
+
+        &:active {
+            scale: 1;
+        }
     }
 }
 
@@ -78,7 +106,77 @@ ion-header {
             box-shadow: var(--shadow-md);
             transform: translateY(-2px);
         }
+
+        ion-chip {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .info-pedido {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            h2 {
+                font-weight: 600;
+                font-size: 14px;
+
+                ion-icon {
+                    color: var(--color-primary);
+                    margin-right: 10px;
+                }
+
+            }
+
+            p {
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--color-text-secondary);
+
+                ion-icon {
+                    color: var(--color-primary);
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .info-trabajador {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            box-shadow: var(--shadow-sm);
+            border-radius: var(--border-radius-card);
+            background: var(--color-background-alt);
+            padding: 10px;
+
+            h2 {
+                font-weight: 600;
+                font-size: 14px;
+
+                ion-icon {
+                    color: var(--color-primary);
+                    margin-right: 10px;
+                }
+
+            }
+
+            p {
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--color-text-secondary);
+
+                ion-icon {
+                    color: var(--color-primary);
+                    margin-right: 10px;
+                }
+            }
+        }
+
     }
+
+
 
     .grid-boton {
         display: flex;

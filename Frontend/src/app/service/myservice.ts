@@ -24,6 +24,7 @@ export class Myservice {
   endpointCargo = `${this.baseUrl}/api/cargos`;
   endpointWorker = `${this.baseUrl}/api/empleados`;
   endpointsOrdenesEntrega = `${this.baseUrl}/api/ordenesEntrega`;
+  endpointsConductor = `${this.baseUrl}/api/conductor`;
 
 
   constructor(
@@ -352,14 +353,14 @@ export class Myservice {
     return this.http.post(this.endpointsPedidos, pedido, { headers });
   }
 
-  putPedidos(id: number, pedido: any) {
+  putPedidos(id: string, pedido: any) {
     const headers = {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.put(this.endpointsPedidos + '/' + id, pedido, { headers });
   }
 
-  deletePedidos(id: number) {
+  deletePedidos(id: string) {
     const headers = {
       'ngrok-skip-browser-warning': 'true'
     };
@@ -431,6 +432,39 @@ export class Myservice {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.delete(this.endpointsOrdenesEntrega + '/' + id, { headers });
+  }
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA CONDUCTORES |GET , POST , PUT , DELETE |
+ * ---------------------------------------------------------------------------------------------
+ * */
+  getConductor() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsConductor, { headers });
+  }
+
+  postConductor(conductor: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsConductor, conductor, { headers });
+  }
+
+  putConductor(id: number, conductor: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsConductor + '/' + id, conductor, { headers });
+  }
+
+  deleteConductor(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsConductor + '/' + id, { headers });
   }
 }
 

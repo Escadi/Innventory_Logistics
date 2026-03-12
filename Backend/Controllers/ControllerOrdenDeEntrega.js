@@ -2,9 +2,10 @@ const db = require('../Models');
 const OrdenDeEntrega = db.ordenDeEntrega;
 
 exports.findAll = (req, res) => {
-    OrdenDeEntrega.findAll()
+    OrdenDeEntrega.findAll({
+        include: [{ model: db.conductor, as: 'conductor' }]
+    })
         .then(data => {
-            aaa
             res.send(data);
         })
         .catch(err => {

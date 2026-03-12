@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
 
         },
         idPedido: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
 
         },
         cantidad: {
