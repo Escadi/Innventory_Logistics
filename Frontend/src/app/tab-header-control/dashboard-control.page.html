@@ -3,6 +3,9 @@
     <img src="assets/icon/InnventoryLogoLogistics.png" alt="Logo" class="logo"
       routerLink="/dashboard-control/dashboard-page" routerLinkActive="active-tab">
   </div>
+  <!-----------------------------------------------------------------------------------------------------------------
+   BOTONES DE NAVEGACION DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
+  ----------------------------------------------------------------------------------------------------------------->
   <div class="buttons">
     <ion-button fill="clear" size="small" routerLink="/dashboard-control/product-page" routerLinkActive="active-tab">
       Productos
@@ -23,11 +26,13 @@
       Panel Admin
     </ion-button>
   </div>
-
+  <!-----------------------------------------------------------------------------------------------------------------
+   BOTONES DE CARRITO, AVATAR Y LOGOUT DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
+  ----------------------------------------------------------------------------------------------------------------->
   <div class="logout">
-    <ion-button fill="clear" size="small">
+    <ion-button fill="clear" size="small" (click)="openModalCart()">
       <ion-icon name="cart-outline"></ion-icon>
-      <ion-badge color="warning">10</ion-badge>
+      <ion-badge color="warning">{{detalleCarrito.length}}</ion-badge>
     </ion-button>
     <ion-avatar button size="small" routerLink="/dashboard-control/setting-page" routerLinkActive="active-tab">
       <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -38,4 +43,56 @@
   </div>
 </div>
 
+<!-----------------------------------------------------------------------------------------------------------------
+   ION MODAL DEL CARRITO PARA HACER LOS PEDIDOS Y AGREGARLOS EN PEDIDOS DESDE DETALLESPEDIDOS
+  ----------------------------------------------------------------------------------------------------------------->
+<ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModalCart()" class="modalCarrito">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Carrito de compra</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModalCart()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list class="listModal">
+        <ion-item *ngFor="let item of detalleCarrito">
+          <ion-label>
+            <ion-avatar>
+              <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <h2>{{item.detallesProducto.producto.nombreProducto}}</h2>
+            <p>
+              <ion-button fill="clear" size="small" (click)="btnRemove(item)">
+                <ion-icon name="remove"></ion-icon>
+              </ion-button>
+              <ion-input type="number" [(ngModel)]="item.cantidad"></ion-input>
+              <ion-button fill="clear" size="small" (click)="btnAdd(item)">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </p>
+          </ion-label>
+          <ion-button fill="clear" size="small" (click)="deleteDetalleCarrito(item.idDetalleCarrito)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-button expand="full" (click)="closeModalCart()">
+          <ion-icon name="cart-outline"></ion-icon>
+          Comprar
+        </ion-button>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-template>
+</ion-modal>
+<!-----------------------------------------------------------------------------------------------------------------
+   RESTO DE INFORMACIÓN DE LAS DEMAS VENTANAS EN LA PARTE INTERIOR DE LA BARRA
+  ----------------------------------------------------------------------------------------------------------------->
 <ion-router-outlet></ion-router-outlet>

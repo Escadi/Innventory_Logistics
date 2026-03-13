@@ -19,6 +19,7 @@ export class Myservice {
   endpointsClientes = `${this.baseUrl}/api/clientes`;
   endpointsDetallePedido = `${this.baseUrl}/api/detallePedido`;
   endpointsDetalleProducto = `${this.baseUrl}/api/detalleProducto`;
+  endpointsDetalleCarrito = `${this.baseUrl}/api/detalleCarrito`;
   endpointsCentrosTrabajo = `${this.baseUrl}/api/centroTrabajo`;
   endpointsDepartamentos = `${this.baseUrl}/api/departamento`;
   endpointCargo = `${this.baseUrl}/api/cargos`;
@@ -399,6 +400,39 @@ export class Myservice {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.delete(this.endpointsDetallePedido + '/' + id, { headers });
+  }
+
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA DETALLES DEL CARRITO |GET , POST , PUT , DELETE |
+ * ---------------------------------------------------------------------------------------------
+ * */
+  getDetallesCarrito() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsDetalleCarrito, { headers });
+  }
+  postDetallesCarrito(detalleCarrito: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsDetalleCarrito, detalleCarrito, { headers });
+  }
+
+  putDetallesCarrito(id: number, detalleCarrito: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsDetalleCarrito + '/' + id, detalleCarrito, { headers });
+  }
+
+  deleteDetallesCarrito(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsDetalleCarrito + '/' + id, { headers });
   }
 
   /**

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Myservice } from '../service/myservice';
+import { CallData } from '../service/dataService/call-data';
 
 @Component({
   selector: 'app-product-page',
@@ -11,6 +12,7 @@ export class ProductPagePage implements OnInit {
   //VARIABLES PARA EL FILTRO DE CATEGORIAS
   selectedCategory: any[] = [];
   detalleProductos: any[] = [];
+  detalleCarrito: any[] = [];
   fitroDetalleProducto: any[] = [];
   filtroProductoCentro: any[] = [];
   filtroSegmento: number = 0;
@@ -23,11 +25,18 @@ export class ProductPagePage implements OnInit {
   //VARIABLES PARA EL TOOGLE QUE SE LLAMA DESDE EL HTML PARA CAMBIAR LA VISTA DE LOS PRODUCTOS
   isChangeToogle: boolean = false;
 
+  //VARIABLE PARA CREAR EL DETALLE DEL CARRITO
+
+
   constructor(
-    private myservice: Myservice
+    private myservice: Myservice,
+    private data: CallData
   ) { }
 
   ngOnInit() {
+    this.getAllData();
+  }
+  ionViewDidEnter() {
     this.getAllData();
   }
 
@@ -136,6 +145,37 @@ export class ProductPagePage implements OnInit {
         console.log(err);
       }
     });
+    this.myservice.getDetallesCarrito().subscribe({ //OBTENER LOS DETALLES DEL CARRITO
+      next: (res: any) => {
+        this.detalleCarrito = res;
+        this.data.setData(res); //LLAMAMOS A SERVICIO DATASERVICE PARA QUE SE ACTUALICE LOS DATOS
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
 
+  }
+
+  /**
+ * --------------------------------------------------------------------------------------------------------
+ * FUNCIONES DE DETALLES CARRITO PARA AGREGAR PRODUCTO CON LA CANTIDAD EN NULL PARA LUEGO
+ * HACERLO DESDE EL CARRITO
+ * --------------------------------------------------------------------------------------------------------
+ */
+  addCarrito(producto: any) {
+    const detalleCarrito: any = {
+      idDetalleProducto: producto.idDetalleProducto,
+      cantidad: 0
+    }
+    this.myservice.postDetallesCarrito(detalleCarrito).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.getAllData();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
 }

@@ -1,8 +1,9 @@
 const db = require('../Models');
-const DetallesPedido = db.detallePedido;
+const DetallesCarrito = db.detalleCarrito;
+
 
 exports.findAll = (req, res) => {
-    DetallesPedido.findAll({
+    DetallesCarrito.findAll({
         include: [
             {
                 model: db.detalleProducto,
@@ -21,69 +22,69 @@ exports.findAll = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving detallesPedido."
+                message:
+                    err.message || "Some error occurred while retrieving detallesCarrito."
             });
         });
-};
-
+}
 exports.create = (req, res) => {
-    const detallesPedido = {
+    const detallesCarrito = {
         idDetalleProducto: req.body.idDetalleProducto,
         idPedido: req.body.idPedido,
         cantidad: req.body.cantidad
     };
-
-    DetallesPedido.create(detallesPedido)
+    DetallesCarrito.create(detallesCarrito)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating detallesPedido."
+                message:
+                    err.message || "Some error occurred while creating detallesCarrito."
             });
         });
-};
-
+}
 exports.update = (req, res) => {
-    DetallesPedido.update(req.body, {
-        where: { idDetallePedido: req.params.id }
+    DetallesCarrito.update(req.body, {
+        where: { idDetalleCarrito: req.params.id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "detallesPedido was updated successfully."
+                    message: "detallesCarrito was updated successfully."
                 });
             } else {
                 res.send({
-                    message: "detallesPedido was not found."
+                    message: "detallesCarrito was not found."
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while updating detallesPedido."
+                message: err.message || "Some error occurred while updating detallesCarrito."
             });
         });
-};
-
+}
 exports.delete = (req, res) => {
-    DetallesPedido.destroy({
-        where: { idDetallePedido: req.params.id }
+    DetallesCarrito.destroy({
+        where: { idDetalleCarrito: req.params.id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "detallesPedido was deleted successfully."
+                    message: "detallesCarrito was deleted successfully."
                 });
             } else {
                 res.send({
-                    message: "detallesPedido was not found."
+                    message: "detallesCarrito was not found."
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while deleting detallesPedido."
+                message: err.message || "Some error occurred while deleting detallesCarrito."
             });
         });
-};
+}
+
+

@@ -182,9 +182,9 @@ INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUE
 ('1',2,50,1),
 ('2',1,30,1);
 
-INSERT INTO pedido (idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
-('CIF001',1,1,'2024-01-01','Pendiente'),
-('CIF002',2,2,'2024-01-05','En proceso');
+INSERT INTO pedido (idPedido,idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
+(1,'CIF001',1,1,'2024-01-01','Pendiente'),
+(2,'CIF002',2,2,'2024-01-05','En proceso');
 
 INSERT INTO detallePedido (idDetalleProducto,cantidad) VALUES
 (1,5),
@@ -440,21 +440,21 @@ INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUE
 -- PEDIDOS
 -- idPedido se genera por orden: 1..16
 -- =========================
-INSERT INTO pedido (idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
-('CIF003',1,3,'2024-01-10','Pendiente'),     -- 3
-('CIF004',2,4,'2024-01-11','En proceso'),    -- 4
-('CIF005',1,5,'2024-01-12','Entregado'),     -- 5
-('CIF006',2,6,'2024-01-13','Pendiente'),     -- 6
-('CIF007',1,7,'2024-01-14','En proceso'),    -- 7
-('CIF008',2,8,'2024-01-15','Cancelado'),     -- 8
-('CIF009',3,9,'2024-01-16','Pendiente'),     -- 9
-('CIF010',4,10,'2024-01-17','En proceso'),   -- 10
-('CIF011',5,11,'2024-01-18','Entregado'),    -- 11
-('CIF012',3,12,'2024-01-19','Pendiente'),    -- 12
-('CIF013',4,13,'2024-01-20','En proceso'),   -- 13
-('CIF014',5,14,'2024-01-21','Pendiente'),    -- 14
-('CIF015',1,9,'2024-01-22','Entregado'),     -- 15
-('CIF016',2,10,'2024-01-23','Cancelado');    -- 16
+INSERT INTO pedido (idPedido,idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
+(3,'CIF003',1,3,'2024-01-10','Pendiente'),     -- 3
+(4,'CIF004',2,4,'2024-01-11','En proceso'),    -- 4
+(5,'CIF005',1,5,'2024-01-12','Entregado'),     -- 5
+(6,'CIF006',2,6,'2024-01-13','Pendiente'),     -- 6
+(7,'CIF007',1,7,'2024-01-14','En proceso'),    -- 7
+(8,'CIF008',2,8,'2024-01-15','Cancelado'),     -- 8
+(9,'CIF009',3,9,'2024-01-16','Pendiente'),     -- 9
+(10,'CIF010',4,10,'2024-01-17','En proceso'),   -- 10
+(11,'CIF011',5,11,'2024-01-18','Entregado'),    -- 11
+(12,'CIF012',3,12,'2024-01-19','Pendiente'),    -- 12
+(13,'CIF013',4,13,'2024-01-20','En proceso'),   -- 13
+(14,'CIF014',5,14,'2024-01-21','Pendiente'),    -- 14
+(15,'CIF015',1,9,'2024-01-22','Entregado'),     -- 15
+(16,'CIF016',2,10,'2024-01-23','Cancelado');    -- 16
 
 
 -- =========================

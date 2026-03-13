@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         DetalleCarrito.belongsTo(models.detalleProducto, {
             foreignKey: "idDetalleProducto",
-            targetKey: "idDetalle",
+            targetKey: "idDetalleProducto",
             as: "detallesProducto",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"

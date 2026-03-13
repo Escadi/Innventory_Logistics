@@ -101,6 +101,52 @@
     }
 }
 
+.listModal {
+
+    ion-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex: 4;
+
+
+        h2 {}
+
+        p {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            ion-button {
+
+                --background: var(--color-primary);
+                --background-hover: var(--color-primary-hover);
+                --background-activated: var(--color-primary-hover);
+                --background-focused: var(--color-primary-hover);
+                --color: var(--color-text-inverse);
+                --color-hover: var(--color-text-inverse);
+                --color-activated: var(--color-text-inverse);
+                --color-focused: var(--color-text-inverse);
+                --border-radius: 50px;
+            }
+
+
+        }
+
+        ion-input {
+            width: 25%;
+            text-align: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            border-radius: 5px;
+            --background: var(--color-surface);
+        }
+    }
+}
+
+
 ion-router-outlet {
     flex: 1;
     position: relative;
