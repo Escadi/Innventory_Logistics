@@ -1,3 +1,100 @@
-<ion-content [fullscreen]="true">
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true">
+  <div class="dashboard-container">
+    <div class="welcome-section">
+      <h1>Bienvenido al Panel de Control</h1>
+      <p>Resumen general de tu inventario y logística</p>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <!-- Product Stats Card -->
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="stats-card products" routerLink="/dashboard-control/product-page">
+            <ion-card-header>
+              <div class="icon-container">
+                <ion-icon name="cube-outline"></ion-icon>
+              </div>
+              <ion-card-subtitle>Productos</ion-card-subtitle>
+              <ion-card-title>{{ productCount }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Total de productos registrados
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- Client Stats Card -->
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="stats-card clients" routerLink="/dashboard-control/client-page">
+            <ion-card-header>
+              <div class="icon-container">
+                <ion-icon name="people-outline"></ion-icon>
+              </div>
+              <ion-card-subtitle>Clientes</ion-card-subtitle>
+              <ion-card-title>{{ clientCount }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Clientes activos en el sistema
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- Provider Stats Card -->
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="stats-card providers" routerLink="/dashboard-control/provider-page">
+            <ion-card-header>
+              <div class="icon-container">
+                <ion-icon name="business-outline"></ion-icon>
+              </div>
+              <ion-card-subtitle>Proveedores</ion-card-subtitle>
+              <ion-card-title>{{ providerCount }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Proveedores de suministros
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- Pending Orders Card -->
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="stats-card orders" routerLink="/dashboard-control/delivery-page">
+            <ion-card-header>
+              <div class="icon-container">
+                <ion-icon name="time-outline"></ion-icon>
+              </div>
+              <ion-card-subtitle>Pedidos Pendientes</ion-card-subtitle>
+              <ion-card-title>{{ pendingOrdersCount }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Pedidos esperando procesamiento
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="quick-actions-row">
+        <ion-col size="12">
+          <h2 class="section-title">Acciones Rápidas</h2>
+        </ion-col>
+        <ion-col size="6" size-md="3">
+          <ion-button expand="block" fill="outline" routerLink="/dashboard-control/manage-home">
+            <ion-icon slot="start" name="settings-outline"></ion-icon>
+            Gestión
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" size-md="3">
+          <ion-button expand="block" fill="outline" routerLink="/dashboard-control/product-list">
+            <ion-icon slot="start" name="list-outline"></ion-icon>
+            Ver Inventario
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

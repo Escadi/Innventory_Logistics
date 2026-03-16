@@ -368,6 +368,13 @@ export class Myservice {
     return this.http.delete(this.endpointsPedidos + '/' + id, { headers });
   }
 
+  generateQR(id: string) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsPedidos + '/generateQR/' + id, { headers });
+  }
+
 
   /**
  * ------------------------------------------------------------------------------------------

@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
         estado: req.body.estado,
         idCentro: req.body.idCentro,
         idEmpleado: req.body.idEmpleado,
-        idCliente: req.body.idCliente
+        cifCliente: req.body.cifCliente
     };
 
     Pedido.create(pedido)

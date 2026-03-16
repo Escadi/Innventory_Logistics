@@ -140,135 +140,66 @@ CREATE TABLE IF NOT EXISTS ordenDeEntrega (
 );
 
 INSERT INTO categoria (nombreCategoria) VALUES
+('Ropa'),          
+('Hogar'),         
+('Deporte'),       
+('Papelería');
+
+INSERT INTO categoria (nombreCategoria) VALUES
 ('Electrónica'),
 ('Alimentación'),
 ('Ropa');
 
+
+
+INSERT INTO departamento (nombreDepartamento) VALUES
+('Administración'),       
+('Recursos Humanos'),     
+('Marketing'),            
+('Atención al Cliente');
 INSERT INTO departamento (nombreDepartamento) VALUES
 ('Ventas'),
 ('Logística'),
-('Administración');
+('Administración');  
+
+INSERT INTO centroTrabajo (nombreCentro) VALUES
+('Centro Valencia'),   
+('Centro Sevilla'),    
+('Centro Bilbao'),     
+('Centro Las Palmas');
 
 INSERT INTO centroTrabajo (nombreCentro) VALUES
 ('Centro Madrid'),
 ('Centro Barcelona');
 
 INSERT INTO cargo (nombreCargo) VALUES
+('Auxiliar'),     
+('Técnico'),      
+('Responsable');
+INSERT INTO cargo (nombreCargo) VALUES
 ('Gerente'),
 ('Empleado'),
-('Supervisor');
+('Supervisor');  
 
-INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria) VALUES
-(1001,'Proveedor Tech','Calle A','600111111','tech@mail.com',1),
-(1002,'Proveedor Food','Calle B','600222222','food@mail.com',2);
-
-INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,ciudad,pais) VALUES
-('CIF001','Cliente Uno','Calle 1','611111111','c1@mail.com','35001','Las Palmas','España'),
-('CIF002','Cliente Dos','Calle 2','622222222','c2@mail.com','35002','Las Palmas','España');
-
-INSERT INTO vehiculo (matricula,marca,modelo,color,idTipo) VALUES
-('1234ABC','Mercedes','Actros','Blanco',1),
-('5678DEF','Ford','Transit','Negro',2);
-
-INSERT INTO empleado (nombre,apellido,email,telefono,idCentro,idCargo,idDepartamento) VALUES
-('Juan','Perez','juan@mail.com','600000001',1,1,1),
-('Ana','Garcia','ana@mail.com','600000002',2,2,2);
-
-INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,idProveedor,idCategoria) VALUES
-('1','Portatil','Portatil de alta gama',1000.50,1,1001,1),
-('2','Camiseta','Camiseta de algodon',20.50,2,1002,3);
-
-INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
-('1',2,50,1),
-('2',1,30,1);
-
-INSERT INTO pedido (idPedido,idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
-(1,'CIF001',1,1,'2024-01-01','Pendiente'),
-(2,'CIF002',2,2,'2024-01-05','En proceso');
-
-INSERT INTO detallePedido (idDetalleProducto,cantidad) VALUES
-(1,5),
-(2,3);
-
-INSERT INTO detalleCarrito (idDetalleProducto,cantidad) VALUES
-(1,2),
-(2,1);
-
-INSERT INTO conductor (nombre,apellido,telefono,email,idVehiculo) VALUES
-('Carlos','Ruiz','633333333','carlos@mail.com','1234ABC'),
-('Pedro','Lopez','644444444','pedro@mail.com','5678DEF');
-
-INSERT INTO ordenDeEntrega (idPedido,fechaEntrega,idConductor,estado) VALUES
-(1,'2024-01-03',1,'En reparto'),
-(2,'2024-01-07',2,'Pendiente');
-
-
-
--- =========================
--- CATEGORIAS
--- =========================
-INSERT INTO categoria (nombreCategoria) VALUES
-('Ropa'),          -- idCategoria = 3
-('Hogar'),         -- idCategoria = 4
-('Deporte'),       -- idCategoria = 5
-('Papelería');     -- idCategoria = 6
-
-
--- =========================
--- DEPARTAMENTOS
--- =========================
-INSERT INTO departamento (nombreDepartamento) VALUES
-('Administración'),       -- idDepartamento = 3
-('Recursos Humanos'),     -- idDepartamento = 4
-('Marketing'),            -- idDepartamento = 5
-('Atención al Cliente');  -- idDepartamento = 6
-
-
--- =========================
--- CENTROS DE TRABAJO
--- =========================
-INSERT INTO centroTrabajo (nombreCentro) VALUES
-('Centro Valencia'),   -- idCentro = 3
-('Centro Sevilla'),    -- idCentro = 4
-('Centro Bilbao'),     -- idCentro = 5
-('Centro Las Palmas');
-
-
--- =========================
--- CARGOS
--- =========================
-INSERT INTO cargo (nombreCargo) VALUES
-('Auxiliar'),     -- idCargo = 4
-('Técnico'),      -- idCargo = 5
-('Responsable');  -- idCargo = 6
-
-
--- =========================
--- TIPOS DE VEHICULO
--- =========================
 INSERT INTO tipoVehiculo (tipoVehiculo) VALUES
-('Camión'),        -- idTipo = 1
-('Furgoneta'),     -- idTipo = 2
-('Coche'),         -- idTipo = 3
-('Moto'),          -- idTipo = 4
-('Bicicleta'),     -- idTipo = 5
-('Patinete'),      -- idTipo = 6
-('Barco'),         -- idTipo = 7
-('Trailer'),       -- idTipo = 8
-('Pickup'),        -- idTipo = 9
-('Todoterreno'),   -- idTipo = 10
-('Autobús'),       -- idTipo = 11
-('Scooter'),       -- idTipo = 12
-('Quad'),          -- idTipo = 13
-('Tractor'),       -- idTipo = 14
-('Remolque'),      -- idTipo = 15
-('Furgón'),        -- idTipo = 16
-('Microbús');      -- idTipo = 17
+('Camión'),        
+('Furgoneta'),     
+('Coche'),         
+('Moto'),          
+('Bicicleta'),     
+('Patinete'),      
+('Barco'),         
+('Trailer'),       
+('Pickup'),        
+('Todoterreno'),   
+('Autobús'),       
+('Scooter'),       
+('Quad'),          
+('Tractor'),       
+('Remolque'),      
+('Furgón'),        
+('Microbús');      
 
-
--- =========================
--- PROVEEDORES
--- =========================
 INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria) VALUES
 (1003,'Proveedor Moda','Calle C','600333333','moda@mail.com',3),
 (1004,'Proveedor Hogar','Calle D','600444444','hogar@mail.com',4),
@@ -279,10 +210,11 @@ INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria)
 (1009,'Proveedor Textil Plus','Calle I','600999999','textilplus@mail.com',3),
 (1010,'Proveedor Movil','Calle J','601000000','movil@mail.com',1);
 
+INSERT INTO proveedor (CifProveedor,nombre,direccion,telefono,email,idCategoria) VALUES
+(1001,'Proveedor Tech','Calle A','600111111','tech@mail.com',1),
+(1002,'Proveedor Food','Calle B','600222222','food@mail.com',2);
 
--- =========================
--- CLIENTES
--- =========================
+
 INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,ciudad,pais) VALUES
 ('CIF003','Cliente Tres','Avenida Mar','633111111','c3@mail.com','35003','Las Palmas','España'),
 ('CIF004','Cliente Cuatro','Calle Sol','633222222','c4@mail.com','28001','Madrid','España'),
@@ -299,10 +231,11 @@ INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,c
 ('CIF015','Cliente Quince','Avenida Puerto 15','611000007','c15@mail.com','03001','Alicante','España'),
 ('CIF016','Cliente Dieciseis','Calle Arena 21','611000008','c16@mail.com','11001','Cádiz','España');
 
+INSERT INTO clientes (cifCliente,nombre,direccion,telefono,correo,codigoPostal,ciudad,pais) VALUES
+('CIF001','Cliente Uno','Calle 1','611111111','c1@mail.com','35001','Las Palmas','España'),
+('CIF002','Cliente Dos','Calle 2','622222222','c2@mail.com','35002','Las Palmas','España');
 
--- =========================
--- VEHICULOS
--- =========================
+
 INSERT INTO vehiculo (matricula,marca,modelo,color,idTipo) VALUES
 ('9012GHI','Iveco','Daily','Blanco',2),
 ('3456JKL','Renault','Kangoo','Azul',2),
@@ -320,10 +253,10 @@ INSERT INTO vehiculo (matricula,marca,modelo,color,idTipo) VALUES
 ('1212TUV','MAN','TGX','Gris',8),
 ('1313WXY','Fiat','Ducato','Blanco',16);
 
+INSERT INTO vehiculo (matricula,marca,modelo,color,idTipo) VALUES
+('1234ABC','Mercedes','Actros','Blanco',1),
+('5678DEF','Ford','Transit','Negro',2);
 
--- =========================
--- EMPLEADOS
--- =========================
 INSERT INTO empleado (nombre,apellido,email,telefono,idCentro,idCargo,idDepartamento) VALUES
 ('Juan','Perez','juan@mail.com','600000001',1,1,1),
 ('Ana','Garcia','ana@mail.com','600000002',2,2,2),
@@ -346,10 +279,15 @@ INSERT INTO empleado (nombre,apellido,email,telefono,idCentro,idCargo,idDepartam
 ('Miguel','Leon','miguel.leon@mail.com','600000019',5,4,4),
 ('Paula','Diaz','paula@mail.com','600000020',1,5,6);
 
+INSERT INTO empleado (nombre,apellido,email,telefono,idCentro,idCargo,idDepartamento) VALUES
+('Juan','Perez','juan@mail.com','600000001',1,1,1),
+('Ana','Garcia','ana@mail.com','600000002',2,2,2);
 
--- =========================
--- PRODUCTOS
--- =========================
+
+INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,idProveedor,idCategoria) VALUES
+('1','Portatil','Portatil de alta gama',1000.50,1,1001,1),
+('2','Camiseta','Camiseta de algodon',20.50,2,1002,3);
+
 INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,idProveedor,idCategoria) VALUES
 ('3','Tablet','Tablet de 10 pulgadas',350.99,3,1001,1),
 ('4','Auriculares','Auriculares inalambricos',79.95,4,1007,1),
@@ -381,87 +319,65 @@ INSERT INTO producto (idProducto,nombreProducto,descripcion,precio,idEmpleado,id
 ('30','Raqueta','Raqueta de tenis',89.99,20,1006,5);
 
 
--- =========================
--- DETALLES PRODUCTO
--- idDetalleProducto se genera por orden: 1..30
--- =========================
-INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
-('3',1,40,2),   -- 3
-('4',1,60,5),   -- 4
-('5',2,100,5),  -- 5
-('6',2,80,5),   -- 6
-('7',1,45,6),   -- 7
-('8',1,25,5),   -- 8
-('9',3,35,6),   -- 9
-('10',3,20,6),  -- 10
-('11',2,55,2),  -- 11
-('12',3,70,6),  -- 12
-('13',1,22,5),  -- 13
-('14',3,18,2),  -- 14
-('15',2,90,5),  -- 15
-('16',2,120,2), -- 16
-('17',1,40,6),  -- 17
-('18',1,65,3),  -- 18
-('19',3,50,6),  -- 19
-('20',2,110,5), -- 20
-('21',1,28,2),  -- 21
-('22',3,33,5),  -- 22
-('23',2,95,6),  -- 23
-('24',1,47,2),  -- 24
-('25',3,26,5),  -- 25
-('26',1,37,5),  -- 26
-('27',3,150,6), -- 27
-('28',1,42,5),  -- 28
-('29',2,31,2),  -- 29
-('30',1,19,1);  -- 30
 
 INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
-('1',1,40,2),   -- 3
-('2',1,60,5),   -- 4
-('3',2,100,5),  -- 5
-('4',2,80,5),   -- 6
-('5',1,45,6),   -- 7
-('6',1,25,5),   -- 8
-('7',3,35,6),   -- 9
-('8',3,20,6),  -- 10
-('1',2,55,2),  -- 11
-('2',3,70,6),  -- 12
-('3',1,22,5),  -- 13
-('4',3,18,2),  -- 14
-('5',2,90,5),  -- 15
-('6',2,120,2), -- 16
-('7',1,40,6),  -- 17
-('8',1,65,3);
+('1',2,50,1),
+('2',1,30,1);
 
+INSERT INTO detallesProducto (idProducto,idDepartamento,cantidad,idCentro) VALUES
+('3',1,40,2),   
+('4',1,60,5),   
+('5',2,100,5),  
+('6',2,80,5),   
+('7',1,45,6),   
+('8',1,25,5),   
+('9',3,35,6),   
+('10',3,20,6),  
+('11',2,55,2),  
+('12',3,70,6),  
+('13',1,22,5),  
+('14',3,18,2),  
+('15',2,90,5),  
+('16',2,120,2), 
+('17',1,40,6),  
+('18',1,65,3),  
+('19',3,50,6),  
+('20',2,110,5), 
+('21',1,28,2),  
+('22',3,33,5),  
+('23',2,95,6),  
+('24',1,47,2),  
+('25',3,26,5),  
+('26',1,37,5),  
+('27',3,150,6), 
+('28',1,42,5),  
+('29',2,31,2),  
+('30',1,19,1);
 
+INSERT INTO pedido (idPedido,cifCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
+(1,'CIF001',1,1,'2024-01-01','Pendiente'),
+(2,'CIF002',2,2,'2024-01-05','En proceso');  
 
+INSERT INTO pedido (idPedido,cifCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
+(3,'CIF003',1,3,'2024-01-10','Pendiente'),     
+(4,'CIF004',2,4,'2024-01-11','En proceso'),    
+(5,'CIF005',1,5,'2024-01-12','Entregado'),     
+(6,'CIF006',2,6,'2024-01-13','Pendiente'),     
+(7,'CIF007',1,7,'2024-01-14','En proceso'),    
+(8,'CIF008',2,8,'2024-01-15','Cancelado'),     
+(9,'CIF009',3,9,'2024-01-16','Pendiente'),     
+(10,'CIF010',4,10,'2024-01-17','En proceso'),   
+(11,'CIF011',5,11,'2024-01-18','Entregado'),    
+(12,'CIF012',3,12,'2024-01-19','Pendiente'),    
+(13,'CIF013',4,13,'2024-01-20','En proceso'),   
+(14,'CIF014',5,14,'2024-01-21','Pendiente'),    
+(15,'CIF015',1,9,'2024-01-22','Entregado'),     
+(16,'CIF016',2,10,'2024-01-23','Cancelado'); 
+ 
+INSERT INTO detallePedido (idDetalleProducto,cantidad) VALUES
+(1,5),
+(2,3);
 
--- =========================
--- PEDIDOS
--- idPedido se genera por orden: 1..16
--- =========================
-INSERT INTO pedido (idPedido,idCliente,idCentro,idEmpleado,fechaPedido,estado) VALUES
-(3,'CIF003',1,3,'2024-01-10','Pendiente'),     -- 3
-(4,'CIF004',2,4,'2024-01-11','En proceso'),    -- 4
-(5,'CIF005',1,5,'2024-01-12','Entregado'),     -- 5
-(6,'CIF006',2,6,'2024-01-13','Pendiente'),     -- 6
-(7,'CIF007',1,7,'2024-01-14','En proceso'),    -- 7
-(8,'CIF008',2,8,'2024-01-15','Cancelado'),     -- 8
-(9,'CIF009',3,9,'2024-01-16','Pendiente'),     -- 9
-(10,'CIF010',4,10,'2024-01-17','En proceso'),   -- 10
-(11,'CIF011',5,11,'2024-01-18','Entregado'),    -- 11
-(12,'CIF012',3,12,'2024-01-19','Pendiente'),    -- 12
-(13,'CIF013',4,13,'2024-01-20','En proceso'),   -- 13
-(14,'CIF014',5,14,'2024-01-21','Pendiente'),    -- 14
-(15,'CIF015',1,9,'2024-01-22','Entregado'),     -- 15
-(16,'CIF016',2,10,'2024-01-23','Cancelado');    -- 16
-
-
--- =========================
--- DETALLE PEDIDO
--- OJO: según tu estructura actual, aquí solo guardas idDetalleProducto y cantidad.
--- No existe idPedido en esta tabla.
--- =========================
 INSERT INTO detallePedido (idDetalleProducto,cantidad) VALUES
 (3,4),
 (4,2),
@@ -493,63 +409,24 @@ INSERT INTO detallePedido (idDetalleProducto,cantidad) VALUES
 (30,2);
 
 
--- =========================
--- DETALLE CARRITO
--- OJO: según tu estructura actual, aquí solo guardas idDetalleProducto y cantidad.
--- =========================
-INSERT INTO detalleCarrito (idDetalleProducto,cantidad) VALUES
-(3,1),
-(4,2),
-(5,4),
-(6,2),
-(7,1),
-(8,1),
-(9,3),
-(10,2),
-(11,1),
-(12,2),
-(13,3),
-(14,1),
-(15,2),
-(16,1),
-(17,1),
-(18,2),
-(19,1),
-(20,3),
-(21,2),
-(22,1),
-(23,4),
-(24,2),
-(25,1),
-(26,1),
-(27,5),
-(28,2),
-(29,1),
-(30,1);
-
-
--- =========================
--- CONDUCTORES
--- idConductor se genera por orden: 1..12
--- =========================
 INSERT INTO conductor (nombre,apellido,telefono,email,idVehiculo) VALUES
-('Carlos','Ruiz','633333333','carlos@mail.com','1234ABC'),   -- idConductor = 1
-('Pedro','Lopez','644444444','pedro@mail.com','5678DEF'),    -- 2
-('Sergio','Diaz','655111111','sergio@mail.com','9012GHI'),   -- 3
-('Alberto','Suarez','655222222','alberto@mail.com','3456JKL'), -- 4
-('Raul','Castro','655333333','raul@mail.com','7890MNO'),     -- 5
-('Javier','Mendez','655444444','javier@mail.com','1122PQR'), -- 6
-('Tomas','Vega','655555555','tomas@mail.com','3344STU'),     -- 7
-('Ivan','Sosa','644000001','ivan@mail.com','5566VWX'),       -- 8
-('Miguel','Reyes','644000002','miguel@mail.com','7788YZA'),  -- 9
-('Adrian','Santana','644000003','adrian@mail.com','9900BCD'),-- 10
-('Daniel','Perdomo','644000004','daniel@mail.com','2233EFG'),-- 11
-('Hector','Delgado','644000005','hector@mail.com','4455HIJ');-- 12
+('Carlos','Ruiz','633333333','carlos@mail.com','1234ABC'),   
+('Pedro','Lopez','644444444','pedro@mail.com','5678DEF'),    
+('Sergio','Diaz','655111111','sergio@mail.com','9012GHI'),   
+('Alberto','Suarez','655222222','alberto@mail.com','3456JKL'), 
+('Raul','Castro','655333333','raul@mail.com','7890MNO'),     
+('Javier','Mendez','655444444','javier@mail.com','1122PQR'), 
+('Tomas','Vega','655555555','tomas@mail.com','3344STU'),     
+('Ivan','Sosa','644000001','ivan@mail.com','5566VWX'),       
+('Miguel','Reyes','644000002','miguel@mail.com','7788YZA'),  
+('Adrian','Santana','644000003','adrian@mail.com','9900BCD'),
+('Daniel','Perdomo','644000004','daniel@mail.com','2233EFG'),
+('Hector','Delgado','644000005','hector@mail.com','4455HIJ');
+INSERT INTO conductor (nombre,apellido,telefono,email,idVehiculo) VALUES
+('Carlos','Ruiz','633333333','carlos@mail.com','1234ABC'),
+('Pedro','Lopez','644444444','pedro@mail.com','5678DEF');
 
 
--- =========================
--- ORDENES DE ENTREGA
--- =========================
 INSERT INTO ordenDeEntrega (idPedido,fechaEntrega,idConductor,estado) VALUES
 (3,'2024-01-12',3,'En reparto'),
 (4,'2024-01-13',4,'Pendiente'),
@@ -565,3 +442,6 @@ INSERT INTO ordenDeEntrega (idPedido,fechaEntrega,idConductor,estado) VALUES
 (14,'2024-01-22',8,'Pendiente'),
 (15,'2024-01-23',9,'Entregado'),
 (16,'2024-01-24',10,'Cancelada');
+INSERT INTO ordenDeEntrega (idPedido,fechaEntrega,idConductor,estado) VALUES
+(1,'2024-01-03',1,'En reparto'),
+(2,'2024-01-07',2,'Pendiente');

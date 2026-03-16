@@ -35,7 +35,7 @@ module.exports = (sequelize, Sequelize) => {
     Clientes.associate = (models) => {
         // CON QUE TABLAS SE RELACIONA ESTA TABLA
         Clientes.hasMany(models.pedido, {
-            foreignKey: "idCliente",
+            foreignKey: "cifCliente",
             as: "pedido",
             onDelete: "CASCADE",
             onUpdate: "CASCADE"

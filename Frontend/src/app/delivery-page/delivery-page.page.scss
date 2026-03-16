@@ -107,10 +107,40 @@ ion-header {
             transform: translateY(-2px);
         }
 
-        ion-chip {
-            font-weight: 600;
-            font-size: 14px;
+        .estado-pedido {
+            display: flex;
+            justify-content: row;
+
+            ion-chip {
+                font-weight: 600;
+                width: 100%;
+                font-size: 18px;
+            }
+
+            ion-button {
+                --background: rgba(var(--color-primary-rgb), 0.1);
+                --background-hover: var(--color-primary);
+                --background-activated: var(--color-primary);
+                --color: var(--color-primary);
+                --color-activated: var(--color-text-inverse);
+                --border-radius: 8px;
+                /* replaced 50px pill with standard rounded rect */
+                --box-shadow: none;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+
+                &:hover {
+                    scale: 1.08;
+                }
+
+                &:active {
+                    scale: 1;
+                }
+            }
         }
+
+
 
         .info-pedido {
             display: flex;
@@ -204,5 +234,46 @@ ion-header {
                 scale: 1;
             }
         }
+    }
+}
+
+.ticket-container {
+    width: 250px; // Aprox 58mm
+    font-family: 'Courier New', Courier, monospace; // Fuente monoespaciada
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+    background: white;
+    color: black;
+
+    h2 {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    p {
+        margin: 2px 0;
+    }
+
+    .ticket-body {
+        text-align: left;
+    }
+}
+
+// Estilos para la impresión (oculta la interfaz de la app)
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printArea,
+    #printArea * {
+        visibility: visible;
+    }
+
+    #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
     }
 }

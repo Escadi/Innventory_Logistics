@@ -1,0 +1,93 @@
+.dashboard-container {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .welcome-section {
+    margin-bottom: 32px;
+    padding: 0 8px;
+
+    h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: var(--ion-color-dark);
+    }
+
+    p {
+      color: var(--ion-color-medium);
+      font-size: 1.1rem;
+    }
+  }
+
+  .section-title {
+    padding: 0 8px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .stats-card {
+    border-radius: 12px;
+    margin: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    ion-card-header {
+      padding-bottom: 0;
+
+      .icon-container {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 1.5rem;
+      }
+
+      ion-card-subtitle {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      ion-card-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-top: 8px;
+      }
+    }
+
+    &.products .icon-container {
+      background: rgba(var(--ion-color-primary-rgb), 0.1);
+      color: var(--ion-color-primary);
+    }
+
+    &.clients .icon-container {
+      background: rgba(var(--ion-color-secondary-rgb), 0.1);
+      color: var(--ion-color-secondary);
+    }
+
+    &.providers .icon-container {
+      background: rgba(var(--ion-color-tertiary-rgb), 0.1);
+      color: var(--ion-color-tertiary);
+    }
+
+    &.orders .icon-container {
+      background: rgba(var(--ion-color-warning-rgb), 0.1);
+      color: var(--ion-color-warning);
+    }
+  }
+
+  .quick-actions-row {
+    margin-top: 16px;
+  }
+}

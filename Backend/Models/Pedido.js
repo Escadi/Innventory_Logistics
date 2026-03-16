@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        idCliente: {
+        cifCliente: {
             type: Sequelize.STRING,
 
         },
@@ -35,7 +35,7 @@ module.exports = (sequelize, Sequelize) => {
     Pedido.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
         Pedido.belongsTo(models.clientes, {
-            foreignKey: "idCliente",
+            foreignKey: "cifCliente",
             targetKey: "cifCliente",
             as: "cliente",
             onDelete: "CASCADE",

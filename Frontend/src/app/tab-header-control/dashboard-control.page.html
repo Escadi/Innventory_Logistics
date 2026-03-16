@@ -42,7 +42,6 @@
     </ion-button>
   </div>
 </div>
-
 <!-----------------------------------------------------------------------------------------------------------------
    ION MODAL DEL CARRITO PARA HACER LOS PEDIDOS Y AGREGARLOS EN PEDIDOS DESDE DETALLESPEDIDOS
   ----------------------------------------------------------------------------------------------------------------->
@@ -84,9 +83,21 @@
     </ion-content>
     <ion-footer>
       <ion-toolbar>
-        <ion-button expand="full" (click)="closeModalCart()">
+        <ion-label>Cliente que solicita el pedido</ion-label>
+        <ion-select fill="clear" size="small" placeholder="Seleccionar Cliente" [(ngModel)]="cifCliente">
+          <ion-select-option [value]="cliente.cifCliente" *ngFor="let cliente of clientes">
+            {{cliente.cifCliente + " - " + cliente.nombre}}
+          </ion-select-option>
+        </ion-select>
+        <ion-label>Centro a cual se solicita el pedido</ion-label>
+        <ion-select fill="clear" size="small" placeholder="Centro de trabajo" [(ngModel)]="idCentro">
+          <ion-select-option [value]="centro.idCentro" *ngFor="let centro of centroTrabajo">
+            {{centro.nombreCentro}}
+          </ion-select-option>
+        </ion-select>
+        <ion-button expand="full" (click)="createPedido()">
           <ion-icon name="cart-outline"></ion-icon>
-          Comprar
+          Solicitar pedido
         </ion-button>
       </ion-toolbar>
     </ion-footer>

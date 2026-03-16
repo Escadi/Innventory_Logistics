@@ -16,7 +16,9 @@ export class DeliveryPagePage implements OnInit {
   centrosTrabajo: any[] = [];
   clientes: any[] = [];
   conductores: any[] = [];
+  detallePedidos: any[] = [];
   filtroOrdenesEntrega: any[] = [];
+  filtroDetallePedidos: any[] = [];
   scannedId = '';
   searchText = '';
   estados: string[] = [
@@ -30,10 +32,11 @@ export class DeliveryPagePage implements OnInit {
   //VARIABLE PARA EL ION MODAL DE ORDENES DE ENTREGA
   isModalOpen: boolean = false;
   isModalOpenUpdate: boolean = false;
+  isModalOpenDetalle: boolean = false;
 
   //VARIABLE PARA OBTENER EL ID DEL PEDIDO
   idPedidoData: string = '';
-  idCliente: string = '';
+  cifCliente: string = '';
   idCentro: string = '';
   idEmpleado: string = '';
   fechaPedido: string = '';
@@ -42,6 +45,8 @@ export class DeliveryPagePage implements OnInit {
   // VARIABLE PARA CAMBIAR DE GRID A LIST
   isChangeToogle: boolean = false;
 
+  //CREAMOS EL CODIGO QR PARA PONERLO EN EL PAQUETE DE ENVIO
+  qrcodeImage: string = '';
 
   constructor(
     private myService: Myservice,
@@ -75,6 +80,16 @@ export class DeliveryPagePage implements OnInit {
     this.isModalOpen = false;
   }
 
+  //METODO PARA ABRIR EL ION MODAL DE DETALLE DEL PEDIDO
+  openModalDetalle() {
+    this.isModalOpenDetalle = true;
+  }
+
+  //METODO PARA CERRAR EL ION MODAL DE DETALLE DEL PEDIDO
+  closeModalDetalle() {
+    this.isModalOpenDetalle = false;
+  }
+
   /**
      * ------------------------------------------------------------------------------------------------------
      * GET DE TODOS LOS DATOS DE LOS ESTADOS DE LAS PETICIONES (COLORES PARA EL FRONTEND)
@@ -104,6 +119,34 @@ export class DeliveryPagePage implements OnInit {
     console.log(this.filtroOrdenesEntrega);
 
     this.openModal();
+  }
+  /**
+  * ------------------------------------------------------------------------------------
+  * FUNCIÓN PARA FILTRAR LOS DETALLES DE LOS PEDIDOS POR BUSQUEDA (NOMBRE O CODIGO)
+  * ------------------------------------------------------------------------------------
+  */
+  openModalDetallePedido(id: string) {
+    this.idPedidoData = id;
+
+    const pedidoEncontrado = this.pedidos.find(p => String(p.idPedido) === String(id));
+    if (pedidoEncontrado) {
+      this.fechaPedido = pedidoEncontrado.fechaPedido;
+      this.estado = pedidoEncontrado.estado;
+      this.idCentro = pedidoEncontrado.centroTrabajo?.nombreCentro || pedidoEncontrado.idCentro;
+
+      const emp = pedidoEncontrado.empleado;
+      this.idEmpleado = emp ? `${emp.nombre} ${emp.apellido}` : pedidoEncontrado.idEmpleado;
+    }
+
+    this.filtroDetallePedidos = this.detallePedidos.filter((detalle: any) => {
+      return detalle.idPedido === this.idPedidoData;
+    });
+    console.log(this.filtroDetallePedidos);
+
+    // Reiniciar QR al ver otro detalle
+    this.qrcodeImage = '';
+
+    this.openModalDetalle();
   }
 
   /**
@@ -152,7 +195,6 @@ export class DeliveryPagePage implements OnInit {
     this.myService.getPedidos().subscribe({ // GET DE TODOS LOS PEDIDOS
       next: (res: any) => {
         this.pedidos = res;
-
       },
       error: (err: any) => {
         console.log(err);
@@ -183,16 +225,25 @@ export class DeliveryPagePage implements OnInit {
         console.log(err);
       }
     });
+    this.myService.getDetallePedidos().subscribe({ // GET DE LOS DETALLES DE LOS PEDIDOS
+      next: (res: any) => {
+        this.detallePedidos = res;
+        this.filtroDetallePedidos = res;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
 
   }
   /**
  * ------------------------------------------------------------------------------------
- * FUNCIONES CRUD DE LOS PEDIDOS | PUT , DELETE | 
+ * FUNCIONES CRUD DE LOS PEDIDOS | PUT , DELETE |
  * ------------------------------------------------------------------------------------
  */
   isUpdatePedido(pedido: any) {
     this.idPedidoData = pedido.idPedido;
-    this.idCliente = pedido.idCliente;
+    this.cifCliente = pedido.cifCliente;
     this.idCentro = pedido.idCentro;
     this.idEmpleado = pedido.idEmpleado;
     this.fechaPedido = pedido.fechaPedido;
@@ -200,10 +251,9 @@ export class DeliveryPagePage implements OnInit {
     this.openModalUpdate();
   }
 
-
   async onUpdate() {
     const pedidoUpdate = {
-      idCliente: this.idCliente,
+      cifCliente: this.cifCliente,
       idCentro: this.idCentro,
       estado: this.estado
     };
@@ -225,6 +275,7 @@ export class DeliveryPagePage implements OnInit {
       });
     }
   }
+
   async deletePedido(id: string) {
     const confirmado = await this.alert.alertControl('Eliminar Pedido', '¿Estas seguro de eliminar el pedido?');
     if (confirmado) {
@@ -239,5 +290,91 @@ export class DeliveryPagePage implements OnInit {
       });
     }
   }
+
+  /*
+   * ------------------------------------------------------------------------------------
+   * FUNCIONES PARA GENERAR EL CODIGO QR DEL PEDIDO
+   * ------------------------------------------------------------------------------------
+   */
+  printQR() {
+    setTimeout(() => {
+      const html = `<html>
+      <head>
+        <title>Seguimiento de Pedido</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #000;
+          }
+
+          .ticket {
+            width: 300px;
+            margin: 0 auto;
+            border: 2px solid #ccc;
+            padding: 16px;
+          }
+
+          h2, p {
+            margin: 6px 0;
+            text-align: center;
+          }
+          @media print {
+            body {
+              margin: 0;
+            }
+            @page {
+              margin: 0;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="ticket">
+          <img src="${this.qrcodeImage}" alt="QR Ticket" />
+          <h2>${this.idPedidoData}</h2>
+          <p>Fecha Pedido: ${this.fechaPedido ? new Date(this.fechaPedido).toLocaleDateString() : ''}</p>
+          <p>Envio para: ${this.idEmpleado}</p>
+          <p>Envio por: ${this.idCentro}</p>
+        </div>
+      </body>
+    </html>
+  `;
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const iframeDoc = iframe.contentWindow?.document;
+      if (iframeDoc) {
+        iframeDoc.open();
+        iframeDoc.write(html);
+        iframeDoc.close();
+
+        setTimeout(() => {
+          iframe.contentWindow?.focus();
+          iframe.contentWindow?.print();
+          document.body.removeChild(iframe);
+        }, 500);
+      }
+    }, 1000);
+
+  }
+
+  async generateQR() {
+    const id = this.idPedidoData;
+    this.myService.generateQR(id).subscribe({
+      next: (res: any) => {
+        console.log("Generando QR con numero de pedido: " + res);
+        this.qrcodeImage = res.qrCode;
+        this.printQR();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+
+
 
 }
