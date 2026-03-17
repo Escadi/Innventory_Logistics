@@ -1,0 +1,174 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Gestión de los vehiculos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!--------------------------------------------------------------------------------------------------
+    BARRA DE BUSQUEDA CON TOGGLER Y BOTON AGREGAR EN LA PARTE SUPERIOR
+  ---------------------------------------------------------------------------------------------------->
+  <div class="search-container">
+    <ion-button (click)="goToAdminHome()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    <div class="search-bar">
+      <ion-searchbar placeholder="CIF, Nombre, Telefono ...."></ion-searchbar>
+      <ion-item lines="none">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-toggle justify="end" [(ngModel)]="isChangeToogle">
+        </ion-toggle>
+        <ion-icon name="reorder-four-outline"></ion-icon>
+      </ion-item>
+      <ion-button (click)="openModal()">
+        <ion-icon name="add"></ion-icon>
+        Nuevo Vehiculo
+      </ion-button>
+    </div>
+  </div>
+
+  <!--------------------------------------------------------------------------------------------------
+    TABLA DE PROVEEDORES EN FORMATO DE CARDS 
+    ---------------------------------------------------------------------------------------------------->
+  <div class="table-container" *ngIf="!isChangeToogle">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="5" size-lg="3" *ngFor="let vehiculo of vehiculos">
+          <ion-card class="worker-card">
+            <ion-card-header>
+              <ion-card-title>
+                <div class="vehiculo-info">
+                  <h2>
+                    <ion-icon name="tablet-landscape-outline"></ion-icon>
+                    {{ vehiculo.matricula }}
+                  </h2>
+                  <h3>
+                    <ion-icon name="car-sport-outline"></ion-icon>
+                    {{ vehiculo.marca }}
+                  </h3>
+                  <ion-chip [color]="getColorEstado(vehiculo.estado)">
+                    {{ vehiculo.estado }}
+                  </ion-chip>
+                </div>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="vehiculo-detalles">
+                <p>
+                  <ion-icon name="car-sport-outline"></ion-icon>
+                  <span>Modelo:</span> {{ vehiculo.modelo }}
+                </p>
+                <p>
+                  <ion-icon name="color-palette-outline"></ion-icon>
+                  <span>Color:</span> {{ vehiculo.color }}
+                </p>
+                <p>
+                  <ion-icon name="car-sport-outline"></ion-icon>
+                  <span>Tipo de Vehiculo:</span> {{ vehiculo.tipoVehiculo.tipoVehiculo }}
+                </p>
+                <ion-chip button>
+                  <ion-icon name="create-outline"></ion-icon>
+                  Editar
+                </ion-chip>
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <ion-button class="deleteButton" fill="clear">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!--------------------------------------------------------------------------------------------------
+    TABLA DE PROVEEDORES EN FORMATO DE LISTA
+    ---------------------------------------------------------------------------------------------------->
+  <div>
+    <ion-list *ngIf="isChangeToogle" class="list-container">
+      <ion-item *ngFor="let vehiculo of vehiculos" class="vehiculo-info-list" lines="full">
+        <div class="vehiculo-header-list">
+          <h2><ion-icon name="tablet-landscape-outline"></ion-icon>
+            {{ vehiculo.matricula }}
+          </h2>
+          <h3><ion-icon name="car-sport-outline"></ion-icon>{{ vehiculo.marca }}</h3>
+        </div>
+        <ion-chip [color]="getColorEstado(vehiculo.estado)">
+          {{ vehiculo.estado }}
+        </ion-chip>
+        <ion-label class="vehiculo-detalles-list">
+          <p>
+            <ion-icon name="car-sport-outline"></ion-icon>
+            <span>Modelo:</span> {{ vehiculo.modelo }}
+          </p>
+          <p>
+            <ion-icon name="color-palette-outline"></ion-icon>
+            <span>Color:</span> {{ vehiculo.color }}
+          </p>
+          <p>
+            <ion-icon name="car-sport-outline"></ion-icon>
+            <span>Tipo de Vehiculo:</span> {{ vehiculo.tipoVehiculo.tipoVehiculo }}
+          </p>
+        </ion-label>
+        <div class="botones-lista">
+          <ion-button slot="end" fill="clear">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" fill="clear">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!------------------------------------------------------------------------------------------------
+  MODAL PARA AGREGAR UN NUEVO PROVEEDOR
+  -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="modalinput">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{isUpdateVehicle ? 'Actualizar Vehiculo' : 'Nuevo Vehiculo'}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-item lines="none">
+          <ion-icon name="id-card-outline"></ion-icon>
+          <ion-input type="text" placeholder="Matricula" [(ngModel)]="vehiculo.matricula"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="business-outline"></ion-icon>
+          <ion-input type="text" placeholder="Marca" [(ngModel)]="vehiculo.marca"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="location-outline"></ion-icon>
+          <ion-textarea placeholder="Modelo" [(ngModel)]="vehiculo.modelo"></ion-textarea>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="mail-open-outline"></ion-icon>
+          <ion-input type="text" placeholder="Color" [(ngModel)]="vehiculo.color"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="pricetag-outline"></ion-icon>
+          <ion-select placeholder="Tipo de Vehiculo" [(ngModel)]="vehiculo.tipoVehiculo.idTipoVehiculo">
+            <ion-select-option *ngFor="let tipoVehiculo of tipoVehiculos" [value]="tipoVehiculo.idTipoVehiculo">
+              {{tipoVehiculo.nombreTipo}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" class="ion-margin">
+          <ion-icon name="add" slot="start"></ion-icon>
+          {{isUpdateVehicle ? 'Actualizar Vehiculo' : 'Nuevo Vehiculo'}}
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

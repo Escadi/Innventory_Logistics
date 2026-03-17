@@ -2,7 +2,14 @@ const db = require('../Models');
 const Vehiculo = db.vehiculo;
 
 exports.findAll = (req, res) => {
-    Vehiculo.findAll()
+    Vehiculo.findAll({
+        include: [
+            {
+                model: db.tipoVehiculo,
+                as: 'tipoVehiculo'
+            }
+        ]
+    })
         .then(data => {
             res.send(data);
         })

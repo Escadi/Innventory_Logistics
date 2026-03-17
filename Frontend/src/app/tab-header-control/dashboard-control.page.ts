@@ -84,7 +84,6 @@ export class DashboardControlPage implements OnInit {
     this.myService.getDetallesCarrito().subscribe({ // CARGAR DATOS DEL CARRITO
       next: (res: any) => {
         this.dataService.setData(res);
-        console.log("Datos del carrito cargados:", res);
       },
       error: (err: any) => {
         console.log(err)
@@ -94,7 +93,6 @@ export class DashboardControlPage implements OnInit {
     this.myService.getCentrosTrabajo().subscribe({ // CARGAR DATOS DEL CENTRO DE TRABAJO
       next: (res: any) => {
         this.centroTrabajo = res;
-        console.log("Datos del centro de trabajo cargados:", res);
       },
       error: (err: any) => {
         console.log(err)
@@ -104,10 +102,8 @@ export class DashboardControlPage implements OnInit {
     this.myService.getClientes().subscribe({ // CARGAR DATOS DEL CLIENTE
       next: (res: any) => {
         this.clientes = res;
-        console.log("Clientes cargados:", this.clientes);
-        if (this.clientes.length > 0) {
-          console.log("Estructura del primer cliente:", this.clientes[0]);
-        }
+
+
       },
       error: (err: any) => console.log(err)
     });
@@ -141,7 +137,6 @@ export class DashboardControlPage implements OnInit {
     console.log("Datos antes de crear pedido:", { cif: this.cifCliente, centro: this.idCentro });
     if (!this.cifCliente || !this.idCentro) {
       console.log("Faltan datos:", { cif: this.cifCliente, centro: this.idCentro });
-      // Aquí se podría añadir un alert avisando al usuario
       return;
     }
 

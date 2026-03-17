@@ -65,6 +65,18 @@ const routes: Routes = [
         loadChildren: () => import('../manage-panel/client-list/client-list.module').then(m => m.ClientListPageModule)
       },
       {
+        path: 'drivers-home',
+        loadChildren: () => import('../drivers-panel/drivers-home/drivers-home.module').then(m => m.DriversHomePageModule)
+      },
+      {
+        path: 'drivers-delivery',
+        loadChildren: () => import('../drivers-panel/drivers-delivery/drivers-delivery.module').then(m => m.DriversDeliveryPageModule)
+      },
+      {
+        path: 'vehicle-list',
+        loadChildren: () => import('../admin-panel/vehicle-list/vehicle-list.module').then(m => m.VehicleListPageModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard-page',
         pathMatch: 'full'

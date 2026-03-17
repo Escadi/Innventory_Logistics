@@ -44,7 +44,14 @@ export class ManageHomePage implements OnInit {
       icon: 'person-outline',
       color: 'success',
       route: '/dashboard-control/client-list'
-    }
+    },
+    {
+      title: 'Gestionar Vehiculos',
+      description: 'Crear , modificar y eliminar vehiculos de la compañia.',
+      icon: 'car-outline',
+      color: 'warning',
+      route: '/dashboard-control/vehicle-list'
+    },
   ];
 
   constructor(

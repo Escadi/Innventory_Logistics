@@ -13,6 +13,21 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
         },
+        observaciones: {
+            type: Sequelize.STRING,
+        },
+        dniReceptor: {
+            type: Sequelize.STRING,
+        },
+        bultos: {
+            type: Sequelize.INTEGER,
+        },
+        totalArticulos: {
+            type: Sequelize.INTEGER,
+        },
+        nombreReceptor: {
+            type: Sequelize.STRING,
+        },
         fechaEntrega: {
             type: Sequelize.DATE,
 
@@ -24,7 +39,6 @@ module.exports = (sequelize, Sequelize) => {
         estado: {
             type: Sequelize.STRING,
             defaultValue: "Pendiente"
-
         }
     });
 

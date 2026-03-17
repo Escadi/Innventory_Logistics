@@ -1,6 +1,23 @@
 // Using global CSS variables from global.scss
+/* 
+---------------------------------------------------------------------------------------------
+VARIABLES PARA LAS MEDIDAS DE LOS DISPOSITIVOS
+---------------------------------------------------------------------------------------------
+*/
+$mobile-small: 375px;
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 1024px;
+$large-desktop: 1440px;
 
-:host {
+/*
+-------------------------------------------------------------------------------------------
+ESTILOS GLOBALES SIN SER ESPECIFICOS DE CUALQUIER PLATAFORMA PARA REALIZAR ALGUN
+CAMBIO VISUAL
+------------------------------------------------------------------------------------------
+*/
+
+#main-content {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -79,25 +96,183 @@
         margin-left: 10px;
     }
 
-    ion-avatar {
-        width: 30px;
-        height: 30px;
-        margin-right: 20px;
-        margin-left: 20px;
-        cursor: pointer;
+    .logout-exit {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-        &:hover {
-            border: 1px solid var(--color-primary-hover);
-            scale: 1.08;
-        }
+        ion-avatar {
+            width: 30px;
+            height: 30px;
+            margin-right: 20px;
+            margin-left: 20px;
+            cursor: pointer;
 
-        &:active {
-            border: 1px solid var(--color-primary-hover);
-            scale: 1.00;
+            &:hover {
+                border: 1px solid var(--color-primary-hover);
+                scale: 1.08;
+            }
+
+            &:active {
+                border: 1px solid var(--color-primary-hover);
+                scale: 1.00;
+            }
         }
     }
 }
 
+.mobile-menu-button {
+    display: none;
+
+}
+
+
+
+
+/*
+--------------------------------------------------------------------------------------
+ESTILO PARA FORMATO MOBILE CON MENÚ HAMBURGUESA A 576PX
+--------------------------------------------------------------------------------------
+*/
+@media (max-width: $mobile) {
+
+    /*
+    ESTILO PARA EL CONTENIDO PRINCIPAL EN MOBILE
+    */
+    #main-content {
+        .buttons {
+            display: none;
+        }
+
+        .logout {
+            display: flex;
+            margin-left: 20%;
+
+            .logout-exit {
+                display: none;
+
+            }
+        }
+    }
+
+    /*
+    ESTILO PARA EL TITULO EN MOBILE
+    */
+    .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .mobile-menu-button {
+            display: flex;
+            align-items: start;
+            margin-left: 5%;
+        }
+
+        .logo {
+            justify-content: center;
+            margin-left: 70px;
+            width: 150px;
+        }
+    }
+
+    /*
+    ESTILO PARA EL CONTENIDO DEL MENU EN MOBILE
+    */
+    .mobile-menu-content {
+        display: flex;
+
+        justify-content: space-between;
+
+        img {
+            width: 120px;
+        }
+
+        .logout-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: end;
+
+            ion-avatar {
+                width: 30px;
+                height: 30px;
+                margin-right: 20px;
+                margin-left: 20px;
+                cursor: pointer;
+
+                &:hover {
+                    border: 1px solid var(--color-primary-hover);
+                    scale: 1.08;
+                }
+
+                &:active {
+                    border: 1px solid var(--color-primary-hover);
+                    scale: 1.00;
+                }
+            }
+
+            ion-button {
+                color: var(--color-text-muted);
+                font-weight: bold;
+                font-size: 13px;
+                --background: transparent;
+
+                &:hover {
+                    ion-icon {
+                        color: var(--color-primary-hover);
+                        scale: 1.08;
+                    }
+                }
+            }
+
+            ion-icon {
+                font-size: 24px;
+                color: var(--color-text-muted);
+                margin-left: 10px;
+            }
+
+
+        }
+    }
+
+    .mobile-button-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        ion-button {
+            color: var(--color-text-muted);
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 10px;
+
+            &:hover {
+                color: var(--color-text-brand);
+                --background: transparent;
+            }
+
+            &.active-tab {
+                color: var(--color-text-brand);
+                border-bottom: 3px solid var(--color-primary-hover);
+            }
+
+            &:active {
+                color: var(--color-text-brand);
+            }
+        }
+    }
+
+
+}
+
+/*
+--------------------------------------------------------------------------------------
+ESTILO PARA EL MODAL DEL CARRITO
+--------------------------------------------------------------------------------------
+*/
 .listModal {
 
     ion-label {
@@ -106,9 +281,6 @@
         align-items: center;
         justify-content: space-between;
         flex: 4;
-
-
-        h2 {}
 
         p {
             display: flex;

@@ -26,6 +26,8 @@ export class Myservice {
   endpointWorker = `${this.baseUrl}/api/empleados`;
   endpointsOrdenesEntrega = `${this.baseUrl}/api/ordenesEntrega`;
   endpointsConductor = `${this.baseUrl}/api/conductor`;
+  endpointsTipoVehiculo = `${this.baseUrl}/api/tipoVehiculo`;
+  endpointsVehiculos = `${this.baseUrl}/api/vehiculo`;
 
 
   constructor(
@@ -507,6 +509,73 @@ export class Myservice {
     };
     return this.http.delete(this.endpointsConductor + '/' + id, { headers });
   }
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA TIPOS DE VEHICULOS |GET , POST , PUT , DELETE |
+ * ---------------------------------------------------------------------------------------------
+ * */
+  getTipoVehiculo() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsTipoVehiculo, { headers });
+  }
+
+  postTipoVehiculo(tipoVehiculo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsTipoVehiculo, tipoVehiculo, { headers });
+  }
+
+  putTipoVehiculo(id: number, tipoVehiculo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsTipoVehiculo + '/' + id, tipoVehiculo, { headers });
+  }
+
+  deleteTipoVehiculo(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsTipoVehiculo + '/' + id, { headers });
+  }
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA VEHICULOS |GET , POST , PUT , DELETE |
+ * --------------------------------------------------------------------------------------------
+ * */
+  getVehiculos() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsVehiculos, { headers });
+  }
+
+  postVehiculos(vehiculo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsVehiculos, vehiculo, { headers });
+  }
+
+  putVehiculos(id: number, vehiculo: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsVehiculos + '/' + id, vehiculo, { headers });
+  }
+
+  deleteVehiculos(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsVehiculos + '/' + id, { headers });
+  }
+
 }
 
 

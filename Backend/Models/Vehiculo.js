@@ -19,6 +19,10 @@ module.exports = (sequelize, Sequelize) => {
         idTipo: {
             type: Sequelize.INTEGER,
 
+        },
+        estado: {
+            type: Sequelize.STRING,
+            defaultValue: 'Activo'
         }
     });
 

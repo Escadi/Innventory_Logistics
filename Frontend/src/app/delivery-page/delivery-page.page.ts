@@ -19,8 +19,8 @@ export class DeliveryPagePage implements OnInit {
   detallePedidos: any[] = [];
   filtroOrdenesEntrega: any[] = [];
   filtroDetallePedidos: any[] = [];
-  scannedId = '';
-  searchText = '';
+  scannedId: string = '';
+  searchText: string = '';
   estados: string[] = [
     'Pendiente',
     'En proceso',
@@ -47,6 +47,7 @@ export class DeliveryPagePage implements OnInit {
 
   //CREAMOS EL CODIGO QR PARA PONERLO EN EL PAQUETE DE ENVIO
   qrcodeImage: string = '';
+  pedidosFiltrados: any[] = [];
 
   constructor(
     private myService: Myservice,
@@ -102,7 +103,22 @@ export class DeliveryPagePage implements OnInit {
     if (status === 'enviado') return 'tertiary';
     if (status === 'cancelado') return 'danger';
     if (status === 'entregado') return 'success';
+    if (status === 'pendiente') return 'warning';
+    if (status == 'en reparto') return 'primary';
+    if (status === 'cancelada') return 'danger';
     return 'medium';
+  }
+
+  filtrarPedidos() {
+    const texto = this.searchText.toLowerCase().trim();
+
+    this.pedidosFiltrados = this.pedidos.filter((pedido: any) =>
+      pedido.idPedido?.toLowerCase().includes(texto) ||
+      pedido.cliente?.cifCliente?.toLowerCase().includes(texto) ||
+      pedido.cliente?.nombre?.toLowerCase().includes(texto) ||
+      pedido.cliente?.email?.toLowerCase().includes(texto) ||
+      pedido.cliente?.telefono?.toLowerCase().includes(texto)
+    );
   }
 
   /**
@@ -144,7 +160,7 @@ export class DeliveryPagePage implements OnInit {
     console.log(this.filtroDetallePedidos);
 
     // Reiniciar QR al ver otro detalle
-    this.qrcodeImage = '';
+    //this.qrcodeImage = '';
 
     this.openModalDetalle();
   }
@@ -179,10 +195,10 @@ export class DeliveryPagePage implements OnInit {
     const pedido = this.pedidos.find(p => String(p.idPedido) === String(id));
     if (pedido) {
       console.log('Pedido encontrado:', pedido);
-      alert(`Pedido ${id} encontrado. Estado: ${pedido.estado}`);
+      this.openModalDetallePedido(pedido.idPedido);
     } else {
       console.log('Pedido no encontrado');
-      alert(`Pedido ${id} no encontrado en el listado actual.`);
+      this.alert.alertControl('Pedido no encontrado', `El pedido ${id} no se encuentra en el listado.`);
     }
   }
 
@@ -195,6 +211,7 @@ export class DeliveryPagePage implements OnInit {
     this.myService.getPedidos().subscribe({ // GET DE TODOS LOS PEDIDOS
       next: (res: any) => {
         this.pedidos = res;
+        this.pedidosFiltrados = res;
       },
       error: (err: any) => {
         console.log(err);
@@ -302,46 +319,52 @@ export class DeliveryPagePage implements OnInit {
       <head>
         <title>Seguimiento de Pedido</title>
         <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
           body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            color: #000;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: #fff;
           }
-
           .ticket {
-            width: 300px;
-            margin: 0 auto;
-            border: 2px solid #ccc;
-            padding: 16px;
-          }
-
-          h2, p {
-            margin: 6px 0;
+            width: 80mm;
+            padding: 10mm;
             text-align: center;
+            border: 1px dashed #333;
+            margin-top: 5mm;
           }
+          .qr-img {
+            width: 50mm;
+            height: 50mm;
+            display: block;
+            margin: 0 auto 5mm;
+          }
+          h2 { font-size: 24px; margin-bottom: 2mm; }
+          p { font-size: 14px; color: #555; margin-bottom: 1mm; }
+          .footer { margin-top: 5mm; font-size: 10px; color: #888; border-top: 1px solid #eee; padding-top: 2mm; }
+          
           @media print {
-            body {
-              margin: 0;
-            }
-            @page {
-              margin: 0;
-            }
+            body { background: none; }
+            .ticket { border: none; margin: 0; }
+            @page { size: 80mm auto; margin: 0; }
           }
         </style>
       </head>
       <body>
         <div class="ticket">
-          <img src="${this.qrcodeImage}" alt="QR Ticket" />
-          <h2>${this.idPedidoData}</h2>
-          <p>Fecha Pedido: ${this.fechaPedido ? new Date(this.fechaPedido).toLocaleDateString() : ''}</p>
-          <p>Envio para: ${this.idEmpleado}</p>
-          <p>Envio por: ${this.idCentro}</p>
+          <img src="${this.qrcodeImage}" class="qr-img" alt="QR Ticket" />
+          <h2>ID: ${this.idPedidoData}</h2>
+          <p><strong>Fecha:</strong> ${this.fechaPedido ? new Date(this.fechaPedido).toLocaleDateString() : ''}</p>
+          <p><strong>Destino:</strong> ${this.idEmpleado}</p>
+          <p><strong>Origen:</strong> ${this.idCentro}</p>
+          <div class="footer">Innventory Logistics - Ticket de Seguimiento</div>
         </div>
       </body>
-    </html>
-  `;
+    </html>`;
       const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
+      iframe.style.position = 'absolute';
+      iframe.style.top = '-1000px';
       document.body.appendChild(iframe);
 
       const iframeDoc = iframe.contentWindow?.document;
@@ -357,7 +380,6 @@ export class DeliveryPagePage implements OnInit {
         }, 500);
       }
     }, 1000);
-
   }
 
   async generateQR() {

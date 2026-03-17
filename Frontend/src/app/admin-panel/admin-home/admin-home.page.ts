@@ -32,6 +32,13 @@ export class AdminHomePage implements OnInit {
       route: '/dashboard-control/worker-category'
     },
     {
+      title: 'Gestionar Vehiculos',
+      description: 'Crear , modificar y eliminar vehiculos de la compañia.',
+      icon: 'car-outline',
+      color: 'warning',
+      route: '/dashboard-control/vehicle-list'
+    },
+    {
       title: 'Base de Datos',
       description: 'Generar copias de seguridad de las tablas y sus datos.',
       icon: 'server-outline',

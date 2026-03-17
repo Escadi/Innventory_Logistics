@@ -1,109 +1,183 @@
-<div class="menuContainer">
-  <div class="title">
-    <img src="assets/icon/InnventoryLogoLogistics.png" alt="Logo" class="logo"
-      routerLink="/dashboard-control/dashboard-page" routerLinkActive="active-tab">
-  </div>
-  <!-----------------------------------------------------------------------------------------------------------------
-   BOTONES DE NAVEGACION DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
-  ----------------------------------------------------------------------------------------------------------------->
-  <div class="buttons">
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/product-page" routerLinkActive="active-tab">
-      Productos
-    </ion-button>
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/provider-page" routerLinkActive="active-tab">
-      Proveedores
-    </ion-button>
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/client-page" routerLinkActive="active-tab">
-      Clientes
-    </ion-button>
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/delivery-page" routerLinkActive="active-tab">
-      Pedidos
-    </ion-button>
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/manage-home" routerLinkActive="active-tab">
-      Panel de Gestión
-    </ion-button>
-    <ion-button fill="clear" size="small" routerLink="/dashboard-control/admin-home" routerLinkActive=" active-tab">
-      Panel Admin
-    </ion-button>
-  </div>
-  <!-----------------------------------------------------------------------------------------------------------------
-   BOTONES DE CARRITO, AVATAR Y LOGOUT DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
-  ----------------------------------------------------------------------------------------------------------------->
-  <div class="logout">
-    <ion-button fill="clear" size="small" (click)="openModalCart()">
-      <ion-icon name="cart-outline"></ion-icon>
-      <ion-badge color="warning">{{detalleCarrito.length}}</ion-badge>
-    </ion-button>
-    <ion-avatar button size="small" routerLink="/dashboard-control/setting-page" routerLinkActive="active-tab">
-      <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-    </ion-avatar>
-    <ion-button fill="clear" size="small" (click)="getOut()">
-      <ion-icon name="log-out-outline"></ion-icon>
-    </ion-button>
-  </div>
-</div>
 <!-----------------------------------------------------------------------------------------------------------------
-   ION MODAL DEL CARRITO PARA HACER LOS PEDIDOS Y AGREGARLOS EN PEDIDOS DESDE DETALLESPEDIDOS
-  ----------------------------------------------------------------------------------------------------------------->
-<ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModalCart()" class="modalCarrito">
-  <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Carrito de compra</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="closeModalCart()">
-            <ion-icon name="close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list class="listModal">
-        <ion-item *ngFor="let item of detalleCarrito">
-          <ion-label>
-            <ion-avatar>
+   MENÚ LATERAL SOLO PARA MOBILE 
+----------------------------------------------------------------------------------------------------------------->
+<ion-menu contentId="main-content" side="start" menuId="mobileMenu">
+  <ion-header>
+    <ion-toolbar color="light">
+      <ion-title>
+        <!-----------------------------------------------------------------------------------------------------------------
+     BOTONES DE CARRITO, AVATAR Y LOGOUT DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
+    ----------------------------------------------------------------------------------------------------------------->
+        <div class="mobile-menu-content">
+          <img src="assets/icon/InnventoryLogoLogistics.png" alt="Logo" class="mobile-logo"
+            routerLink="/dashboard-control/dashboard-page" routerLinkActive="active-tab" />
+          <div class="logout-menu">
+            <ion-avatar button size="small" routerLink="/dashboard-control/setting-page" routerLinkActive="active-tab">
               <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
             </ion-avatar>
-            <h2>{{item.detallesProducto.producto.nombreProducto}}</h2>
-            <p>
-              <ion-button fill="clear" size="small" (click)="btnRemove(item)">
-                <ion-icon name="remove"></ion-icon>
-              </ion-button>
-              <ion-input type="number" [(ngModel)]="item.cantidad"></ion-input>
-              <ion-button fill="clear" size="small" (click)="btnAdd(item)">
-                <ion-icon name="add"></ion-icon>
-              </ion-button>
-            </p>
-          </ion-label>
-          <ion-button fill="clear" size="small" (click)="deleteDetalleCarrito(item.idDetalleCarrito)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-    <ion-footer>
-      <ion-toolbar>
-        <ion-label>Cliente que solicita el pedido</ion-label>
-        <ion-select fill="clear" size="small" placeholder="Seleccionar Cliente" [(ngModel)]="cifCliente">
-          <ion-select-option [value]="cliente.cifCliente" *ngFor="let cliente of clientes">
-            {{cliente.cifCliente + " - " + cliente.nombre}}
-          </ion-select-option>
-        </ion-select>
-        <ion-label>Centro a cual se solicita el pedido</ion-label>
-        <ion-select fill="clear" size="small" placeholder="Centro de trabajo" [(ngModel)]="idCentro">
-          <ion-select-option [value]="centro.idCentro" *ngFor="let centro of centroTrabajo">
-            {{centro.nombreCentro}}
-          </ion-select-option>
-        </ion-select>
-        <ion-button expand="full" (click)="createPedido()">
-          <ion-icon name="cart-outline"></ion-icon>
-          Solicitar pedido
+            <ion-button fill="clear" size="small" (click)="getOut()">
+              <ion-icon name="log-out-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="mobile-button-content">
+    <!-----------------------------------------------------------------------------------------------------------------
+     BOTONES DE NAVEGACION DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
+    ----------------------------------------------------------------------------------------------------------------->
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/product-page" routerLinkActive="active-tab">
+      Productos
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/provider-page" routerLinkActive="active-tab">
+      Proveedores
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/client-page" routerLinkActive="active-tab">
+      Clientes
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/delivery-page" routerLinkActive="active-tab">
+      Pedidos
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/manage-home" routerLinkActive="active-tab">
+      Panel de Gestión
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/admin-home" routerLinkActive="active-tab">
+      Panel Admin
+    </ion-button>
+    <ion-button fill="clear" expand="block" routerLink="/dashboard-control/drivers-home" routerLinkActive="active-tab">
+      Repartidores
+    </ion-button>
+
+
+  </ion-content>
+</ion-menu>
+
+<div id="main-content">
+  <div class="menuContainer">
+    <div class="title">
+      <!-----------------------------------------------------------------------------------------------------------
+      BOTÓN HAMBURGUESA MOBILE 
+      ----------------------------------------------------------------------------------------------------------->
+      <div class="mobile-menu-button">
+        <ion-menu-button menu="mobileMenu"></ion-menu-button>
+      </div>
+      <img src="assets/icon/InnventoryLogoLogistics.png" alt="Logo" class="logo"
+        routerLink="/dashboard-control/dashboard-page" routerLinkActive="active-tab">
+    </div>
+    <!-----------------------------------------------------------------------------------------------------------------
+     BOTONES DE NAVEGACION DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
+    ----------------------------------------------------------------------------------------------------------------->
+    <div class="buttons">
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/product-page" routerLinkActive="active-tab">
+        Productos
+      </ion-button>
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/provider-page" routerLinkActive="active-tab">
+        Proveedores
+      </ion-button>
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/client-page" routerLinkActive="active-tab">
+        Clientes
+      </ion-button>
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/delivery-page" routerLinkActive="active-tab">
+        Pedidos
+      </ion-button>
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/manage-home" routerLinkActive="active-tab">
+        Panel de Gestión
+      </ion-button>
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/admin-home" routerLinkActive=" active-tab">
+        Panel Admin
+      </ion-button>
+      <ion-button fill="clear" size="small" routerLink="/dashboard-control/drivers-home" routerLinkActive=" active-tab">
+        Repartidores
+      </ion-button>
+    </div>
+    <!-----------------------------------------------------------------------------------------------------------------
+     BOTONES DE CARRITO, AVATAR Y LOGOUT DE LA PARTE SUPERIOR DE LA BARRA SUPERIOR
+    ----------------------------------------------------------------------------------------------------------------->
+    <div class="logout">
+      <ion-button fill="clear" size="small" (click)="openModalCart()">
+        <ion-icon name="cart-outline"></ion-icon>
+        <ion-badge color="warning">{{detalleCarrito.length}}</ion-badge>
+      </ion-button>
+      <div class="logout-exit">
+        <ion-avatar button size="small" routerLink="/dashboard-control/setting-page" routerLinkActive="active-tab">
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-button fill="clear" size="small" (click)="getOut()">
+          <ion-icon name="log-out-outline"></ion-icon>
         </ion-button>
-      </ion-toolbar>
-    </ion-footer>
-  </ng-template>
-</ion-modal>
-<!-----------------------------------------------------------------------------------------------------------------
-   RESTO DE INFORMACIÓN DE LAS DEMAS VENTANAS EN LA PARTE INTERIOR DE LA BARRA
-  ----------------------------------------------------------------------------------------------------------------->
-<ion-router-outlet></ion-router-outlet>
+      </div>
+    </div>
+  </div>
+  <!-----------------------------------------------------------------------------------------------------------------
+     ION MODAL DEL CARRITO PARA HACER LOS PEDIDOS Y AGREGARLOS EN PEDIDOS DESDE DETALLESPEDIDOS
+    ----------------------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModalCart()" class="modalCarrito">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Carrito de compra</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModalCart()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list class="listModal">
+          <ion-item *ngFor="let item of detalleCarrito">
+            <ion-label>
+              <ion-avatar>
+                <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+              </ion-avatar>
+              <h2>{{item.detallesProducto.producto.nombreProducto}}</h2>
+              <p>
+                <ion-button fill="clear" size="small" (click)="btnRemove(item)">
+                  <ion-icon name="remove"></ion-icon>
+                </ion-button>
+                <ion-input type="number" [(ngModel)]="item.cantidad"></ion-input>
+                <ion-button fill="clear" size="small" (click)="btnAdd(item)">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
+              </p>
+            </ion-label>
+            <ion-button fill="clear" size="small" (click)="deleteDetalleCarrito(item.idDetalleCarrito)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-label>Cliente que solicita el pedido</ion-label>
+          <ion-select fill="clear" size="small" placeholder="Seleccionar Cliente" [(ngModel)]="cifCliente">
+            <ion-select-option [value]="cliente.cifCliente" *ngFor="let cliente of clientes">
+              {{cliente.cifCliente + " - " + cliente.nombre}}
+            </ion-select-option>
+          </ion-select>
+          <ion-label>Centro a cual se solicita el pedido</ion-label>
+          <ion-select fill="clear" size="small" placeholder="Centro de trabajo" [(ngModel)]="idCentro">
+            <ion-select-option [value]="centro.idCentro" *ngFor="let centro of centroTrabajo">
+              {{centro.nombreCentro}}
+            </ion-select-option>
+          </ion-select>
+          <ion-button expand="full" (click)="createPedido()">
+            <ion-icon name="cart-outline"></ion-icon>
+            Solicitar pedido
+          </ion-button>
+        </ion-toolbar>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+  <!-----------------------------------------------------------------------------------------------------------------
+     RESTO DE INFORMACIÓN DE LAS DEMAS VENTANAS EN LA PARTE INTERIOR DE LA BARRA
+    ----------------------------------------------------------------------------------------------------------------->
+  <ion-router-outlet></ion-router-outlet>
+</div>
