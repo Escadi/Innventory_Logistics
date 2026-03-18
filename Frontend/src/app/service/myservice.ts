@@ -28,6 +28,7 @@ export class Myservice {
   endpointsConductor = `${this.baseUrl}/api/conductor`;
   endpointsTipoVehiculo = `${this.baseUrl}/api/tipoVehiculo`;
   endpointsVehiculos = `${this.baseUrl}/api/vehiculo`;
+  endpointsVehiculoConductor = `${this.baseUrl}/api/vehiculoConductor`;
 
 
   constructor(
@@ -562,18 +563,51 @@ export class Myservice {
     return this.http.post(this.endpointsVehiculos, vehiculo, { headers });
   }
 
-  putVehiculos(id: number, vehiculo: any) {
+  putVehiculos(id: string, vehiculo: any) {
     const headers = {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.put(this.endpointsVehiculos + '/' + id, vehiculo, { headers });
   }
 
-  deleteVehiculos(id: number) {
+  deleteVehiculos(id: string) {
     const headers = {
       'ngrok-skip-browser-warning': 'true'
     };
     return this.http.delete(this.endpointsVehiculos + '/' + id, { headers });
+  }
+
+  /**
+ * ------------------------------------------------------------------------------------------
+ * FUNCIONES PARA VEHICULOS CONDUCTORES |GET , POST , PUT , DELETE |
+ * --------------------------------------------------------------------------------------------
+ * */
+  getVehiculoConductor() {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.get(this.endpointsVehiculoConductor, { headers });
+  }
+
+  postVehiculoConductor(vehiculoConductor: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.post(this.endpointsVehiculoConductor, vehiculoConductor, { headers });
+  }
+
+  putVehiculoConductor(id: number, vehiculoConductor: any) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.put(this.endpointsVehiculoConductor + '/' + id, vehiculoConductor, { headers });
+  }
+
+  deleteVehiculoConductor(id: number) {
+    const headers = {
+      'ngrok-skip-browser-warning': 'true'
+    };
+    return this.http.delete(this.endpointsVehiculoConductor + '/' + id, { headers });
   }
 
 }

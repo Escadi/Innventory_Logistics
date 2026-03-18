@@ -22,7 +22,7 @@
       </ion-item>
       <ion-button (click)="openModal()">
         <ion-icon name="add"></ion-icon>
-        Nuevo Vehiculo
+        Nuevo
       </ion-button>
     </div>
   </div>
@@ -66,14 +66,19 @@
                   <ion-icon name="car-sport-outline"></ion-icon>
                   <span>Tipo de Vehiculo:</span> {{ vehiculo.tipoVehiculo.tipoVehiculo }}
                 </p>
-                <ion-chip button>
-                  <ion-icon name="create-outline"></ion-icon>
-                  Editar
-                </ion-chip>
+                <div class="botones-grid">
+                  <ion-chip button (click)="updateVehiculoData(vehiculo)" title="Editar Vehiculo">
+                    <ion-icon name="create-outline"></ion-icon>
+                    Editar
+                  </ion-chip>
+                  <ion-button title="Ver conductor de ese vehiculo" (click)="conductorFiltro(vehiculo.matricula)">
+                    <ion-icon name="people-outline"></ion-icon>
+                  </ion-button>
+                </div>
               </div>
             </ion-card-content>
           </ion-card>
-          <ion-button class="deleteButton" fill="clear">
+          <ion-button class="deleteButton" fill="clear" (click)="deleteVehicle(vehiculo.matricula)">
             <ion-icon name="trash"></ion-icon>
           </ion-button>
         </ion-col>
@@ -111,10 +116,10 @@
           </p>
         </ion-label>
         <div class="botones-lista">
-          <ion-button slot="end" fill="clear">
+          <ion-button slot="end" fill="clear" (click)="updateVehiculoData(vehiculo)">
             <ion-icon name="create-outline"></ion-icon>
           </ion-button>
-          <ion-button slot="end" fill="clear">
+          <ion-button slot="end" fill="clear" (click)="deleteVehicle(vehiculo.matricula)" title="Eliminar Vehiculo">
             <ion-icon name="trash"></ion-icon>
           </ion-button>
         </div>
@@ -137,37 +142,130 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-
+      <!----------------------------------------------------------------------------------------------
+      DIVIDIMOS LOS SEGMENTOS EN DOS PARA PODER AGREGAR UN NUEVO VEHICULO O UN NUEVO TIPO DE VEHICULO
+      -------------------------------------------------------------------------------------------------->
+      <ion-segment>
+        <!--NUEVO VEHICULO (SOLO APARECE CUANDO SE VA HA AÑADIR UN VEHICULO)-->
+        <ion-segment-button value="first" content-id="first" *ngIf="!isUpdateVehicle">
+          <ion-label>Nuevo Vehiculo</ion-label>
+        </ion-segment-button>
+        <!--NUEVO TIPO DE VEHICULO (SOLO APARECE CUANDO SE VA HA AÑADIR UN TIPO DE VEHICULO)-->
+        <ion-segment-button value="second" content-id="second" *ngIf="!isUpdateVehicle">
+          <ion-label>Nuevo Tipo de Vehiculo</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <!----------------------------------------------------------------------------------------------
+      SEGMENTOS PARA PODER AGREGAR UN NUEVO VEHICULO O UN NUEVO TIPO DE VEHICULO
+      -------------------------------------------------------------------------------------------------->
+      <ion-segment-view>
+        <!--SEGMENTO DEL NUEVO VEHICULO-->
+        <ion-segment-content id="first">
+          <ion-content>
+            <ion-item lines="none">
+              <ion-icon name="id-card-outline"></ion-icon>
+              <ion-input type="text" placeholder="Matricula" [(ngModel)]="matricula"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="business-outline"></ion-icon>
+              <ion-input type="text" placeholder="Marca" [(ngModel)]="marca"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="location-outline"></ion-icon>
+              <ion-textarea placeholder="Modelo" [(ngModel)]="modelo"></ion-textarea>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="mail-open-outline"></ion-icon>
+              <ion-input type="text" placeholder="Color" [(ngModel)]="color"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="isUpdateVehicle">
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <ion-select placeholder="Estado" [(ngModel)]="estado">
+                <ion-select-option *ngFor="let estado of estados" [value]="estado">
+                  {{estado}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <ion-select placeholder="Tipo de Vehiculo" [(ngModel)]="idTipo">
+                <ion-select-option *ngFor="let tipoVehiculo of tipoVehiculos" [value]="tipoVehiculo.idTipo">
+                  {{tipoVehiculo.tipoVehiculo}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-button expand="block" class="ion-margin" (click)="createVehicle()">
+              <ion-icon name="add" slot="start"></ion-icon>
+              {{isUpdateVehicle ? 'Actualizar Vehiculo' : 'Nuevo Vehiculo'}}
+            </ion-button>
+          </ion-content>
+        </ion-segment-content>
+        <!--SEGMENTO DEL NUEVO TIPO DE VEHICULO-->
+        <ion-segment-content id="second">
+          <ion-content>
+            <ion-item lines="none">
+              <ion-icon name="id-card-outline"></ion-icon>
+              <ion-input type="text" placeholder="Tipo de Vehiculo" [(ngModel)]="tipoVehiculo"></ion-input>
+            </ion-item>
+            <ion-button expand="block" class="ion-margin" (click)="createTipoVehiculo()">
+              <ion-icon name="add" slot="start"></ion-icon>
+              Añadir
+            </ion-button>
+            <ion-list>
+              <div class="line-grid">
+                <ion-label>Tipos de Vehiculos</ion-label>
+                <div class="line"></div>
+              </div>
+              <ion-item *ngFor="let tipoVehiculo of tipoVehiculos">
+                <ion-label>{{tipoVehiculo.tipoVehiculo}}</ion-label>
+                <ion-button fill="clear" (click)="deleteTipoVehiculo(tipoVehiculo.idTipo)"
+                  title="Eliminar Tipo de vehiculo">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ion-segment-content>
+      </ion-segment-view>
+    </ng-template>
+  </ion-modal>
+  <!------------------------------------------------------------------------------------------------
+  MODAL PARA VER EL CONDUCTOR DE UN VEHICULO
+  -------------------------------------------------------------------------------------------------->
+  <ion-modal [isOpen]="isModalOpenConductor" (didDismiss)="closeModalConductor()" class="modalinputConductor">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Conductor del Vehiculo</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModalConductor()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
       <ion-content>
-        <ion-item lines="none">
-          <ion-icon name="id-card-outline"></ion-icon>
-          <ion-input type="text" placeholder="Matricula" [(ngModel)]="vehiculo.matricula"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="business-outline"></ion-icon>
-          <ion-input type="text" placeholder="Marca" [(ngModel)]="vehiculo.marca"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="location-outline"></ion-icon>
-          <ion-textarea placeholder="Modelo" [(ngModel)]="vehiculo.modelo"></ion-textarea>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="mail-open-outline"></ion-icon>
-          <ion-input type="text" placeholder="Color" [(ngModel)]="vehiculo.color"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="pricetag-outline"></ion-icon>
-          <ion-select placeholder="Tipo de Vehiculo" [(ngModel)]="vehiculo.tipoVehiculo.idTipoVehiculo">
-            <ion-select-option *ngFor="let tipoVehiculo of tipoVehiculos" [value]="tipoVehiculo.idTipoVehiculo">
-              {{tipoVehiculo.nombreTipo}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-button expand="block" class="ion-margin">
-          <ion-icon name="add" slot="start"></ion-icon>
-          {{isUpdateVehicle ? 'Actualizar Vehiculo' : 'Nuevo Vehiculo'}}
-        </ion-button>
+        <ion-list>
+          <ion-item *ngFor="let conductor of filtroDeConductores" lines="none">
+            <div class="barra-izquierda" [ngClass]="ColorConductor"></div>
+            <div class="datos-conductor">
+              <ion-label><span>Conductor:</span>{{conductor.conductor.nombre + ' ' +
+                conductor.conductor.apellido}}</ion-label>
+              <ion-label><span>Fecha de Recogida:</span>{{conductor.fechaRecogidaVehiculo | date: 'dd/MM/yyyy
+                HH:mm'}}</ion-label>
+              <ion-label><span>Fecha de Devolución:</span>{{conductor.fechaDevolucionVehiculo | date: 'dd/MM/yyyy
+                HH:mm' : 'Pendiente de devolución'}}</ion-label>
+            </div>
+            <div class="botones-conductor">
+              <ion-button fill="clear" title="Enviar Mensaje">
+                <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" title="Ver ubicación">
+                <ion-icon name="navigate-circle-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+        </ion-list>
       </ion-content>
     </ng-template>
   </ion-modal>

@@ -32,8 +32,8 @@ export class AdminHomePage implements OnInit {
       route: '/dashboard-control/worker-category'
     },
     {
-      title: 'Gestionar Vehiculos',
-      description: 'Crear , modificar y eliminar vehiculos de la compañia.',
+      title: 'Gestionar Vehiculos y tipos de vehiculos',
+      description: 'Crear , modificar y eliminar vehiculos y tipos de vehiculos para la compañia.',
       icon: 'car-outline',
       color: 'warning',
       route: '/dashboard-control/vehicle-list'

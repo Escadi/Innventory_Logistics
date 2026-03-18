@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         estado: {
             type: Sequelize.STRING,
-            defaultValue: 'Activo'
+            defaultValue: 'inactivo'
         }
     });
 
@@ -31,11 +31,19 @@ module.exports = (sequelize, Sequelize) => {
      * CREA LAS RELACIONES ENTRE LAS TABLAS
      *-----------------------------------------------------------------------------------------------
      */
-    // QUE TABLAS RELACIONA CON ESTA TABLA DE DONDE VIENE CADA UNA
+
 
 
     Vehiculo.associate = (models) => {
-        // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
+        // RELACIÓN CON LA TABLA DE VEHICULOCONDUCTOR LE DA LA PRIMARY KEY DE ESTA TABLA
+        Vehiculo.hasMany(models.vehiculoConductor, {
+            foreignKey: "matricula",
+            targetKey: "matricula",
+            as: "vehiculoConductor",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
+        // FOREIGN KEY DE LA TABLA DE TIPOVEHICULO
         Vehiculo.belongsTo(models.tipoVehiculo, {
             foreignKey: "idTipo",
             targetKey: "idTipo",
@@ -43,6 +51,7 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         });
+
     };
 
     return Vehiculo;

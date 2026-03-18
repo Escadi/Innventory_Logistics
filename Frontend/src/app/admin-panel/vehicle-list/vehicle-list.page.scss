@@ -3,6 +3,8 @@ ion-header {
     box-shadow: none;
 }
 
+
+
 /*
 -----------------------------------------------------------------------------------
 ESTILO DE LA PARTE SUPERIOR DE LA BARRA DE BUSCADOR Y EL BOTON DE AGREGAR
@@ -168,23 +170,59 @@ ESTILO DE LA TABLA DE VEHICULOS EN FORMATO DE CARDS
             margin-right: 10px;
         }
 
-        ion-chip {
+
+
+        .botones-grid {
+            display: flex;
+            flex-direction: row;
             justify-content: center;
-            --background: var(--color-chip-opacity);
-            --color: var(--color-text-brand);
-            --border-radius: 50px;
-            font-weight: 600;
-            width: 90%;
+            align-items: center;
+            gap: 10px;
             margin-top: 10px;
             margin-left: 10px;
             margin-bottom: 10px;
 
-            &:hover {
-                scale: 1.08;
+            ion-chip {
+                justify-content: center;
+                --background: var(--color-chip-opacity);
+                --color: var(--color-text-brand);
+                --border-radius: 50px;
+                font-weight: 600;
+                width: 90%;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+
+                &:hover {
+                    scale: 1.08;
+                }
+
+                &:active {
+                    scale: 1;
+                }
             }
 
-            &:active {
-                scale: 1;
+            ion-button {
+                --background: var(--color-chip-opacity);
+                --color: var(--color-text-brand);
+                --border-radius: 50px;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+
+                ion-icon {
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 10px;
+                }
+
+                &:hover {
+                    scale: 1.08;
+                }
+
+                &:active {
+                    scale: 1;
+                }
             }
         }
     }
@@ -445,6 +483,26 @@ ESTILO DEL ION-MODAL PARA ACTUALIZAR YA AGREGAR NUEVO PROVEEDOR
             }
         }
 
+        .line-grid {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px;
+
+            ion-label {
+                font-weight: 600;
+                font-size: 18px;
+                color: var(--color-text-muted);
+            }
+
+            .line {
+                width: 100%;
+                height: 1px;
+                background: var(--color-primary);
+            }
+        }
+
         ion-label {
             font-size: 16px;
             font-weight: 600;
@@ -483,6 +541,116 @@ ESTILO DEL ION-MODAL PARA ACTUALIZAR YA AGREGAR NUEVO PROVEEDOR
 
             &:active {
                 transform: scale(0.98);
+            }
+        }
+    }
+}
+
+.modalinputConductor {
+
+    ion-content {
+        --padding-top: 24px;
+        --padding-bottom: 24px;
+        --padding-start: 24px;
+        --padding-end: 24px;
+        --background: var(--color-background);
+
+        ion-list {
+            background: var(--color-background);
+
+            ion-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                --background: var(--color-surface);
+                --padding-top: 8px;
+                --padding-bottom: 8px;
+                --padding-start: 16px;
+                --padding-end: 16px;
+                --border-radius: 12px;
+                --inner-border-width: 0;
+                margin-bottom: 16px;
+                --border-color: var(--color-primary);
+                border-radius: 12px;
+                box-shadow: var(--shadow-sm);
+                transition: box-shadow 0.2s ease;
+
+                &:hover {
+                    box-shadow: var(--shadow-md);
+                }
+
+                .barra-izquierda {
+                    width: 6px;
+                    height: 100%;
+                    margin-right: 16px;
+                }
+
+                .border-rojo .barra-izquierda {
+                    background-color: red;
+                }
+
+                .border-verde .barra-izquierda {
+                    background-color: green;
+                }
+
+                .border-azul .barra-izquierda {
+                    background-color: blue;
+                }
+
+                .datos-conductor {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: start;
+                    align-items: start;
+                    width: 100%;
+
+                    ion-label {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: var(--color-text-main);
+                        margin-bottom: 4px;
+
+                        span {
+                            font-weight: bold;
+                            color: var(--color-text-brand);
+                            margin-right: 10px;
+                        }
+                    }
+                }
+
+                .botones-conductor {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: end;
+                    align-items: end;
+
+                    ion-button {
+                        --background: rgba(var(--color-primary-rgb), 0.1);
+                        --background-hover: var(--color-primary);
+                        --background-activated: var(--color-primary);
+                        --color: var(--color-primary);
+                        --color-activated: var(--color-text-inverse);
+                        --border-radius: 8px;
+                        --box-shadow: none;
+                        margin-top: 10px;
+                        margin-left: 10px;
+                        margin-bottom: 10px;
+
+                        &:hover {
+                            scale: 1.08;
+                        }
+
+                        &:active {
+                            scale: 1;
+                        }
+
+                        ion-icon {
+                            color: var(--color-text-brand);
+                        }
+
+                    }
+                }
             }
         }
     }

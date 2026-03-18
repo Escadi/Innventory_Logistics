@@ -36,6 +36,13 @@ module.exports = (sequelize, Sequelize) => {
 
     Conductor.associate = (models) => {
         // FK DE LAS OTRAS TABLAS QUE SE RELACIONAN CON ESTA TABLA
+        Conductor.hasMany(models.vehiculoConductor, {
+            foreignKey: "idConductor",
+            targetKey: "idConductor",
+            as: "vehiculoConductor",
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE"
+        });
         Conductor.hasMany(models.ordenDeEntrega, {
             foreignKey: "idConductor",
             as: "ordenDeEntrega",

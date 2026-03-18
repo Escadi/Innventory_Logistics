@@ -55,6 +55,7 @@ db.proveedor = require('./Proveedor.js')(sequelize, Sequelize);
 db.vehiculo = require('./Vehiculo.js')(sequelize, Sequelize);
 db.tipoVehiculo = require('./tipoVehiculo.js')(sequelize, Sequelize);
 db.conductor = require('./Conductor.js')(sequelize, Sequelize);
+db.vehiculoConductor = require('./VehiculoConductor.js')(sequelize, Sequelize);
 db.detalleCarrito = require('./DetalleCarrito.js')(sequelize, Sequelize);
 db.login = require('./login.js')(sequelize, Sequelize);
 
